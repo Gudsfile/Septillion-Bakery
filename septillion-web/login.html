@@ -247,7 +247,7 @@
 					</div>
 				</div-->
 				<div class="col-md-6 p-b-30">
-					<form class="leave-comment">
+					<form class="leave-comment" action="login.php" method="post">
 						<h4 class="m-text26 p-b-36 p-t-15">
 							Vous connecter
 						</h4>
@@ -268,7 +268,7 @@
 
 						<div class="w-size25">
 							<!-- Button -->
-							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
+							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" name="connexion">
 								Se connecter
 							</button>
 						</div>
@@ -280,36 +280,43 @@
 
 
 				<div class="col-md-6 p-b-30">
-					<form class="leave-comment">
+					<form class="leave-comment" action="inscription.php" method="post">
 						<h4 class="m-text26 p-b-36 p-t-15">
 							Créer un compte
 						</h4>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="first-name" placeholder="Nom">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="first_name" placeholder="Nom">
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="last-name" placeholder="Prénom">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="last_name" placeholder="Prénom">
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone-number" placeholder="Numéro de téléphone">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone_number" placeholder="Numéro de téléphone">
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="email" placeholder="Votre mail">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Votre mail">
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="email" placeholder="Confirmer votre mail">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail_conf" placeholder="Confirmer votre mail">
 						</div>
 
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="password" placeholder="Votre mot de passe">
+						</div>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="password_conf" placeholder="Confirmer votre mot de passe">
+						</div>
 						<!--textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea-->
 
 						<div class="w-size25">
 							<!-- Button -->
-							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
+							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" name="inscription">
 								Créer un compte
 							</button>
 						</div>
