@@ -48,7 +48,7 @@
 				<div class="wrap_menu">
 					<nav class="menu">
 						<ul class="main_menu">
-							<li class="sale-noti">
+							<li>
 								<a href="index.php">Accueil</a>
 							</li>
 
@@ -64,7 +64,7 @@
 								<a href="cart.php">Mon panier</a>
 							</li>
 
-							<li>
+							<li class="sale-noti">
 								<a href="contact.php">Nous contacter</a>
 							</li>
 
@@ -95,7 +95,7 @@
 				</div>
 
 				<div class="col-md-6 p-b-30">
-					<form class="leave-comment"	action="contact.php" method="post">
+					<form class="leave-comment"	action="contact_script.php" method="post">
 						<h4 class="m-text26 p-b-36 p-t-15">
 							Envoyez nous un message
 						</h4>

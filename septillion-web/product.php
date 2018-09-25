@@ -50,7 +50,7 @@
 				<div class="wrap_menu">
 					<nav class="menu">
 						<ul class="main_menu">
-							<li class="sale-noti">
+							<li>
 								<a href="index.php">Accueil</a>
 							</li>
 
@@ -58,7 +58,7 @@
 								<a href="about.php">Notre histoire</a>
 							</li>
 
-							<li>
+							<li class="sale-noti">
 								<a href="product.php">Nos produits</a>
 							</li>
 

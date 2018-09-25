@@ -48,7 +48,7 @@
 				<div class="wrap_menu">
 					<nav class="menu">
 						<ul class="main_menu">
-							<li class="sale-noti">
+							<li>
 								<a href="index.php">Accueil</a>
 							</li>
 
@@ -94,7 +94,7 @@
 					</div>
 				</div-->
 				<div class="col-md-6 p-b-30">
-					<form class="leave-comment" action="login.php" method="post">
+					<form class="leave-comment" action="login_script.php" method="post">
 						<h4 class="m-text26 p-b-36 p-t-15">
 							Vous connecter
 						</h4>
@@ -127,7 +127,7 @@
 
 
 				<div class="col-md-6 p-b-30">
-					<form class="leave-comment" action="inscription.php" method="post">
+					<form class="leave-comment" action="login_script.php" method="post">
 						<h4 class="m-text26 p-b-36 p-t-15">
 							Créer un compte
 						</h4>

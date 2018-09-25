@@ -1,6 +1,6 @@
 <!-- Header Icon -->
 <div class="header-icons">
-  <a href="#" class="header-wrapicon1 dis-block">
+  <a href="login.php" class="header-wrapicon1 dis-block">
     <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
   </a>
 
