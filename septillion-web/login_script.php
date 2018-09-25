@@ -39,6 +39,10 @@ if(isset($_POST['connexion'])) { // si le bouton "Connexion" est appuyé
                     // on ouvre la session avec $_SESSION:
                     //$_SESSION['mail'] = $Mail; // la session peut être appelée différemment et son contenu aussi peut être autre chose que le mail
                     //echo "Vous êtes à présent connecté !";
+                    session_start ();
+		                // on enregistre les paramètres de notre visiteur comme variables de session ($login et $pwd) (notez bien que l'on utilise pas le $ pour enregistrer ces variables)
+		                $_SESSION['mail'] = $_POST['mail'];
+		                $_SESSION['password'] = $_POST['password'];
                     header("Location: index.php");
                 }
             }
