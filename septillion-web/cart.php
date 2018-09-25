@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Septillion / Notre histoire</title>
+	<title>Septillion / Mon panier</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -40,7 +40,7 @@
 
 			<div class="wrap_header">
 				<!-- Logo -->
-				<a href="index.html" class="logo">
+				<a href="index.php" class="logo">
 					<img src="images/icons/logo.png" alt="IMG-LOGO">
 				</a>
 
@@ -48,228 +48,210 @@
 				<div class="wrap_menu">
 					<nav class="menu">
 						<ul class="main_menu">
-							<li>
-								<a href="index.html">Accueil</a>
-							</li>
-
 							<li class="sale-noti">
-								<a href="about.html">Notre histoire</a>
+								<a href="index.php">Accueil</a>
 							</li>
 
 							<li>
-								<a href="product.html">Nos produits</a>
+								<a href="about.php">Notre histoire</a>
 							</li>
 
 							<li>
-								<a href="cart.html">Mon panier</a>
+								<a href="product.php">Nos produits</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Nous contacter</a>
+								<a href="cart.php">Mon panier</a>
+							</li>
+
+							<li>
+								<a href="contact.php">Nous contacter</a>
 							</li>
 
 						</ul>
 					</nav>
 				</div>
-
-				<!-- Header Icon -->
-				<div class="header-icons">
-					<a href="#" class="header-wrapicon1 dis-block">
-						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
-
-					<span class="linedivide1"></span>
-
-					<div class="header-wrapicon2">
-						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">0</span>
-
-						<!-- Header cart noti -->
-						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-id_article.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											nom_article
-										</a>
-
-										<span class="header-cart-item-info">
-											quantité x prix
-										</span>
-									</div>
-								</li>
-							</ul>
-
-							<div class="header-cart-total">
-								Total: prix
-							</div>
-
-							<div class="header-cart-buttons">
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Voir le panier
-									</a>
-								</div>
-
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Payer
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<?php include("menu_widget.php"); ?>
 			</div>
 		</div>
-
-		<!-- Header Mobile -->
-		<div class="wrap_header_mobile">
-			<!-- Logo moblie -->
-			<a href="index.html" class="logo-mobile">
-				<img src="images/icons/logo.png" alt="IMG-LOGO">
-			</a>
-
-			<!-- Button show menu -->
-			<div class="btn-show-menu">
-				<!-- Header Icon mobile -->
-				<div class="header-icons-mobile">
-					<a href="#" class="header-wrapicon1 dis-block">
-						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
-
-					<span class="linedivide2"></span>
-
-					<div class="header-wrapicon2">
-						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">0</span>
-
-						<!-- Header cart noti -->
-						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-id_article.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											nom_article
-										</a>
-
-										<span class="header-cart-item-info">
-											quantité x prix
-										</span>
-									</div>
-								</li>
-							</ul>
-
-							<div class="header-cart-total">
-								Total: prix
-							</div>
-
-							<div class="header-cart-buttons">
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Panier
-									</a>
-								</div>
-
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Payer
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-					<span class="hamburger-box">
-						<span class="hamburger-inner"></span>
-					</span>
-				</div>
-			</div>
-		</div>
-
-		<!-- Menu Mobile -->
-		<div class="wrap-side-menu" >
-			<nav class="side-menu">
-				<ul class="main-menu">
-
-					<li class="item-menu-mobile">
-						<a href="index.html">Accueil</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="about.html">Notre histoire</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="product.html">Nos produits</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="cart.html">Mon panier</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="contact.html">Nous contacter</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
+		<?php include("menu_mobile.php"); ?>
 	</header>
 
+
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-about.jpg);">
+	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-01.jpg);">
 		<h2 class="l-text2 t-center">
-			Notre histoire
+			Mon panier
 		</h2>
 	</section>
 
-	<!-- content page -->
-	<section class="bgwhite p-t-66 p-b-38">
+	<!-- Cart -->
+	<section class="cart bgwhite p-t-70 p-b-100">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-4 p-b-30">
-					<div class="hov-img-zoom">
-						<img src="images/pdg.jpg" alt="Jürgen Klöpp, pdg de Septillion">
+			<!-- Cart item -->
+			<div class="container-table-cart pos-relative">
+				<div class="wrap-table-shopping-cart bgwhite">
+					<table class="table-shopping-cart">
+						<tr class="table-head">
+							<th class="column-1"></th>
+							<th class="column-2">Product</th>
+							<th class="column-3">Price</th>
+							<th class="column-4 p-l-70">Quantity</th>
+							<th class="column-5">Total</th>
+						</tr>
+
+						<tr class="table-row">
+							<td class="column-1">
+								<div class="cart-img-product b-rad-4 o-f-hidden">
+									<img src="images/item-10.jpg" alt="IMG-PRODUCT">
+								</div>
+							</td>
+							<td class="column-2">Men Tshirt</td>
+							<td class="column-3">$36.00</td>
+							<td class="column-4">
+								<div class="flex-w bo5 of-hidden w-size17">
+									<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
+										<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
+									</button>
+
+									<input class="size8 m-text18 t-center num-product" type="number" name="num-product1" value="1">
+
+									<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+										<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
+									</button>
+								</div>
+							</td>
+							<td class="column-5">$36.00</td>
+						</tr>
+
+						<tr class="table-row">
+							<td class="column-1">
+								<div class="cart-img-product b-rad-4 o-f-hidden">
+									<img src="images/item-05.jpg" alt="IMG-PRODUCT">
+								</div>
+							</td>
+							<td class="column-2">Mug Adventure</td>
+							<td class="column-3">$16.00</td>
+							<td class="column-4">
+								<div class="flex-w bo5 of-hidden w-size17">
+									<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
+										<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
+									</button>
+
+									<input class="size8 m-text18 t-center num-product" type="number" name="num-product2" value="1">
+
+									<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+										<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
+									</button>
+								</div>
+							</td>
+							<td class="column-5">$16.00</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm">
+				<div class="flex-w flex-m w-full-sm">
+					<div class="size11 bo4 m-r-10">
+						<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="coupon-code" placeholder="Coupon Code">
+					</div>
+
+					<div class="size12 trans-0-4 m-t-10 m-b-10 m-r-10">
+						<!-- Button -->
+						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+							Apply coupon
+						</button>
 					</div>
 				</div>
 
-				<div class="col-md-8 p-b-30">
-					<h3 class="m-text26 p-t-15 p-b-16">
-						Notre histoire
-					</h3>
+				<div class="size10 trans-0-4 m-t-10 m-b-10">
+					<!-- Button -->
+					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+						Update Cart
+					</button>
+				</div>
+			</div>
 
-					<p class="p-b-28">
-						En 1976 notre cher PDG découvre le monde. À 21 ans il obtient sont Master FESL*, il gravit rapidement les échellons et ouvre Septillion Bakery™ en 2007. En 2009, l'entreprise Septillion Bakery™ est marquée par le rachat de Banette™ SAS. Suite à une victoire en 2013 à l'EuroMillions de notre cher PDG celui-ci crééer la filiale Septillion Technology™ en 2018.
-						<br> *FESL : Farine Eau Sel Levure
-					</p>
+			<!-- Total -->
+			<div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
+				<h5 class="m-text20 p-b-24">
+					Cart Totals
+				</h5>
 
-					<div class="bo13 p-l-29 m-l-9 p-b-10">
-						<p class="p-b-11">
-							Septillion, un million de sextillion.
+				<!--  -->
+				<div class="flex-w flex-sb-m p-b-12">
+					<span class="s-text18 w-size19 w-full-sm">
+						Subtotal:
+					</span>
+
+					<span class="m-text21 w-size20 w-full-sm">
+						$39.00
+					</span>
+				</div>
+
+				<!--  -->
+				<div class="flex-w flex-sb bo10 p-t-15 p-b-20">
+					<span class="s-text18 w-size19 w-full-sm">
+						Shipping:
+					</span>
+
+					<div class="w-size20 w-full-sm">
+						<p class="s-text8 p-b-23">
+							There are no shipping methods available. Please double check your address, or contact us if you need any help.
 						</p>
 
-						<span class="s-text7">
-							- Jürgen Klöpp
+						<span class="s-text19">
+							Calculate Shipping
 						</span>
+
+						<div class="rs2-select2 rs3-select2 rs4-select2 bo4 of-hidden w-size21 m-t-8 m-b-12">
+							<select class="selection-2" name="country">
+								<option>Select a country...</option>
+								<option>US</option>
+								<option>UK</option>
+								<option>Japan</option>
+							</select>
+						</div>
+
+						<div class="size13 bo4 m-b-12">
+						<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="state" placeholder="State /  country">
+						</div>
+
+						<div class="size13 bo4 m-b-22">
+							<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="postcode" placeholder="Postcode / Zip">
+						</div>
+
+						<div class="size14 trans-0-4 m-b-10">
+							<!-- Button -->
+							<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+								Update Totals
+							</button>
+						</div>
 					</div>
+				</div>
+
+				<!--  -->
+				<div class="flex-w flex-sb-m p-t-26 p-b-30">
+					<span class="m-text22 w-size19 w-full-sm">
+						Total:
+					</span>
+
+					<span class="m-text21 w-size20 w-full-sm">
+						$39.00
+					</span>
+				</div>
+
+				<div class="size15 trans-0-4">
+					<!-- Button -->
+					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+						Proceed to Checkout
+					</button>
 				</div>
 			</div>
 		</div>
 	</section>
+
 
 
 	<!-- Footer -->
@@ -435,7 +417,7 @@
 			</a>
 
 			<div class="t-center s-text8 p-t-20">
-				Copyright © 2018. All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+				Copyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 			</div>
 		</div>
 	</footer>

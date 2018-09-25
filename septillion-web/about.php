@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Septillion / Nous contacter</title>
+	<title>Septillion / Notre histoire</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -40,7 +40,7 @@
 
 			<div class="wrap_header">
 				<!-- Logo -->
-				<a href="index.html" class="logo">
+				<a href="index.php" class="logo">
 					<img src="images/icons/logo.png" alt="IMG-LOGO">
 				</a>
 
@@ -48,232 +48,71 @@
 				<div class="wrap_menu">
 					<nav class="menu">
 						<ul class="main_menu">
-							<li>
-								<a href="index.html">Accueil</a>
-							</li>
-
-							<li>
-								<a href="about.html">Notre histoire</a>
-							</li>
-
-							<li>
-								<a href="product.html">Nos produits</a>
-							</li>
-
-							<li>
-								<a href="cart.html">Mon panier</a>
-							</li>
-
 							<li class="sale-noti">
-								<a href="contact.html">Nous contacter</a>
+								<a href="index.php">Accueil</a>
+							</li>
+
+							<li>
+								<a href="about.php">Notre histoire</a>
+							</li>
+
+							<li>
+								<a href="product.php">Nos produits</a>
+							</li>
+
+							<li>
+								<a href="cart.php">Mon panier</a>
+							</li>
+
+							<li>
+								<a href="contact.php">Nous contacter</a>
 							</li>
 
 						</ul>
 					</nav>
 				</div>
-
-				<!-- Header Icon -->
-				<div class="header-icons">
-					<a href="#" class="header-wrapicon1 dis-block">
-						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
-
-					<span class="linedivide1"></span>
-
-					<div class="header-wrapicon2">
-						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">0</span>
-
-						<!-- Header cart noti -->
-						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-id_article.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											nom_article
-										</a>
-
-										<span class="header-cart-item-info">
-											quantité x prix
-										</span>
-									</div>
-								</li>
-							</ul>
-
-							<div class="header-cart-total">
-								Total: prix
-							</div>
-
-							<div class="header-cart-buttons">
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Voir le panier
-									</a>
-								</div>
-
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Payer
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<?php include("menu_widget.php"); ?>
 			</div>
 		</div>
-
-		<!-- Header Mobile -->
-		<div class="wrap_header_mobile">
-			<!-- Logo moblie -->
-			<a href="index.html" class="logo-mobile">
-				<img src="images/icons/logo.png" alt="IMG-LOGO">
-			</a>
-
-			<!-- Button show menu -->
-			<div class="btn-show-menu">
-				<!-- Header Icon mobile -->
-				<div class="header-icons-mobile">
-					<a href="#" class="header-wrapicon1 dis-block">
-						<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
-					</a>
-
-					<span class="linedivide2"></span>
-
-					<div class="header-wrapicon2">
-						<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-						<span class="header-icons-noti">0</span>
-
-						<!-- Header cart noti -->
-						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="images/item-cart-id_article.jpg" alt="IMG">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											nom_article
-										</a>
-
-										<span class="header-cart-item-info">
-											quantité x prix
-										</span>
-									</div>
-								</li>
-							</ul>
-
-							<div class="header-cart-total">
-								Total: prix
-							</div>
-
-							<div class="header-cart-buttons">
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Panier
-									</a>
-								</div>
-
-								<div class="header-cart-wrapbtn">
-									<!-- Button -->
-									<a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Payer
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-					<span class="hamburger-box">
-						<span class="hamburger-inner"></span>
-					</span>
-				</div>
-			</div>
-		</div>
-
-		<!-- Menu Mobile -->
-		<div class="wrap-side-menu" >
-			<nav class="side-menu">
-				<ul class="main-menu">
-
-					<li class="item-menu-mobile">
-						<a href="index.html">Accueil</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="about.html">Notre histoire</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="product.html">Nos produits</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="cart.html">Mon panier</a>
-					</li>
-
-					<li class="item-menu-mobile">
-						<a href="contact.html">Nous contacter</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
+		<?php include("menu_mobile.php"); ?>
 	</header>
 
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-06.jpg);">
+	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-about.jpg);">
 		<h2 class="l-text2 t-center">
-			Nous contacter
+			Notre histoire
 		</h2>
 	</section>
 
 	<!-- content page -->
-	<section class="bgwhite p-t-66 p-b-60">
+	<section class="bgwhite p-t-66 p-b-38">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6 p-b-30">
-					<div class="p-r-20 p-r-0-lg">
-						<div class="contact-map size21" id="google_map" data-map-x="40.614439" data-map-y="-73.926781" data-pin="images/icons/icon-position-map.png" data-scrollwhell="0" data-draggable="1"></div>
+				<div class="col-md-4 p-b-30">
+					<div class="hov-img-zoom">
+						<img src="images/pdg.jpg" alt="Jürgen Klöpp, pdg de Septillion">
 					</div>
 				</div>
 
-				<div class="col-md-6 p-b-30">
-					<form class="leave-comment"	action="contact.php" method="post">
-						<h4 class="m-text26 p-b-36 p-t-15">
-							Envoyez nous un message
-						</h4>
+				<div class="col-md-8 p-b-30">
+					<h3 class="m-text26 p-t-15 p-b-16">
+						Notre histoire
+					</h3>
 
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="name" placeholder="Nom Prénom">
-						</div>
+					<p class="p-b-28">
+						En 1976 notre cher PDG découvre le monde. À 21 ans il obtient sont Master FESL*, il gravit rapidement les échellons et ouvre Septillion Bakery™ en 2007. En 2009, l'entreprise Septillion Bakery™ est marquée par le rachat de Banette™ SAS. Suite à une victoire en 2013 à l'EuroMillions de notre cher PDG celui-ci crééer la filiale Septillion Technology™ en 2018.
+						<br> *FESL : Farine Eau Sel Levure
+					</p>
 
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone-number" placeholder="Numéro de téléphone">
-						</div>
+					<div class="bo13 p-l-29 m-l-9 p-b-10">
+						<p class="p-b-11">
+							Septillion, un million de sextillion.
+						</p>
 
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Email Address">
-						</div>
-
-						<textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea>
-
-						<div class="w-size25">
-							<!-- Button -->
-							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" name="send">
-								Send
-							</button>
-						</div>
-					</form>
+						<span class="s-text7">
+							- Jürgen Klöpp
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -443,7 +282,7 @@
 			</a>
 
 			<div class="t-center s-text8 p-t-20">
-				Copyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+				Copyright © 2018. All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 			</div>
 		</div>
 	</footer>
@@ -483,9 +322,6 @@
 			dropdownParent: $('#dropDownSelect2')
 		});
 	</script>
-<!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
