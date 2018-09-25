@@ -2347,6 +2347,8 @@
 -----------------------------------------------------------
 */
 .bgwhite {background-color: white;}
+.bgbrown {background-color: #C49D67;}
+.bgorange {background-color: #ED675B;}
 .bgblack {background-color: black;}
 
 
@@ -3173,6 +3175,14 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 	text-decoration: underline;
 }
 
+.s-text28 {
+	font-family: Montserrat-Regular;
+	font-size: 13px;
+	color: #C49D67;
+	line-height: 1.8;
+	text-decoration: underline;
+}
+
 /*[ M-Text 16 - 30 ]
 ///////////////////////////////////////////////////////////
 */
@@ -3373,6 +3383,14 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 	letter-spacing: 2px;
 }
 
+.m-text28 {
+	font-family: Montserrat-Regular;
+	font-size: 18px;
+	color: #C49D67;
+	line-height: 1.5;
+	letter-spacing: 2px;
+}
+
 /*[ L-Text 31 - 50 ]
 ///////////////////////////////////////////////////////////
 */
@@ -3423,6 +3441,14 @@ TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT
 	text-transform: uppercase;
 }
 
+.xl-text28 {
+	font-family: Poppins-Bold;
+	font-size: 60px;
+	color: #C49D67;
+	line-height: 1.2;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
 
 /*[ Color ]
 ///////////////////////////////////////////////////////////
