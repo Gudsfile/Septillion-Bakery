@@ -1033,8 +1033,6 @@
 		</div>
 	</footer>
 
-
-
 	<!-- Back to top -->
 	<div class="btn-back-to-top bg0-hov" id="myBtn">
 		<span class="symbol-btn-back-to-top">
@@ -1044,8 +1042,6 @@
 
 	<!-- Container Selection1 -->
 	<div id="dropDownSelect1"></div>
-
-
 
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>

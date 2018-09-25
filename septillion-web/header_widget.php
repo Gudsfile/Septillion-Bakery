@@ -1,8 +1,22 @@
+<?php session_start (); ?>
+
 <!-- Header Icon -->
 <div class="header-icons">
+<?php if (isset($_SESSION['mail']) && isset($_SESSION['password'])):?>
+  <ul class="main_menu">
+    <li>
+      <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+      <ul class="sub_menu">
+        <li><a href="#">Mon compte</a></li>
+        <li><a href="logout_script.php">Se déconnecter</a></li>
+      </ul>
+    </li>
+  </ul>
+<?php else:?>
   <a href="login.php" class="header-wrapicon1 dis-block">
     <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
   </a>
+<?php endif?>
 
   <span class="linedivide1"></span>
 
