@@ -9,8 +9,8 @@ $password='root'; //database password
 $table_name='client'; //table name
 
 /* page: inscription.php */
-echo "toto";
-if(isset()$_POST['inscription'])){//l'utilisateur à cliqué sur "S'inscrire", on demande donc si les champs sont défini avec "isset"
+session_start(); // à mettre tout en haut du fichier .php, cette fonction propre à PHP servira à maintenir la $_SESSION
+if(isset($_POST['inscription'])){//l'utilisateur à cliqué sur "S'inscrire", on demande donc si les champs sont défini avec "isset"
   //connexion à la base de données:
   $mysqli = mysqli_connect($host, $user, $password, $db_name);
   if(!$mysqli) {
