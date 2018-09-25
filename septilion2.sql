@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2018 at 11:47 AM
+-- Generation Time: Sep 25, 2018 at 11:51 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -51,6 +51,13 @@ CREATE TABLE `client` (
   `Adress` varchar(20) DEFAULT NULL,
   `Phone_Number` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `client`
+--
+
+INSERT INTO `client` (`ID_CLIENT`, `Mail`, `Password`, `First_name`, `Last_name`, `Adress`, `Phone_Number`) VALUES
+(1, 'test@test', '123456', 'test', 'test', 'test', '2131584');
 
 -- --------------------------------------------------------
 
@@ -217,7 +224,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `ID_CLIENT` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_CLIENT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `employee`
