@@ -88,23 +88,23 @@
     <ul class="main-menu">
 
       <li class="item-menu-mobile">
-        <a href="index.html">Accueil</a>
+        <a href="index.php">Accueil</a>
       </li>
 
       <li class="item-menu-mobile">
-        <a href="about.html">Notre histoire</a>
+        <a href="about.php">Notre histoire</a>
       </li>
 
       <li class="item-menu-mobile">
-        <a href="product.html">Nos produits</a>
+        <a href="product.php">Nos produits</a>
       </li>
 
       <li class="item-menu-mobile">
-        <a href="cart.html">Mon panier</a>
+        <a href="cart.php">Mon panier</a>
       </li>
 
       <li class="item-menu-mobile">
-        <a href="contact.html">Nous contacter</a>
+        <a href="contact.php">Nous contacter</a>
       </li>
     </ul>
   </nav>

@@ -71,10 +71,10 @@
 						</ul>
 					</nav>
 				</div>
-				<?php include("menu_widget.php"); ?>
+				<?php include("header_widget.php"); ?>
 			</div>
 		</div>
-		<?php include("menu_mobile.php"); ?>
+		<?php include("header_mobile.php"); ?>
 	</header>
 
 	<!-- breadcrumb -->

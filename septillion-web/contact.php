@@ -30,6 +30,9 @@
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
+	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js"></script>
+	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css" rel="stylesheet">
+<!--===============================================================================================-->
 </head>
 <body class="animsition">
 
@@ -71,10 +74,10 @@
 						</ul>
 					</nav>
 				</div>
-				<?php include("menu_widget.php"); ?>
+				<?php include("header_widget.php"); ?>
 			</div>
 		</div>
-		<?php include("menu_mobile.php"); ?>
+		<?php include("header_mobile.php"); ?>
 	</header>
 
 	<!-- Title Page -->
@@ -90,7 +93,8 @@
 			<div class="row">
 				<div class="col-md-6 p-b-30">
 					<div class="p-r-20 p-r-0-lg">
-						<div class="contact-map size21" id="google_map" data-map-x="40.614439" data-map-y="-73.926781" data-pin="images/icons/icon-position-map.png" data-scrollwhell="0" data-draggable="1"></div>
+						<!--<div class="contact-map size21" id="google_map" data-map-x="40.614439" data-map-y="-73.926781" data-pin="images/icons/icon-position-map.png" data-scrollwhell="0" data-draggable="1"></div>
+						--><div class="contact-map size21" id='map'></div>
 					</div>
 				</div>
 
@@ -331,8 +335,40 @@
 		});
 	</script>
 <!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
+	<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
+	<script src="js/map-custom.js"></script>-->
+	<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoidG90b2xhbWFsaWNlIiwiYSI6ImNqZnIyZ295ZjE4MDMyeXBtYjBrOXlvMGsifQ.5xS1FTpt6zqcgZRvEg1MgA';
+	var map = new mapboxgl.Map({
+	  container: "map",
+	  style: "mapbox://styles/mapbox/streets-v10",
+	  zoom:14.0,
+	  center: [-2.74839,47.64467]
+	});
+
+	map.on("load", function () {
+	  /* Image: An image is loaded and added to the map. */
+	  map.loadImage("https://i.imgur.com/MK4NUzI.png", function(error, image) {
+	      if (error) throw error;
+	      map.addImage("custom-marker", image);
+	      /* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
+	      map.addLayer({
+	        id: "markers",
+	        type: "symbol",
+	        /* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
+	        source: {
+	          type: "geojson",
+	          data: {
+	            type: "FeatureCollection",
+	            features:[{"type":"Feature","geometry":{"type":"Point","coordinates":[-2.7483885418424734,47.644671337627614]}}]}
+	        },
+	        layout: {
+	          "icon-image": "custom-marker",
+	        }
+	      });
+	    });
+	});
+	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
