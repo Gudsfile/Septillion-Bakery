@@ -8,6 +8,8 @@ $user='root'; //database user name
 $password='root'; //database password
 $table_name='client'; //table name
 
+$error=$_GET["erreur"];
+
 /* Script Connexion */
 session_start(); // à mettre tout en haut du fichier .php, cette fonction propre à PHP servira à maintenir la $_SESSION
 if(isset($_POST['connexion'])) { // si le bouton "Connexion" est appuyé
@@ -34,7 +36,7 @@ if(isset($_POST['connexion'])) { // si le bouton "Connexion" est appuyé
                 // si il y a un résultat, mysqli_num_rows() nous donnera alors 1
                 // si mysqli_num_rows() retourne 0 c'est qu'il a trouvé aucun résultat
                 if(mysqli_num_rows($Requete) == 0) {
-                    echo "Le mail ou le mot de passe est incorrect, le compte n'a pas été trouvé.";
+                    header("Location: login.php?erreur=0");
                 } else {
                     // on ouvre la session avec $_SESSION:
                     //$_SESSION['mail'] = $Mail; // la session peut être appelée différemment et son contenu aussi peut être autre chose que le mail
@@ -59,19 +61,23 @@ if(isset($_POST['inscription'])){//l'utilisateur à cliqué sur "S'inscrire", on
     exit;
   } else {
     if(empty($_POST['last_name'])){//le champ last-name est vide, on arrête l'exécution du script et on affiche un message d'erreur
-        echo "Le champ Nom est vide.";
+      header("Location: login.php?erreur=1");
     } elseif(empty($_POST['first_name'])){//le champ first-name est vide, on arrête l'exécution du script et on affiche un message d'erreur
-        echo "Le champ Prénom est vide.";
+      header("Location: login.php?erreur=1");
     } elseif(empty($_POST['phone_number'])){//le champ phonr-number est vide, on arrête l'exécution du script et on affiche un message d'erreur
-        echo "Le champ Numéro de téléphone est vide.";
+      header("Location: login.php?erreur=1");
     } elseif(empty($_POST['mail'])){//le champ mail est vide, on arrête l'exécution du script et on affiche un message d'erreur
-        echo "Le champ Mail est vide.";
+      header("Location: login.php?erreur=1");
     } elseif(!preg_match("#^[a-z0-9]+$#",$_POST['mail'])){//le champ pseudo est renseigné mais ne convient pas au format qu'on souhaite qu'il soit, soit: que des lettres minuscule + des chiffres (je préfère personnellement enregistrer le pseudo de mes membres en minuscule afin de ne pas avoir deux pseudo identique mais différents comme par exemple: Admin et admin)
-        echo "Le mail doit être renseigné en lettres minuscules sans accents, sans caractères spéciaux.";
+      header("Location: login.php?erreur=2");
     } elseif(empty($_POST['password'])){//le champ mot de passe est vide
-        echo "Le champ Mot de passe est vide.";
+      header("Location: login.php?erreur=1");
     } elseif(mysqli_num_rows(mysqli_query($mysqli,"SELECT * FROM $table_name WHERE mail='".$_POST['mail']."'"))==1){//on vérifie que ce pseudo n'est pas déjà utilisé par un autre membre
-        echo "Ce mail est déjà utilisé.";
+      header("Location: login.php?erreur=3");
+    }  elseif($_POST['mail'] != $_POST['mail_conf']){
+      header("Location: login.php?erreur=4");
+    }  elseif($_POST['password'] != $_POST['password_conf']){
+      header("Location: login.php?erreur=5");
     } else {
         //toutes les vérifications sont faites, on passe à l'enregistrement dans la base de données:
         //Bien évidement il s'agit là d'un script simplifié au maximum, libre à vous de rajouter des conditions avant l'enregistrement comme la longueur minimum du mot de passe par exemple
