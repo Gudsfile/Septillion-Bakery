@@ -1,5 +1,5 @@
 <?php
-class CategoryManager 
+class CategoryManager
 {
 	private $_db;
 
@@ -45,9 +45,9 @@ class CategoryManager
 
 	public function update(Category $category)
 	{
-    	$query = $this->_db->prepare('UPDATE `category` SET `ID_Category`=:ID_Category,`Name_Category`=:Name_Category,`Description`=:Name_Category,`Icon_Category`=:Icon_Category,`Created_By_IDEmp`=:Created_By_IDEmp WHERE ID_Category = :id');
+    $query = $this->_db->prepare('UPDATE `category` SET `ID_Category`=:ID_Category,`Name_Category`=:Name_Category,`Description`=:Name_Category,`Icon_Category`=:Icon_Category,`Created_By_IDEmp`=:Created_By_IDEmp WHERE ID_Category = :id');
 
-    	$query->bindValue(':id', $category->id(), PDO::PARAM_INT);
+    $query->bindValue(':id', $category->id(), PDO::PARAM_INT);
 		$query->bindValue(':Name_Category', $category->nameCategory());
 		$query->bindValue(':Description', $category->Description(), PDO::PARAM_STR);
 		$query->bindValue(':Icon_Category', $category->iconCategory(), PDO::PARAM_STR);
