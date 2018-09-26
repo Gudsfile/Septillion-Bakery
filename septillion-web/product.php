@@ -2,81 +2,13 @@
 <html lang="en">
 <head>
 	<title>Septillion / Nos produits</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/themify/themify-icons.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/elegant-font/html-css/style.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/noui/nouislider.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
+	<?php include('header_link.php'); ?>
 </head>
 <body class="animsition">
 
 	<!-- Header -->
 	<header class="header1">
-		<!-- Header desktop -->
-		<div class="container-menu-header">
-
-			<div class="wrap_header">
-				<!-- Logo -->
-				<a href="index.php" class="logo">
-					<img src="images/icons/logo.png" alt="IMG-LOGO">
-				</a>
-
-				<!-- Menu -->
-				<div class="wrap_menu">
-					<nav class="menu">
-						<ul class="main_menu">
-							<li>
-								<a href="index.php">Accueil</a>
-							</li>
-
-							<li>
-								<a href="about.php">Notre histoire</a>
-							</li>
-
-							<li class="sale-noti">
-								<a href="product.php">Nos produits</a>
-							</li>
-
-							<li>
-								<a href="cart.php">Mon panier</a>
-							</li>
-
-							<li>
-								<a href="contact.php">Nous contacter</a>
-							</li>
-
-						</ul>
-					</nav>
-				</div>
-				<?php include("header_widget.php"); ?>
-			</div>
-		</div>
-		<?php include("header_mobile.php"); ?>
+		<?php include('header_navbar.php'); ?>
 	</header>
 
 	<!-- Title Page -->
@@ -269,7 +201,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Herschel supply co 25l
 									</a>
 
@@ -302,7 +234,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Denim jacket blue
 									</a>
 
@@ -335,7 +267,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Coach slim easton black
 									</a>
 
@@ -368,7 +300,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Frayed denim shorts
 									</a>
 
@@ -405,7 +337,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Herschel supply co 25l
 									</a>
 
@@ -438,7 +370,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Denim jacket blue
 									</a>
 
@@ -471,7 +403,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Herschel supply co 25l
 									</a>
 
@@ -504,7 +436,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Denim jacket blue
 									</a>
 
@@ -537,7 +469,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Coach slim easton black
 									</a>
 
@@ -570,7 +502,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Frayed denim shorts
 									</a>
 
@@ -607,7 +539,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Herschel supply co 25l
 									</a>
 
@@ -640,7 +572,7 @@
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="product-detail.php" class="block2-name dis-block s-text3 p-b-5">
 										Denim jacket blue
 									</a>
 
@@ -876,14 +808,14 @@
 	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$('.block2-btn-addcart').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').php();
 			$(this).on('click', function(){
 				swal(nameProduct, "is added to cart !", "success");
 			});
 		});
 
 		$('.block2-btn-addwishlist').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').php();
 			$(this).on('click', function(){
 				swal(nameProduct, "is added to wishlist !", "success");
 			});
@@ -919,4 +851,4 @@
 	<script src="js/main.js"></script>
 
 </body>
-</html>
+</php>
