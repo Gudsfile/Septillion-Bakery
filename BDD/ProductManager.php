@@ -10,7 +10,7 @@ class ProductManager
 
 	public function add(Product $product)
 	{
-		$query = $this->_db->prepare('INSERT INTO `product`(`ID_PRODUCT`, `Name_PRODUCT`, `STOCK_Quantity`, `Description`, `Price`, `Image`, `Created_By_IDEmp`, `Last_update_By_IDEmp`, `ID_Category`) VALUES (:Name_product,:STOCK_Quantity,:Description,:Price,:Image,:Created_By_IDEmp,:Last_update_By_IDEmp,:ID_Category)');
+		$query = $this->_db->prepare('INSERT INTO `product`(`Name_PRODUCT`, `STOCK_Quantity`, `Description`, `Price`, `Image`, `Created_By_IDEmp`, `Last_update_By_IDEmp`, `ID_Category`) VALUES (:Name_product,:STOCK_Quantity,:Description,:Price,:Image,:Created_By_IDEmp,:Last_update_By_IDEmp,:ID_Category)');
 		$query->bindValue(':Name_product', $product->name_product());
 		$query->bindValue(':STOCK_Quantity', $product->stock_quantity(), PDO::PARAM_STR);
 		$query->bindValue(':Description', $product->Description(), PDO::PARAM_STR);
@@ -20,6 +20,7 @@ class ProductManager
 		$query->bindValue(':Last_update_By_IDEmp', $product->last_update_by_idEmp(), PDO::PARAM_STR);
 		$query->bindValue(':ID_Category', $product->id_category(), PDO::PARAM_STR);
 		$query->execute();
+		return $this->_db->lastInsertId();	
 	}
 	
 	public function delete(Product $product)
@@ -31,15 +32,16 @@ class ProductManager
 	{
 		$id = (int) $id;
 		$query = $this->_db->prepare('SELECT * FROM Product WHERE ID_PRODUCT = '.$id);
-		$donnees = $q->fetch(PDO::FETCH_ASSOC);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		return new Product($donnees);
 	}
 
 	public function getList()
 	{
 		$product = [];
+
 		$query = $this->_db->query('SELECT * FROM Product ORDER BY ID_PRODUCT');
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$product[] = new Product($donnees);
 		}
     	return $product;
@@ -63,7 +65,7 @@ class ProductManager
 
 	public function setDb($db)
 	{
-		$this->$_db $db;
+		$this->_db=$db;
 	}
 }
 ?>
