@@ -18,6 +18,7 @@ class OrderClientManager
 		$query->bindValue(':Adress', $client->adress(), PDO::PARAM_STR);
 		$query->bindValue(':Phone_number', $client->phoneNumber(), PDO::PARAM_STR);
 		$query->execute();
+		return $this->_db->lastInsertId();	
 	}
 }
 ?>

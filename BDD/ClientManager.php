@@ -1,4 +1,5 @@
 <?php
+
 class ClientManager 
 {
 	private $_db;
@@ -18,6 +19,7 @@ class ClientManager
 		$query->bindValue(':Adress', $client->adress(), PDO::PARAM_STR);
 		$query->bindValue(':Phone_number', $client->phoneNumber(), PDO::PARAM_STR);
 		$query->execute();
+		return $this->_db->lastInsertId();	
 	}
 
 	public function delete(Client $client)
@@ -25,20 +27,29 @@ class ClientManager
 		$this->_db->exec('DELETE FROM Client WHERE id = '.$client->id());
 	}
 
-	public function get($id)
+	public function getID($id)
 	{
 		$id = (int) $id;
-		$query = $this->_db->prepare('SELECT * FROM Client WHERE id = '$id);
-		$donnees = $q->fetch(PDO::FETCH_ASSOC);
+		$query = $this->_db->prepare('SELECT * FROM Client WHERE ID_ClIENT ='.$id);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		return new Client($donnees);
+	}
+		public function getClient($Mail, $MotDePasse)
+	{
+
+		$query = $this->_db->prepare('SELECT * FROM Client WHERE Mail = '.$Mail.' AND password = '.$MotDePasse.';');
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		if (count($donnees)==0) {
+			return 0;
+		} else return new Client($donnees);
 	}
 
 	public function getList()
 	{
 		$client = [];
 		$query = $this->_db->query('SELECT * FROM Client ORDER BY id');
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
-			$client[] = new Employee($donnees);
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$client[] = new Client($donnees);
 		}
     	return $client;
 	}
@@ -58,7 +69,7 @@ class ClientManager
 
 	public function setDb($db)
 	{
-		$this->$_db $db;
+		$this->_db=$db;
 	}
 }
 ?>

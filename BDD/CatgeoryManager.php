@@ -18,6 +18,7 @@ class CategoryManager
 		$query->bindValue(':Created_By_IDEmp', $category->createdByIdEmp(), PDO::PARAM_STR);
 
 		$query->execute();
+		return $this->_db->lastInsertId();	
 	}
 
 	public function delete(Category $category)
@@ -29,7 +30,7 @@ class CategoryManager
 	{
 		$id = (int) $id;
 		$query = $this->_db->prepare('SELECT * FROM category WHERE ID_Category = '.$id);
-		$donnees = $q->fetch(PDO::FETCH_ASSOC);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		return new Category($donnees);
 	}
 
@@ -37,7 +38,7 @@ class CategoryManager
 	{
 		$category = [];
 		$query = $this->_db->query('SELECT * FROM category ORDER BY ID_Category');
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$category[] = new Category($donnees);
 		}
     	return $category;
@@ -58,7 +59,7 @@ class CategoryManager
 
 	public function setDb($db)
 	{
-		$this->$_db $db;
+		$this->_db=$db;
 	}
 }
 ?>

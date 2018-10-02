@@ -18,6 +18,7 @@ class EmployeeManager
 		$query->bindValue(':Adress', $employee->adress(), PDO::PARAM_STR);
 		$query->bindValue(':Phone_number', $employee->phoneNumber(), PDO::PARAM_STR);
 		$query->execute();
+		return $this->_db->lastInsertId();
 	}
 
 	public function delete(Employee $employee)
@@ -29,7 +30,7 @@ class EmployeeManager
 	{
 		$id = (int) $id;
 		$query = $this->_db->prepare('SELECT * FROM Employee WHERE id = '$id);
-		$donnees = $q->fetch(PDO::FETCH_ASSOC);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		return new Employee($donnees);
 	}
 
@@ -37,7 +38,7 @@ class EmployeeManager
 	{
 		$employees = [];
 		$query = $this->_db->query('SELECT * FROM Employee ORDER BY id');
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$employees[] = new Employee($donnees);
 		}
     	return $employees;
@@ -58,7 +59,7 @@ class EmployeeManager
 
 	public function setDb($db)
 	{
-		$this->$_db $db;
+		$this->_db=$db;
 	}
 }
 ?>
