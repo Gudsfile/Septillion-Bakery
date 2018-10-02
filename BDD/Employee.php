@@ -9,6 +9,13 @@ class Employee
 	private $_adress;
 	private $_phone_number;
 
+
+	  public function __construct($value = array())
+    {
+        if(!empty($value))
+            $this->hydrate($value);
+    }
+    
 	public function hydrate(array $donnees) 
 	{
 		foreach ($donnees as $key => $value) {

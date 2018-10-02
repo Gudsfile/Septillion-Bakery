@@ -16,6 +16,7 @@ class OrderClientManager
 		$query->bindValue(':Price', $orderClient->firstName(), PDO::PARAM_INT);
 		$query->bindValue(':ID_Client', $orderClient->client()->id(), PDO::PARAM_INT);
 		$query->execute();
+		return $this->_db->lastInsertId();	
 	}
 
 	public function delete(OrderClient $orderClient)

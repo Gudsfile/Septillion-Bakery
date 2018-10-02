@@ -7,6 +7,12 @@ class OrderClient
 	private $_price;
 	private $_client;
 
+	  public function __construct($value = array())
+    {
+        if(!empty($value))
+            $this->hydrate($value);
+    }
+    
 	public function hydrate(array $donnees) 
 	{
 		foreach ($donnees as $key => $value) {

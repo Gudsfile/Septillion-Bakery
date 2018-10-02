@@ -11,6 +11,13 @@ class Product
 	private $_last_update_by_idEmp;
 	private $_id_category;
 
+	  public function __construct($value = array())
+    {
+        if(!empty($value))
+            $this->hydrate($value);
+    }
+
+
 	public function hydrate(array $donnees) 
 	{
 		foreach ($donnees as $key => $value) {
@@ -27,9 +34,11 @@ class Product
 
 	public function stock_quantity() { return $this->_stock_quantity; }
 
+	public function description() { return $this->_description; }
+
 	public function price() { return $this->_price; }
 
-	public function image { return $this->_iamge; }
+	public function image() { return $this->_iamge; }
 
 	public function created_by_idEmp() { return $this->_created_by_idEmp; }
 
@@ -37,7 +46,8 @@ class Product
 
 	public function id_category() { return $this->_id_category; }
 
-	public function setId($id) 
+
+	public function setId_product($id) 
 	{
 		$id = (int) $id;
 		if ($id > 0) {
@@ -61,7 +71,7 @@ class Product
 	public function setDescription($description) 
 	{
 		if (is_string($description)) {
-			$this->_description= $_description;
+			$this->_description= $description;
 		}
 	}
 
@@ -91,9 +101,9 @@ class Product
 			$this->_last_update_by_idEmp = $last_update_by_idEmp;
 		}
 	}
-	public function setId_category($_id_category) 
+	public function setId_category($id_category) 
 	{
-		if (is_string($id_category) && is_numeric($phoneNumber)) {
+		if (is_string($id_category)) {
 			$this->_id_category = $id_category;
 		}
 	}

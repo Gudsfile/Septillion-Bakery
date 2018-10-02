@@ -6,6 +6,12 @@ class Category
 	private $_description;
 	private $_icon_category;
 	private $_created_by_idEmp;
+	
+	  public function __construct($value = array())
+    {
+        if(!empty($value))
+            $this->hydrate($value);
+    }
 
 	public function hydrate(array $donnees) 
 	{
