@@ -1,5 +1,6 @@
 <?php
-
+         require('BDD/client.php');
+        require('BDD/ClientManager.php');
 // database connection parameters
 $host='localhost'; //SQL server name
 $db_name='septillion'; //database name

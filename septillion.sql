@@ -36,6 +36,7 @@ CREATE TABLE `category` (
   `Created_By_IDEmp` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +52,8 @@ CREATE TABLE `client` (
   `Adress` varchar(20) DEFAULT NULL,
   `Phone_Number` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
 
 -- --------------------------------------------------------
 
@@ -68,6 +71,7 @@ CREATE TABLE `employee` (
   `Phone_Number` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +85,7 @@ CREATE TABLE `feedback` (
   `Comment` varchar(500) DEFAULT NULL,
   `Date_feedBack` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -96,6 +101,8 @@ CREATE TABLE `is_ordred` (
   `Descriiption` varchar(20) DEFAULT NULL,
   `Price` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
 
 -- --------------------------------------------------------
 
@@ -153,18 +160,23 @@ CREATE TABLE `product` (
 ALTER TABLE `category`
   ADD PRIMARY KEY (`ID_Category`),
   ADD KEY `par_ind` (`Created_By_IDEmp`);
+ALTER TABLE `category`
+  MODIFY `ID_Category` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Indexes for table `client`
 --
 ALTER TABLE `client`
   ADD PRIMARY KEY (`ID_CLIENT`);
-
+ALTER TABLE `client`
+  MODIFY `ID_CLIENT` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`ID_Employee`);
+  ALTER TABLE `employee`
+  MODIFY `ID_Employee` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Indexes for table `feedback`
@@ -189,6 +201,8 @@ ALTER TABLE `message`
   ADD PRIMARY KEY (`ID_Message`),
   ADD KEY `parS_ind` (`ID_Emp_Sender`),
   ADD KEY `parR_ind` (`ID_Emp_Reciever`);
+ALTER TABLE `message`
+  MODIFY `ID_Message` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Indexes for table `order_client`
@@ -196,6 +210,9 @@ ALTER TABLE `message`
 ALTER TABLE `order_client`
   ADD PRIMARY KEY (`ID_ORDER`),
   ADD KEY `par_client` (`ID_client`);
+ALTER TABLE `order_client`
+  MODIFY `ID_ORDER` int(11) NOT NULL AUTO_INCREMENT;
+
 
 --
 -- Indexes for table `product`
@@ -205,6 +222,9 @@ ALTER TABLE `product`
   ADD KEY `par_created` (`Created_By_IDEmp`),
   ADD KEY `par_update` (`Last_update_By_IDEmp`),
   ADD KEY `par_category` (`ID_Category`);
+ALTER TABLE `product`
+  MODIFY `ID_PRODUCT` int(11) NOT NULL AUTO_INCREMENT;
+
 
 --
 -- Constraints for dumped tables
