@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2018 at 10:29 AM
+-- Generation Time: Sep 25, 2018 at 11:51 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `septillion`
+-- Database: `septilion2`
 --
 
 -- --------------------------------------------------------
@@ -31,11 +31,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `category` (
   `ID_Category` int(11) NOT NULL,
   `Name_Category` varchar(20) DEFAULT NULL,
-  `Descriiption` varchar(20) DEFAULT NULL,
+  `Description` varchar(20) DEFAULT NULL,
   `Icon_Category` varchar(20) DEFAULT NULL,
   `Created_By_IDEmp` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 -- --------------------------------------------------------
 
@@ -47,13 +46,18 @@ CREATE TABLE `client` (
   `ID_CLIENT` int(11) NOT NULL,
   `Mail` varchar(20) DEFAULT NULL,
   `Password` varchar(20) DEFAULT NULL,
-  `Fisrt_name` varchar(20) DEFAULT NULL,
+  `First_name` varchar(20) DEFAULT NULL,
   `Last_name` varchar(20) DEFAULT NULL,
   `Adress` varchar(20) DEFAULT NULL,
   `Phone_Number` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `client`
+--
 
+INSERT INTO `client` (`ID_CLIENT`, `Mail`, `Password`, `First_name`, `Last_name`, `Adress`, `Phone_Number`) VALUES
+(1, 'test@test', '123456', 'test', 'test', 'test', '2131584');
 
 -- --------------------------------------------------------
 
@@ -65,12 +69,11 @@ CREATE TABLE `employee` (
   `ID_Employee` int(11) NOT NULL,
   `Mail` varchar(20) DEFAULT NULL,
   `Password` varchar(20) DEFAULT NULL,
-  `Fisrt_name` varchar(20) DEFAULT NULL,
+  `First_name` varchar(20) DEFAULT NULL,
   `Last_name` varchar(20) DEFAULT NULL,
   `Adress` varchar(20) DEFAULT NULL,
   `Phone_Number` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 
 -- --------------------------------------------------------
 
@@ -86,7 +89,6 @@ CREATE TABLE `feedback` (
   `Date_feedBack` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-
 -- --------------------------------------------------------
 
 --
@@ -96,13 +98,8 @@ CREATE TABLE `feedback` (
 CREATE TABLE `is_ordred` (
   `ID_ORDER` int(11) NOT NULL,
   `ID_Product` int(11) NOT NULL,
-  `Date_Order` date DEFAULT NULL,
-  `Quantity_ORDRED` int(11) DEFAULT NULL,
-  `Descriiption` varchar(20) DEFAULT NULL,
-  `Price` float DEFAULT NULL
+  `Quantity_ORDRED` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
 
 -- --------------------------------------------------------
 
@@ -160,23 +157,18 @@ CREATE TABLE `product` (
 ALTER TABLE `category`
   ADD PRIMARY KEY (`ID_Category`),
   ADD KEY `par_ind` (`Created_By_IDEmp`);
-ALTER TABLE `category`
-  MODIFY `ID_Category` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Indexes for table `client`
 --
 ALTER TABLE `client`
   ADD PRIMARY KEY (`ID_CLIENT`);
-ALTER TABLE `client`
-  MODIFY `ID_CLIENT` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`ID_Employee`);
-  ALTER TABLE `employee`
-  MODIFY `ID_Employee` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Indexes for table `feedback`
@@ -201,8 +193,6 @@ ALTER TABLE `message`
   ADD PRIMARY KEY (`ID_Message`),
   ADD KEY `parS_ind` (`ID_Emp_Sender`),
   ADD KEY `parR_ind` (`ID_Emp_Reciever`);
-ALTER TABLE `message`
-  MODIFY `ID_Message` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Indexes for table `order_client`
@@ -210,9 +200,6 @@ ALTER TABLE `message`
 ALTER TABLE `order_client`
   ADD PRIMARY KEY (`ID_ORDER`),
   ADD KEY `par_client` (`ID_client`);
-ALTER TABLE `order_client`
-  MODIFY `ID_ORDER` int(11) NOT NULL AUTO_INCREMENT;
-
 
 --
 -- Indexes for table `product`
@@ -222,9 +209,46 @@ ALTER TABLE `product`
   ADD KEY `par_created` (`Created_By_IDEmp`),
   ADD KEY `par_update` (`Last_update_By_IDEmp`),
   ADD KEY `par_category` (`ID_Category`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `ID_Category` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `client`
+--
+ALTER TABLE `client`
+  MODIFY `ID_CLIENT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `employee`
+--
+ALTER TABLE `employee`
+  MODIFY `ID_Employee` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `ID_Message` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_client`
+--
+ALTER TABLE `order_client`
+  MODIFY `ID_ORDER` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
 ALTER TABLE `product`
   MODIFY `ID_PRODUCT` int(11) NOT NULL AUTO_INCREMENT;
-
 
 --
 -- Constraints for dumped tables
