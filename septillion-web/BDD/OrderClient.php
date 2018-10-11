@@ -3,9 +3,13 @@ class OrderClient
 {
 	private $_id_order;
 	private $_date;
-	private $_description
+	private $_description;
 	private $_price;
-	private $_client;
+	private $_validated;
+	private $_ready;
+	private $_collected;
+	private $_id_client;
+	private $_id_employee;
 
 	  public function __construct($value = array())
     {
@@ -31,9 +35,17 @@ class OrderClient
 
 	public function price() { return $this->_price; }
 
-	public function client() { return $this->_client; }	
+	public function validated() { return $this->_validated; }
 
-	public function setId($id) 
+	public function ready() { return $this->_ready; }
+
+	public function collected() { return $this->_collected; }
+
+	public function client() { return $this->_id_client; }	
+
+	public function employee() { return $this->_id_employee; }
+
+	public function setId_order($id) 
 	{
 		$id = (int) $id;
 		if ($id > 0) {
@@ -45,7 +57,7 @@ class OrderClient
 	{
 		$time = strtotime($date);
 		$newformat = date('Y-m-d',$time);
-		$this->_date = $time;
+		$this->_date = $date;
 	}
 
 	public function setDescription($description) 
@@ -63,11 +75,34 @@ class OrderClient
 		}
 	}
 
-	public function setClient(Client $client) 
+	public function setValidated($isValid) 
 	{
-		if (!is_null($client) {
-			$this->_client = $client;
+		$this->_validated = $isValid;
+	}
+
+	public function setReady($isReady) 
+	{
+		$this->_ready = $isReady;
+	}
+
+	public function setCollected($isCollected) 
+	{
+		$this->_collected = $isCollected;
+	}
+
+	public function setId_Client($idClient) 
+	{
+		if (is_numeric($idClient)) {
+			$this->_id_client = $idClient;
 		}
 	}
+
+	public function setId_Employee($idEmployee) 
+	{
+		if (is_numeric($idEmployee)) {
+			$this->_id_employee = $idEmployee;
+		}
+	}
+
 }
 ?>
