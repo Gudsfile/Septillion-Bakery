@@ -11,7 +11,7 @@ class ClientManager
 	public function add(Client $client)
 	{
 		$query = $this->_db->prepare("INSERT INTO CLIENT(MAIL, PASSWORD, FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NUMBER) VALUES (:mail,:password,:first_name,:last_name,:address,:phone_number)");
-		$query->bindValue(':mail', $client->mail());
+		$query->bindValue(':mail', $client->mail(), PDO::PARAM_STR);
 		$query->bindValue(':password', $client->password(), PDO::PARAM_STR);
 		$query->bindValue(':first_name', $client->first_name(), PDO::PARAM_STR);
 		$query->bindValue(':last_name', $client->last_name(), PDO::PARAM_STR);
@@ -64,16 +64,16 @@ class ClientManager
     	return $client;
 	}
 
-	public function update(Client $client)
+	public function update($id, Client $client)
 	{
-    $query = $this->_db->prepare('UPDATE Client SET Mail = :Mail, Password = :Password, First_Name = :First_Name, Last_Name = :Last_Name, Address = :Address, Phone_Number = :Phone_Number WHERE ID_CLIENT = :id');
-    $query->bindValue(':id', $client->id(), PDO::PARAM_INT);
-		$query->bindValue(':Mail', $client->mail());
-		$query->bindValue(':Password', $client->password(), PDO::PARAM_STR);
-		$query->bindValue(':First_Name', $client->firstName(), PDO::PARAM_STR);
-		$query->bindValue(':Last_Name', $client->lastName(), PDO::PARAM_STR);
-		$query->bindValue(':Address', $client->address(), PDO::PARAM_STR);
-		$query->bindValue(':Phone_Number', $client->phoneNumber(), PDO::PARAM_STR);
+    $query = $this->_db->prepare('UPDATE CLIENT SET MAIL = :mail, PASSWORD = :Password, FIRST_NAME = :first_name, LAST_NAME = :last_name, ADDRESS = :address, PHONE_NUMBER = :phone_number WHERE ID_CLIENT = :id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+		$query->bindValue(':mail', $client->mail(), PDO::PARAM_STR);
+		$query->bindValue(':password', $client->password(), PDO::PARAM_STR);
+		$query->bindValue(':first_name', $client->first_name(), PDO::PARAM_STR);
+		$query->bindValue(':last_name', $client->last_name(), PDO::PARAM_STR);
+		$query->bindValue(':address', $client->address(), PDO::PARAM_STR);
+		$query->bindValue(':phone_number', $client->phone_number(), PDO::PARAM_STR);
 		$query->execute();
 	}
 

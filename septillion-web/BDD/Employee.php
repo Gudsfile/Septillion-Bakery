@@ -1,22 +1,22 @@
 <?php
-class Employee 
+class Employee
 {
-	private $_id_Employee;
+	private $_id_employee;
 	private $_mail;
 	private $_password;
-	private $_first_Name;
+	private $_first_name;
 	private $_last_name;
-	private $_adress;
+	private $_address;
 	private $_phone_number;
+	private $_role;
 
+	public function __construct($value = array())
+  {
+    if(!empty($value))
+      $this->hydrate($value);
+  }
 
-	  public function __construct($value = array())
-    {
-        if(!empty($value))
-            $this->hydrate($value);
-    }
-    
-	public function hydrate(array $donnees) 
+	public function hydrate(array $donnees)
 	{
 		foreach ($donnees as $key => $value) {
 			$method = 'set'.ucfirst($key);
@@ -26,67 +26,76 @@ class Employee
 		}
 	}
 
-	public function id() { return $this->_id_Employee; }
+	public function id() { return $this->_id_employee; }
 
 	public function mail() { return $this->_mail; }
 
 	public function password() { return $this->_password; }
 
-	public function firstName() { return $this->_first_Name; }
+	public function first_name() { return $this->_first_name; }
 
-	public function lastName() { return $this->_last_name; }
+	public function last_name() { return $this->_last_name; }
 
-	public function adress() { return $this->_adress; }
+	public function address() { return $this->_address; }
 
-	public function phoneNumber() { return $this->_phone_number; }
+	public function phone_number() { return $this->_phone_number; }
 
-	public function setId($id) 
+	public function role() { return $this->_role; }
+
+	public function setId_employee($id)
 	{
 		$id = (int) $id;
 		if ($id > 0) {
-			$this->_id_Employee = $id;
+			$this->_id_employee = $id;
 		}
 	}
 
-	public function setMail($mail) 
+	public function setMail($mail)
 	{
 		if (is_string($mail) && filter_var($mail, FILTER_VALIDATE_EMAIL)) {
 			$this->_mail = $mail;
 		}
 	}
 
-	public function setPassword($password) 
+	public function setPassword($password)
 	{
 		if (is_string($password)) {
 			$this->_password = $password;
 		}
 	}
 
-	public function setFirstName($firstName) 
+	public function setFirst_name($first_name)
 	{
-		if (is_string($firstName)) {
-			$this->_first_Name = $firstName;
+		if (is_string($first_name)) {
+			$this->_first_name = $first_name;
 		}
 	}
 
-	public function setLastName($lastName) 
+	public function setLast_name($last_name)
 	{
-		if (is_string($lastName)) {
-			$this->_last_name = $lastName;
+		if (is_string($last_name)) {
+			$this->_last_name = $last_name;
 		}
 	}
 
-	public function setAdress($adress) 
+	public function setAddress($address)
 	{
-		if (is_string($adress)) {
-			$this->_adress = $adress;
+		if (is_string($address)) {
+			$this->_address = $address;
 		}
 	}
 
-	public function setPhoneNumber($phoneNumber) 
+	public function setPhone_number($phone_number)
 	{
-		if (is_string($phoneNumber) && is_numeric($phoneNumber)) {
-			$this->_phone_number = $phoneNumber;
+		if (is_string($phone_number) && is_numeric($phone_number)) {
+			$this->_phone_number = $phone_number;
+		}
+	}
+
+	public function setRole($role)
+	{
+		if (is_string($role)) {
+			$this->_role = $role;
 		}
 	}
 }

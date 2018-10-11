@@ -1,5 +1,5 @@
 <?php
-class EmployeeManager 
+class EmployeeManager
 {
 	private $_db;
 
@@ -10,26 +10,30 @@ class EmployeeManager
 
 	public function add(Employee $employee)
 	{
-		$query = $this->_db->prepare('INSERT INTO employee(Mail, Password, First_name, Last_name, Adress, Phone_number) VALUES(:Mail, :Password, :First_name, :Last_name, :Adress, :Phone_number)');
-		$query->bindValue(':Mail', $employee->mail());
-		$query->bindValue(':Password', $employee->password(), PDO::PARAM_STR);
-		$query->bindValue(':First_name', $employee->firstName(), PDO::PARAM_STR);
-		$query->bindValue(':Last_name', $employee->lastName(), PDO::PARAM_STR);
-		$query->bindValue(':Adress', $employee->adress(), PDO::PARAM_STR);
-		$query->bindValue(':Phone_number', $employee->phoneNumber(), PDO::PARAM_STR);
+		$query = $this->_db->prepare("INSERT INTO EMPLOYEE(MAIL, PASSWORD, FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NUMBER, ROLE) VALUES(:mail, :password, :first_name, :last_name, :address, :phone_number, :role)");
+		$query->bindValue(':mail', $employee->mail());
+		$query->bindValue(':password', $employee->password(), PDO::PARAM_STR);
+		$query->bindValue(':first_name', $employee->first_name(), PDO::PARAM_STR);
+		$query->bindValue(':last_name', $employee->last_name(), PDO::PARAM_STR);
+		$query->bindValue(':address', $employee->address(), PDO::PARAM_STR);
+		$query->bindValue(':phone_number', $employee->phone_number(), PDO::PARAM_STR);
+		$query->bindValue(':role', $employee->role(), PDO::PARAM_STR);
 		$query->execute();
 		return $this->_db->lastInsertId();
 	}
 
-	public function delete(Employee $employee)
+	public function delete($id)
 	{
-		$this->_db->exec('DELETE FROM Employee WHERE id = '.$employee->id());
+		$id = (int) $id;
+		$query = $this->_db->prepare("DELETE FROM EMPLOYEE WHERE ID_EMPLOYEE =:id");
+		$query->bindValue(':id', $id);
+		$query->execute();
 	}
 
 	public function get($id)
 	{
 		$id = (int) $id;
-		$query = $this->_db->prepare('SELECT * FROM Employee WHERE id = '$id);
+		$query = $this->_db->query("SELECT * FROM EMPLOYEE WHERE ID_EMPLOYEE =".$id);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		return new Employee($donnees);
 	}
@@ -37,23 +41,24 @@ class EmployeeManager
 	public function getList()
 	{
 		$employees = [];
-		$query = $this->_db->query('SELECT * FROM Employee ORDER BY id');
+		$query = $this->_db->query("SELECT * FROM EMPLOYEE ORDER BY ID_EMPLOYEE");
 		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$employees[] = new Employee($donnees);
 		}
     	return $employees;
 	}
 
-	public function update(Employee $employee)
+	public function update($id, Employee $employee)
 	{
-    	$query = $this->_db->prepare('UPDATE Employee SET Mail = :Mail, Password = :Password, First_name = :First_name, Last_name = :Last_name, Adress = :Adress, Phone_number = :Phone_number WHERE id = :id');
-    	$query->bindValue(':id', $employee->id(), PDO::PARAM_INT);
-		$query->bindValue(':Mail', $employee->mail(), PDO::PARAM_STR);
-		$query->bindValue(':Password', $employee->password(), PDO::PARAM_STR);
-		$query->bindValue(':First_name', $employee->firstName(), PDO::PARAM_STR);
-		$query->bindValue(':Last_name', $employee->lastName(), PDO::PARAM_STR);
-		$query->bindValue(':Adress', $employee->adress(), PDO::PARAM_STR);
-		$query->bindValue(':Phone_number', $employee->phoneNumber(), PDO::PARAM_STR);
+		$query = $this->_db->prepare('UPDATE EMPLOYEE SET MAIL = :mail, PASSWORD = :Password, FIRST_NAME = :first_name, LAST_NAME = :last_name, ADDRESS = :address, PHONE_NUMBER = :phone_number, ROLE = :role WHERE ID_EMPLOYEE = :id');
+		$query->bindValue(':id', $id, PDO::PARAM_INT);
+		$query->bindValue(':mail', $employee->mail(), PDO::PARAM_STR);
+		$query->bindValue(':password', $employee->password(), PDO::PARAM_STR);
+		$query->bindValue(':first_name', $employee->first_name(), PDO::PARAM_STR);
+		$query->bindValue(':last_name', $employee->last_name(), PDO::PARAM_STR);
+		$query->bindValue(':address', $employee->address(), PDO::PARAM_STR);
+		$query->bindValue(':phone_number', $employee->phone_number(), PDO::PARAM_STR);
+		$query->bindValue(':role', $employee->role(), PDO::PARAM_STR);
 		$query->execute();
 	}
 

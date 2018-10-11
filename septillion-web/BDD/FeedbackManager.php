@@ -8,27 +8,31 @@ class FeedbackManager
 		$this->setDb($db);
 	}
 
-	public function add(IsOrdered $feedback)
+	public function add(Feedback $feedback)
 	{
-		$query = $this->_db->prepare('INSERT INTO Feedback(ID_Product, ID_Client, Review, Comment, Date_feedback) VALUES(:ID_Product, :ID_Client, :Review, :Comment, :Date_feedback');
-		$query->bindValue(':ID_Product', $feedback->idProduct(), PDO::PARAM_INT);
-		$query->bindValue(':ID_Client', $feedback->idClient(), PDO::PARAM_INT);
-		$query->bindValue(':Review', $feedback->review(), PDO::PARAM_INT);
-		$query->bindValue(':Comment', $feedback->comment(), PDO::PARAM_STR);
-		$query->bindValue(':Date_feedback', $feedback->dateFeedback(), PDO::PARAM_STR);
+		$query = $this->_db->prepare("INSERT INTO FEEDBACK(ID_PRODUCT, ID_CLIENT, GRADE, COMMENT, SUBMIT_DATE) VALUES(:id_product, :id_client, :grade, :comment, :submit_date)");
+		$query->bindValue(':id_product', $feedback->idProduct(), PDO::PARAM_INT);
+		$query->bindValue(':id_client', $feedback->idClient(), PDO::PARAM_INT);
+		$query->bindValue(':grade', $feedback->grade(), PDO::PARAM_INT);
+		$query->bindValue(':comment', $feedback->comment(), PDO::PARAM_STR);
+		$query->bindValue(':submit_date', $feedback->submit_date(), PDO::PARAM_STR);
 		$query->execute();
 	}
 
-	public function delete(Feedback $feedback)
+	public function delete($id_product, $id_client)
 	{
-		$this->_db->exec('DELETE FROM Feedback WHERE ID_Product = '.$feedback->idOrder().' ID_Client = '.$isOrdered->idClient());
-	}
+		$id_product = (int) $id_product;
+		$id_client = (int) $id_client;
+		$query = $this->_db->prepare("DELETE FROM FEEBACK WHERE ID_PRODUCT =:id_product AND ID_CLIENT = :id_client");
+		$query->bindValue(':id_product', $id_product);
+		$query->bindValue(':id_client', $id_client);
+		$query->execute();	}
 
-	public function getId($idProduct, $idClient)
+	public function getId($id_product, $id_client)
 	{
-		$idProduct = (int) $idProduct;
-		$idClient = (int) $idClient;
-		$query = $this->_db->prepare('SELECT * FROM Feedback WHERE ID_Product = '.$idProduct.' ID_Product = '.$idClient);
+		$id_product = (int) $id_product;
+		$id_client = (int) $id_client;
+		$query = $this->_db->query("SELECT * FROM FEEDBACK WHERE ID_PRODUCT =".$id_product." AND ID_CLIENT =".$id_client);
 		$donnees = $q->fetch(PDO::FETCH_ASSOC);
 		return new Feedback($donnees);
 	}
@@ -37,7 +41,7 @@ class FeedbackManager
 	{
 		$id = (int) $id;
 		$feedback = [];
-		$query = $this->_db->query('SELECT * FROM Feedback WHERE ID_Product = '.$id.' ORDER BY ID_Product');
+		$query = $this->_db->query("SELECT * FROM FEEDBACK WHERE ID_PRODUCT =:".$id." ORDER BY ID_PRODUCT");
 		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
 			$feedback[] = new Feedback($donnees);
 		}
@@ -48,7 +52,7 @@ class FeedbackManager
 	{
 		$id = (int) $id;
 		$feedback = [];
-		$query = $this->_db->query('SELECT * FROM Feedback WHERE ID_Client = '.$id.' ORDER BY ID_Client');
+		$query = $this->_db->query("SELECT * FROM FEEDBACK WHERE ID_CLIENT =:".$id." ORDER BY ID_CLIENT");
 		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
 			$feedback[] = new Feedback($donnees);
 		}
@@ -58,21 +62,21 @@ class FeedbackManager
 	public function getList()
 	{
 		$feedback = [];
-		$query = $this->_db->query('SELECT * FROM Feedback ORDER BY ID_Product');
+		$query = $this->_db->query("SELECT * FROM FEEDBACK");
 		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
 			$feedback[] = new Feedback($donnees);
 		}
 		return $feedback;
 	}
 
-	public function update(Feedback $feedback)
+	public function update($id_product, $id_client, Feedback $feedback)
 	{
-		$query = $this->_db->prepare('UPDATE Feedback SET Review = :Review, Comment = :Comment, Date_feedback = :Date_feedback WHERE ID_Product = :ID_Product AND ID_Client = :ID_Client');
-		$query->bindValue(':ID_Product', $feedback->idProduct(), PDO::PARAM_INT);
-		$query->bindValue(':ID_Client', $feedback->idClient(), PDO::PARAM_INT);
-		$query->bindValue(':Review', $feedback->review(), PDO::PARAM_INT);
-		$query->bindValue(':Comment', $feedback->comment(), PDO::PARAM_STR);
-		$query->bindValue(':Date_feedback', $feedback->dateFeedback(), PDO::PARAM_STR);
+		$query = $this->_db->prepare("UPDATE FEEDBACK SET GRADE =:grade, COMMENT =:comment, SUBMIT_DATE =:submit_date WHERE ID_PRODUCT =:id_product AND ID_CLIENT =:id_client");
+		$query->bindValue(':id_product', $id_product, PDO::PARAM_INT);
+		$query->bindValue(':id_client', $id_client, PDO::PARAM_INT);
+		$query->bindValue(':grade', $feedback->grade(), PDO::PARAM_INT);
+		$query->bindValue(':comment', $feedback->comment(), PDO::PARAM_STR);
+		$query->bindValue(':submit_date', $feedback->submit_date(), PDO::PARAM_STR);
 		$query->execute();
 	}
 

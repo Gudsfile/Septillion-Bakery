@@ -1,13 +1,13 @@
 <?php
-class Feedback 
+class Feedback
 {
-	private $_id_order;
+	private $_id_product;
 	private $_id_client;
-	private $_review;
+	private $_grade;
 	private $_comment;
-	private $_date_feedback;
+	private $_submit_date;
 
-	public function hydrate(array $donnees) 
+	public function hydrate(array $donnees)
 	{
 		foreach ($donnees as $key => $value) {
 			$method = 'set'.ucfirst($key);
@@ -17,44 +17,44 @@ class Feedback
 		}
 	}
 
-	public function idOrder() { return $this->_id_order; }
+	public function id_product() { return $this->$_id_product; }
 
-	public function idClient() { return $this->_id_client; }
+	public function id_client() { return $this->_id_client; }
 
-	public function review() { return $this->_review; }
+	public function grade() { return $this->_grade; }
 
 	public function comment() { return $this->_comment; }
 
-	public function dateFeedback() { return $this->_date_feedback; }
+	public function submit_date() { return $this->_submit_date; }
 
-	public function setIdOrder(Order $order) {
+	public function setId_order(Order $order) {
 		$this->_id_order = $order->id();
 	}
 
-	public function setIdClient(Client $client) {
+	public function setId_client(Client $client) {
 		$this->_id_client = $client->id();
 	}
 
-	public function setReview($review) 
+	public function setGrade($grade)
 	{
-		$review = (int) $review;
-		if ($review >= 1 && $review <= 5) {
-			$this->_review = $sreview;
+		$grade = (int) $grade;
+		if ($grade >= 1 && $grade <= 5) {
+			$this->_grade = $grade;
 		}
 	}
 
-	public function setComment($comment) 
+	public function setComment($comment)
 	{
 		if (is_string($comment)) {
 			$this->_comment = $comment;
 		}
 	}
 
-	public function setDateFeedback($dateFeedback) 
+	public function setSubmit_date($submit_date)
 	{
-		$time = strtotime($dateFeedback);
+		$time = strtotime($submit_date);
 		$newformat = date('Y-m-d',$time);
-		$this->_date_feedback = $time;
+		$this->_submit_date = $time;
 	}
 }
 ?>
