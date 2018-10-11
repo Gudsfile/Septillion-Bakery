@@ -3,9 +3,12 @@
 <head>
 	<title>Septillion / Nous contacter</title>
 	<?php include('header_link.php'); ?>
+	<?php require('BDD/EmployeeManager.php'); ?>
+	<?php require('connexion.php')?>
 	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js"></script>
 	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css" rel="stylesheet">
 <!--===============================================================================================-->
+	$conn = Connect::connexion();
 </head>
 <body class="animsition">
 
@@ -38,16 +41,31 @@
 							Envoyez nous un message
 						</h4>
 
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="name" placeholder="Nom Prénom">
+						<div class="rs2-select2 bo4 of-hidden size15 m-b-20">
+							<select class="selection-2" name="Destinataire">
+								<option value="" selected disabled hidden>Destinataire</option>
+								<?php
+								$employeeManager = new EmployeeManager($conn);
+								$employeeList = $employeeManager->getList();
+								foreach ($employeeList as $e) {
+								?>
+									<option value=" <?php echo $e['ID_Employee']; ?>"> <?php echo $e['First_name']; ?></option>
+								<?php
+								}
+								?>
+							</select>
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone-number" placeholder="Numéro de téléphone">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="objet" placeholder="Objet">
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Email Address">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Mail"
+								<?php if (isset($_SESSION['mail']) && isset($_SESSION['password'])):?>
+								value="<?php echo $_SESSION['mail'] ?>" disabled
+								<?php endif?>
+							>
 						</div>
 
 						<textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea>
