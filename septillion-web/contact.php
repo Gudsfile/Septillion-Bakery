@@ -4,11 +4,12 @@
 	<title>Septillion / Nous contacter</title>
 	<?php include('header_link.php'); ?>
 	<?php require('BDD/EmployeeManager.php'); ?>
+	<?php require('BDD/Employee.php'); ?>
 	<?php require('connexion.php')?>
 	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js"></script>
 	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css" rel="stylesheet">
 <!--===============================================================================================-->
-	$conn = Connect::connexion();
+	<?php $conn = Connect::connexion(); ?>
 </head>
 <body class="animsition">
 
@@ -49,7 +50,7 @@
 								$employeeList = $employeeManager->getList();
 								foreach ($employeeList as $e) {
 								?>
-									<option value=" <?php echo $e['ID_Employee']; ?>"> <?php echo $e['First_name']; ?></option>
+									<option value=" <?php echo $e->id(); ?>"> <?php echo $e->firstName(); ?></option>
 								<?php
 								}
 								?>

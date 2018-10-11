@@ -1695,7 +1695,8 @@ li.sale-noti > a {
 ///////////////////////////////////////////////////////////
 */
 .block2-labelsale::before,
-.block2-labelnew::before
+.block2-labelstock::before,
+.block2-labellast::before
 {
   z-index: 100;
   font-family: Montserrat-Regular;
@@ -1708,7 +1709,7 @@ li.sale-noti > a {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
+  width: 100px;
   height: 22px;
   border-radius: 11px;
   position: absolute;
@@ -1718,12 +1719,17 @@ li.sale-noti > a {
 
 .block2-labelsale::before {
   background-color: #e65540;
-  content: 'Sale';
+  content: 'Plus disponible';
 }
 
-.block2-labelnew::before {
+.block2-labelstock::before {
+  background-color: #8CC463;
+  content: 'Disponible';
+}
+
+.block2-labellast::before {
   background-color: #66a8a6;
-  content: 'New';
+  content: 'Bientôt écoulés';
 }
 
 /* ------------------------------------ */
