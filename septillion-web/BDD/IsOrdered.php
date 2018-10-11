@@ -1,11 +1,11 @@
 <?php
-class IsOrdered 
+class IsOrdered
 {
 	private $_id_order;
 	private $_id_product;
 	private $_quantity
 
-	public function hydrate(array $donnees) 
+	public function hydrate(array $donnees)
 	{
 		foreach ($donnees as $key => $value) {
 			$method = 'set'.ucfirst($key);
@@ -15,21 +15,21 @@ class IsOrdered
 		}
 	}
 
-	public function idOrder() { return $this->_id_order; }
+	public function id_order() { return $this->_id_order; }
 
-	public function idProduct() { return $this->_id_product; }
+	public function id_product() { return $this->_id_product; }
 
 	public function quantity() { return $this->_quantity; }
 
-	public function setIdOrder(Order $order) {
+	public function setId_order(Order $order) {
 		$this->_id_order = $order->id();
 	}
 
-	public function setIdProduct(Product $product) {
+	public function setId_product(Product $product) {
 		$this->_id_product = $product->id();
 	}
 
-	public function setQuantity($quantity) 
+	public function setQuantity($quantity)
 	{
 		$quantity = (int) $quantity;
 		if ($quantity > 0) {

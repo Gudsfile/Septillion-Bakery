@@ -10,23 +10,28 @@ class IsOrderedManager
 
 	public function add(IsOrdered $isOrdered)
 	{
-		$query = $this->_db->prepare('INSERT INTO Is_Ordered(ID_Order, ID_Product, Quantity) VALUES(:ID_Order, :ID_Product, :Quantity');
-		$query->bindValue(':ID_Order', $isOrdered->idOrder(), PDO::PARAM_INT);
-		$query->bindValue(':ID_Product', $orderClient->idProduct(), PDO::PARAM_INT);
-		$query->bindValue(':Quantity', $orderClient->firstName(), PDO::PARAM_INT);
+		$query = $this->_db->prepare("INSERT INTO IS_ORDERED(ID_ORDER, ID_PRODUCT, QUANTITY) VALUES(:id_order, :id_product, :quantity)");
+		$query->bindValue(':id_order', $isOrdered->id_order(), PDO::PARAM_INT);
+		$query->bindValue(':id_product', $isOrdered->id_product(), PDO::PARAM_INT);
+		$query->bindValue(':quantity', $isOrdered->quantity(), PDO::PARAM_INT);
 		$query->execute();
 	}
 
-	public function delete(IsOrdered $isOrdered)
+	public function delete($id_order, $id_product)
 	{
-		$this->_db->exec('DELETE FROM Is_Ordered WHERE ID_Order = '.$isOrdered->idOrder().' ID_Product = '.$isOrdered->idProduct());
+		$id_order = (int) $id_order;
+		$id_product = (int) $id_product;
+		$query = $this->_db->prepare("DELETE FROM IS_ORDERED WHERE ID_ORDER =:id_order AND ID_PRODUCT =:id_product");
+		$query->bindValue(':id_order', $id_order);
+		$query->bindValue(':id_product', $id_product);
+		$query->execute();
 	}
 
-	public function getId($idProduct, $idOrder)
+	public function getId($id_order, $id_product)
 	{
-		$idProduct = (int) $idProduct;
-		$idOrder = (int) $idOrder;
-		$query = $this->_db->prepare('SELECT * FROM Is_Ordered WHERE ID_Order = '.$idOrder.' ID_Product = '.$idProduct);
+		$id_order = (int) $id_order;
+		$id_product = (int) $id_product;
+		$query = $this->_db->query("SELECT * FROM IS_ORDERED WHERE ID_ORDER =".$id_order." AND ID_PRODUCT =".$id_product);
 		$donnees = $q->fetch(PDO::FETCH_ASSOC);
 		return new IsOrdered($donnees);
 	}
@@ -35,7 +40,7 @@ class IsOrderedManager
 	{
 		$id = (int) $id;
 		$IsOrdered = [];
-		$query = $this->_db->query('SELECT * FROM Is_Ordered WHERE ID_Order = '.$id.' ORDER BY ID_Product');
+		$query = $this->_db->query("SELECT * FROM IS_ORDERED WHERE ID_ORDER =:".$id." ORDER BY ID_ORDER");
 		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
 			$IsOrdered[] = new IsOrdered($donnees);
 		}
@@ -45,30 +50,30 @@ class IsOrderedManager
 	public function getProduct($id)
 	{
 		$id = (int) $id;
-		$IsOrdered = [];
-		$query = $this->_db->query('SELECT * FROM Is_Ordered WHERE ID_Product = '.$id.' ORDER BY ID_Product');
+		$feedback = [];
+		$query = $this->_db->query("SELECT * FROM IS_ORDERED WHERE ID_PRODUCT =:".$id." ORDER BY ID_PRODUCT");
 		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
-			$IsOrdered[] = new IsOrdered($donnees);
+			$feedback[] = new IsOrdered($donnees);
 		}
-		return $orderClient;
+		return $feedback;
 	}
 
 	public function getList()
 	{
 		$IsOrdered = [];
-		$query = $this->_db->query('SELECT * FROM Is_Ordered ORDER BY ID_Product');
+		$query = $this->_db->query("SELECT * FROM IS_ORDERED");
 		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
 			$IsOrdered[] = new IsOrdered($donnees);
 		}
 		return $orderClient;
 	}
 
-	public function update(IsOrdered $isOrdered)
+	public function update($id_order, $id_product, IsOrdered $isOrdered)
 	{
-		$query = $this->_db->prepare('UPDATE Is_Ordered SET Quantity = :Quantity WHERE ID_Order = :ID_Order AND ID_Product = :ID_Product');
-		$query->bindValue(':ID_Order', $isOrdered->idOrder(), PDO::PARAM_INT);
-		$query->bindValue(':ID_Product', $orderClient->idProduct(), PDO::PARAM_INT);
-		$query->bindValue(':Quantity', $orderClient->firstName(), PDO::PARAM_INT);
+		$query = $this->_db->prepare("UPDATE IS_ORDERED SET QUANTITY =:quantity WHERE ID_ORDER =:id_order AND ID_PRODUCT =:id_product");
+		$query->bindValue(':id_order', $id_order, PDO::PARAM_INT);
+		$query->bindValue(':id_product', $id_product, PDO::PARAM_INT);
+		$query->bindValue(':quantity', $isOrdered->quantity(), PDO::PARAM_INT);
 		$query->execute();
 	}
 

@@ -26,7 +26,8 @@ class FeedbackManager
 		$query = $this->_db->prepare("DELETE FROM FEEBACK WHERE ID_PRODUCT =:id_product AND ID_CLIENT = :id_client");
 		$query->bindValue(':id_product', $id_product);
 		$query->bindValue(':id_client', $id_client);
-		$query->execute();	}
+		$query->execute();
+	}
 
 	public function getId($id_product, $id_client)
 	{
