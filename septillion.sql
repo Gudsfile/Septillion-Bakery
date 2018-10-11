@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 25, 2018 at 11:51 AM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Hôte : localhost
+-- Généré le :  jeu. 11 oct. 2018 à 12:04
+-- Version du serveur :  10.1.35-MariaDB
+-- Version de PHP :  7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,281 +19,281 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `septilion2`
+-- Base de données :  `septillion`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Structure de la table `CATEGORY`
 --
 
-CREATE TABLE `category` (
-  `ID_Category` int(11) NOT NULL,
-  `Name_Category` varchar(20) DEFAULT NULL,
-  `Description` varchar(20) DEFAULT NULL,
-  `Icon_Category` varchar(20) DEFAULT NULL,
-  `Created_By_IDEmp` int(11) DEFAULT NULL
+CREATE TABLE `CATEGORY` (
+  `ID_CATEGORY` int(11) NOT NULL,
+  `NAME_CATEGORY` varchar(20) DEFAULT NULL,
+  `DESCRIPTION` varchar(20) DEFAULT NULL,
+  `ICON_CATEGORY` varchar(20) DEFAULT NULL,
+  `CREATED_BY` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `client`
+-- Structure de la table `CLIENT`
 --
 
-CREATE TABLE `client` (
+CREATE TABLE `CLIENT` (
   `ID_CLIENT` int(11) NOT NULL,
-  `Mail` varchar(20) DEFAULT NULL,
-  `Password` varchar(20) DEFAULT NULL,
-  `First_name` varchar(20) DEFAULT NULL,
-  `Last_name` varchar(20) DEFAULT NULL,
-  `Adress` varchar(20) DEFAULT NULL,
-  `Phone_Number` varchar(20) DEFAULT NULL
+  `MAIL` varchar(20) DEFAULT NULL,
+  `PASSWORD` varchar(20) DEFAULT NULL,
+  `FIRST_NAME` varchar(20) DEFAULT NULL,
+  `LAST_NAME` varchar(20) DEFAULT NULL,
+  `ADDRESS` varchar(20) DEFAULT NULL,
+  `PHONE_NUMBER` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `client`
---
-
-INSERT INTO `client` (`ID_CLIENT`, `Mail`, `Password`, `First_name`, `Last_name`, `Adress`, `Phone_Number`) VALUES
-(1, 'test@test', '123456', 'test', 'test', 'test', '2131584');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `employee`
+-- Structure de la table `EMPLOYEE`
 --
 
-CREATE TABLE `employee` (
+CREATE TABLE `EMPLOYEE` (
   `ID_Employee` int(11) NOT NULL,
-  `Mail` varchar(20) DEFAULT NULL,
-  `Password` varchar(20) DEFAULT NULL,
-  `First_name` varchar(20) DEFAULT NULL,
-  `Last_name` varchar(20) DEFAULT NULL,
-  `Adress` varchar(20) DEFAULT NULL,
-  `Phone_Number` varchar(20) DEFAULT NULL
+  `MAIL` varchar(20) DEFAULT NULL,
+  `PASSWORD` varchar(20) DEFAULT NULL,
+  `FIRST_NAME` varchar(20) DEFAULT NULL,
+  `LAST_NAME` varchar(20) DEFAULT NULL,
+  `ADDRESS` varchar(20) DEFAULT NULL,
+  `PHONE_NUMBER` varchar(20) DEFAULT NULL,
+  `ROLE` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `feedback`
+-- Structure de la table `FEEDBACK`
 --
 
-CREATE TABLE `feedback` (
-  `ID_Product` int(11) NOT NULL,
-  `ID_CLIENT` int(11) NOT NULL,
-  `Review` int(11) DEFAULT NULL,
-  `Comment` varchar(500) DEFAULT NULL,
-  `Date_feedBack` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `is_ordred`
---
-
-CREATE TABLE `is_ordred` (
-  `ID_ORDER` int(11) NOT NULL,
-  `ID_Product` int(11) NOT NULL,
-  `Quantity_ORDRED` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `message`
---
-
-CREATE TABLE `message` (
-  `ID_Message` int(11) NOT NULL,
-  `Message_Object` varchar(20) DEFAULT NULL,
-  `Message_Body` varchar(20) DEFAULT NULL,
-  `ID_Emp_Sender` int(11) DEFAULT NULL,
-  `ID_Emp_Reciever` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `order_client`
---
-
-CREATE TABLE `order_client` (
-  `ID_ORDER` int(11) NOT NULL,
-  `Date_Order` date DEFAULT NULL,
-  `Description` varchar(1000) DEFAULT NULL,
-  `Price` float DEFAULT NULL,
-  `ID_client` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `product`
---
-
-CREATE TABLE `product` (
+CREATE TABLE `FEEDBACK` (
   `ID_PRODUCT` int(11) NOT NULL,
-  `Name_PRODUCT` varchar(20) DEFAULT NULL,
-  `STOCK_Quantity` int(11) DEFAULT NULL,
-  `Description` varchar(20) DEFAULT NULL,
-  `Price` decimal(10,0) DEFAULT NULL,
-  `Image` varchar(20) DEFAULT NULL,
-  `Created_By_IDEmp` int(11) DEFAULT NULL,
-  `Last_update_By_IDEmp` int(11) DEFAULT NULL,
-  `ID_Category` int(11) DEFAULT NULL
+  `ID_CLIENT` int(11) NOT NULL,
+  `GRADE` int(11) DEFAULT NULL,
+  `COMMENT` varchar(500) DEFAULT NULL,
+  `DATE` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `IS_ORDERED`
+--
+
+CREATE TABLE `IS_ORDERED` (
+  `ID_ORDER` int(11) NOT NULL,
+  `ID_PRODUCT` int(11) NOT NULL,
+  `QUANTITY` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `MESSAGE`
+--
+
+CREATE TABLE `MESSAGE` (
+  `ID_MESSAGE` int(11) NOT NULL,
+  `OBJECT` varchar(20) DEFAULT NULL,
+  `BODY` varchar(20) DEFAULT NULL,
+  `ID_SENDER` int(11) DEFAULT NULL,
+  `ID_RECEIVER` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ORDER_CLIENT`
+--
+
+CREATE TABLE `ORDER_CLIENT` (
+  `ID_ORDER` int(11) NOT NULL,
+  `DATE` date DEFAULT NULL,
+  `DESCRIPTION` varchar(1000) DEFAULT NULL,
+  `PRICE` float DEFAULT NULL,
+  `VALIDATED` tinyint(1) DEFAULT NULL,
+  `READY` tinyint(1) DEFAULT NULL,
+  `COLLECTED` double DEFAULT NULL,
+  `ID_CLIENT` int(11) DEFAULT NULL,
+  `ID_EMPLOYEE` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `PRODUCT`
+--
+
+CREATE TABLE `PRODUCT` (
+  `ID_PRODUCT` int(11) NOT NULL,
+  `NAME` varchar(20) DEFAULT NULL,
+  `STOCK` int(11) DEFAULT NULL,
+  `DESCRITPION` varchar(20) DEFAULT NULL,
+  `PRICE` decimal(10,0) DEFAULT NULL,
+  `IMAGE` varchar(20) DEFAULT NULL,
+  `CREATED_BY` int(11) DEFAULT NULL,
+  `LAST_UPDATED_BY` int(11) DEFAULT NULL,
+  `ID_CATEGORY` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `category`
+-- Index pour la table `CATEGORY`
 --
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`ID_Category`),
-  ADD KEY `par_ind` (`Created_By_IDEmp`);
+ALTER TABLE `CATEGORY`
+  ADD PRIMARY KEY (`ID_CATEGORY`),
+  ADD KEY `par_ind` (`CREATED_BY`) USING BTREE;
 
 --
--- Indexes for table `client`
+-- Index pour la table `CLIENT`
 --
-ALTER TABLE `client`
+ALTER TABLE `CLIENT`
   ADD PRIMARY KEY (`ID_CLIENT`);
 
 --
--- Indexes for table `employee`
+-- Index pour la table `EMPLOYEE`
 --
-ALTER TABLE `employee`
+ALTER TABLE `EMPLOYEE`
   ADD PRIMARY KEY (`ID_Employee`);
 
 --
--- Indexes for table `feedback`
+-- Index pour la table `FEEDBACK`
 --
-ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`ID_Product`,`ID_CLIENT`),
-  ADD KEY `par_cli` (`ID_Product`,`ID_CLIENT`),
+ALTER TABLE `FEEDBACK`
+  ADD PRIMARY KEY (`ID_PRODUCT`,`ID_CLIENT`) USING BTREE,
+  ADD KEY `par_cli` (`ID_PRODUCT`,`ID_CLIENT`),
   ADD KEY `ID_CLIENT` (`ID_CLIENT`);
 
 --
--- Indexes for table `is_ordred`
+-- Index pour la table `IS_ORDERED`
 --
-ALTER TABLE `is_ordred`
-  ADD PRIMARY KEY (`ID_ORDER`,`ID_Product`),
-  ADD KEY `par_order` (`ID_ORDER`,`ID_Product`),
-  ADD KEY `ID_Product` (`ID_Product`);
+ALTER TABLE `IS_ORDERED`
+  ADD PRIMARY KEY (`ID_ORDER`,`ID_PRODUCT`),
+  ADD KEY `par_order` (`ID_ORDER`,`ID_PRODUCT`),
+  ADD KEY `ID_Product` (`ID_PRODUCT`);
 
 --
--- Indexes for table `message`
+-- Index pour la table `MESSAGE`
 --
-ALTER TABLE `message`
-  ADD PRIMARY KEY (`ID_Message`),
-  ADD KEY `parS_ind` (`ID_Emp_Sender`),
-  ADD KEY `parR_ind` (`ID_Emp_Reciever`);
+ALTER TABLE `MESSAGE`
+  ADD PRIMARY KEY (`ID_MESSAGE`),
+  ADD KEY `parS_ind` (`ID_SENDER`),
+  ADD KEY `parR_ind` (`ID_RECEIVER`);
 
 --
--- Indexes for table `order_client`
+-- Index pour la table `ORDER_CLIENT`
 --
-ALTER TABLE `order_client`
+ALTER TABLE `ORDER_CLIENT`
   ADD PRIMARY KEY (`ID_ORDER`),
-  ADD KEY `par_client` (`ID_client`);
+  ADD KEY `fk_employee_id` (`ID_EMPLOYEE`),
+  ADD KEY `fk_client_id` (`ID_CLIENT`) USING BTREE;
 
 --
--- Indexes for table `product`
+-- Index pour la table `PRODUCT`
 --
-ALTER TABLE `product`
+ALTER TABLE `PRODUCT`
   ADD PRIMARY KEY (`ID_PRODUCT`),
-  ADD KEY `par_created` (`Created_By_IDEmp`),
-  ADD KEY `par_update` (`Last_update_By_IDEmp`),
-  ADD KEY `par_category` (`ID_Category`);
+  ADD KEY `par_created` (`CREATED_BY`),
+  ADD KEY `par_update` (`LAST_UPDATED_BY`),
+  ADD KEY `par_category` (`ID_CATEGORY`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT pour la table `CATEGORY`
 --
-ALTER TABLE `category`
-  MODIFY `ID_Category` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `CATEGORY`
+  MODIFY `ID_CATEGORY` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `client`
+-- AUTO_INCREMENT pour la table `CLIENT`
 --
-ALTER TABLE `client`
-  MODIFY `ID_CLIENT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `CLIENT`
+  MODIFY `ID_CLIENT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT for table `employee`
+-- AUTO_INCREMENT pour la table `EMPLOYEE`
 --
-ALTER TABLE `employee`
+ALTER TABLE `EMPLOYEE`
   MODIFY `ID_Employee` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `message`
+-- AUTO_INCREMENT pour la table `MESSAGE`
 --
-ALTER TABLE `message`
-  MODIFY `ID_Message` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `MESSAGE`
+  MODIFY `ID_MESSAGE` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `order_client`
+-- AUTO_INCREMENT pour la table `ORDER_CLIENT`
 --
-ALTER TABLE `order_client`
+ALTER TABLE `ORDER_CLIENT`
   MODIFY `ID_ORDER` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT pour la table `PRODUCT`
 --
-ALTER TABLE `product`
+ALTER TABLE `PRODUCT`
   MODIFY `ID_PRODUCT` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `category`
+-- Contraintes pour la table `CATEGORY`
 --
-ALTER TABLE `category`
-  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`Created_By_IDEmp`) REFERENCES `employee` (`ID_Employee`) ON DELETE CASCADE;
+ALTER TABLE `CATEGORY`
+  ADD CONSTRAINT `CATEGORY_ibfk_1` FOREIGN KEY (`CREATED_BY`) REFERENCES `EMPLOYEE` (`ID_Employee`) ON DELETE CASCADE;
 
 --
--- Constraints for table `feedback`
+-- Contraintes pour la table `FEEDBACK`
 --
-ALTER TABLE `feedback`
-  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`ID_CLIENT`) REFERENCES `client` (`ID_CLIENT`) ON DELETE CASCADE,
-  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`ID_Product`) REFERENCES `product` (`ID_PRODUCT`) ON DELETE CASCADE;
+ALTER TABLE `FEEDBACK`
+  ADD CONSTRAINT `FEEDBACK_ibfk_1` FOREIGN KEY (`ID_CLIENT`) REFERENCES `CLIENT` (`ID_CLIENT`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FEEDBACK_ibfk_2` FOREIGN KEY (`ID_Product`) REFERENCES `PRODUCT` (`ID_PRODUCT`) ON DELETE CASCADE;
 
 --
--- Constraints for table `is_ordred`
+-- Contraintes pour la table `IS_ORDERED`
 --
-ALTER TABLE `is_ordred`
-  ADD CONSTRAINT `is_ordred_ibfk_1` FOREIGN KEY (`ID_ORDER`) REFERENCES `order_client` (`ID_ORDER`) ON DELETE CASCADE,
-  ADD CONSTRAINT `is_ordred_ibfk_2` FOREIGN KEY (`ID_Product`) REFERENCES `product` (`ID_PRODUCT`) ON DELETE CASCADE;
+ALTER TABLE `IS_ORDERED`
+  ADD CONSTRAINT `IS_ORDERED_ibfk_1` FOREIGN KEY (`ID_ORDER`) REFERENCES `ORDER_CLIENT` (`ID_ORDER`) ON DELETE CASCADE,
+  ADD CONSTRAINT `IS_ORDERED_ibfk_2` FOREIGN KEY (`ID_Product`) REFERENCES `PRODUCT` (`ID_PRODUCT`) ON DELETE CASCADE;
 
 --
--- Constraints for table `message`
+-- Contraintes pour la table `MESSAGE`
 --
-ALTER TABLE `message`
-  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`ID_Emp_Sender`) REFERENCES `employee` (`ID_Employee`) ON DELETE CASCADE,
-  ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`ID_Emp_Reciever`) REFERENCES `employee` (`ID_Employee`) ON DELETE CASCADE;
+ALTER TABLE `MESSAGE`
+  ADD CONSTRAINT `MESSAGE_ibfk_1` FOREIGN KEY (`ID_SENDER`) REFERENCES `EMPLOYEE` (`ID_Employee`) ON DELETE CASCADE,
+  ADD CONSTRAINT `MESSAGE_ibfk_2` FOREIGN KEY (`ID_RECEIVER`) REFERENCES `EMPLOYEE` (`ID_Employee`) ON DELETE CASCADE;
 
 --
--- Constraints for table `order_client`
+-- Contraintes pour la table `ORDER_CLIENT`
 --
-ALTER TABLE `order_client`
-  ADD CONSTRAINT `order_client_ibfk_1` FOREIGN KEY (`ID_client`) REFERENCES `client` (`ID_CLIENT`) ON DELETE CASCADE;
+ALTER TABLE `ORDER_CLIENT`
+  ADD CONSTRAINT `ORDER_CLIENT_ibfk_1` FOREIGN KEY (`ID_client`) REFERENCES `CLIENT` (`ID_CLIENT`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_employee_id` FOREIGN KEY (`ID_employee`) REFERENCES `EMPLOYEE` (`ID_Employee`);
 
 --
--- Constraints for table `product`
+-- Contraintes pour la table `PRODUCT`
 --
-ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`Created_By_IDEmp`) REFERENCES `employee` (`ID_Employee`) ON DELETE CASCADE,
-  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`Last_update_By_IDEmp`) REFERENCES `employee` (`ID_Employee`) ON DELETE CASCADE,
-  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`ID_Category`) REFERENCES `category` (`ID_Category`) ON DELETE CASCADE;
+ALTER TABLE `PRODUCT`
+  ADD CONSTRAINT `PRODUCT_ibfk_1` FOREIGN KEY (`CREATED_BY`) REFERENCES `EMPLOYEE` (`ID_Employee`) ON DELETE CASCADE,
+  ADD CONSTRAINT `PRODUCT_ibfk_2` FOREIGN KEY (`LAST_UPDATED_BY`) REFERENCES `EMPLOYEE` (`ID_Employee`) ON DELETE CASCADE,
+  ADD CONSTRAINT `PRODUCT_ibfk_3` FOREIGN KEY (`ID_Category`) REFERENCES `CATEGORY` (`ID_Category`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
