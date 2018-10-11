@@ -2,18 +2,18 @@
 class Category
 {
 	private $_id_category;
-	private $_name_category;
+	private $_name;
 	private $_description;
-	private $_icon_category;
-	private $_created_by_idEmp;
-	
+	private $_icon;
+	private $_created_by;
+
 	  public function __construct($value = array())
     {
         if(!empty($value))
             $this->hydrate($value);
     }
 
-	public function hydrate(array $donnees) 
+	public function hydrate(array $donnees)
 	{
 		foreach ($donnees as $key => $value) {
 			$method = 'set'.ucfirst($key);
@@ -25,16 +25,15 @@ class Category
 
 	public function id() { return $this->_id_category; }
 
-	public function nameCategory() { return $this->_name_category; }
+	public function name() { return $this->_name; }
 
 	public function description() { return $this->_description; }
 
-	public function iconCategory() { return $this->_icon_category; }
+	public function icon() { return $this->_icon; }
 
-	public function createdByIdEmp() { return $this->_created_by_idEmp; }
+	public function created_by() { return $this->_created_by; }
 
-
-	public function setId($id) 
+	public function setId($id)
 	{
 		$id = (int) $id;
 		if ($id > 0) {
@@ -42,24 +41,31 @@ class Category
 		}
 	}
 
-	public function setNameCategory($name) 
+	public function setName($name)
 	{
 		if (is_string($name)) {
-			$this->_name_category = $name;
+			$this->_name = $name;
 		}
 	}
 
-	public function setIcon($icon) 
+	public function setDescription($desc)
+	{
+		if (is_string($desc)) {
+			$this->_description = $desc;
+		}
+	}
+
+	public function setIcon($icon)
 	{
 		if (is_string($icon)) {
-			$this->_icon_category= $icon;
+			$this->_icon= $icon;
 		}
 	}
 
-	public function SetCreatedByIdEmp($created_by_idEmp) 
+	public function SetCreated_by($created_by)
 	{
-		if (is_string($created_by_idEmp)) {
-			$this->_created_by_idEmp = $created_by_idEmp;
+		if (is_string($created_by)) {
+			$this->_created_by = $created_by;
 		}
 	}
 }
