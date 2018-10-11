@@ -10,7 +10,7 @@ class ClientManager
 
 	public function add(Client $client)
 	{
-		$query = $this->_db->prepare('INSERT INTO `CLIENT`(`MAIL`, `PASSWORD`, `FIRST_NAME`, `LAST_NAME`, `ADDRESS`, `PHONE_NUMBER`) VALUES (:mail,:password,:first_name,:last_name,:address,:phone_number)');
+		$query = $this->_db->prepare("INSERT INTO CLIENT(MAIL, PASSWORD, FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NUMBER) VALUES (:mail,:password,:first_name,:last_name,:address,:phone_number)");
 		$query->bindValue(':mail', $client->mail());
 		$query->bindValue(':password', $client->password(), PDO::PARAM_STR);
 		$query->bindValue(':first_name', $client->first_name(), PDO::PARAM_STR);
@@ -24,7 +24,7 @@ class ClientManager
 	public function delete($id)
 	{
 		$id = (int) $id;
-		$query = $this->_db->prepare('DELETE FROM CLIENT WHERE ID_CLIENT=:id');
+		$query = $this->_db->prepare("DELETE FROM CLIENT WHERE ID_CLIENT=:id");
 		$query->bindValue(':id', $id);
 		$query->execute();
 	}
@@ -32,26 +32,24 @@ class ClientManager
 	public function get($id)
 	{
 		$id = (int) $id;
-		$query = $this->_db->query('SELECT * FROM CLIENT WHERE ID_ClIENT ='.$id);
+		$query = $this->_db->query("SELECT * FROM CLIENT WHERE ID_ClIENT =".$id);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		return new Client($donnees);
 	}
 
-	public function getClient($Mail, $MotDePasse)
+	public function getClient($mail, $password)
 	{
-		$query = $this->_db->prepare('SELECT * FROM CLIENT WHERE MAIL ='.$Mail.' AND PASSWORD = '.$MotDePasse);
+		$mail = "'".$mail."'";
+		$password = "'".$password."'";
+		$query = $this->_db->query("SELECT * FROM CLIENT WHERE MAIL =".$mail." AND PASSWORD = ".$password);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		if (mysql_num_rows($donnees)==0) {
-			return 0;
-		} else {
-			return new Client($donnees);
-		}
+		return new Client($donnees);
 	}
 
 	public function getClientByMail($mail)
 	{
-		$mail = (string) $mail;
-		$query = $this->_db->prepare('SELECT * FROM CLIENT WHERE MAIL = '.$mail);
+		$mail = "'".$mail."'";
+		$query = $this->_db->query("SELECT * FROM CLIENT WHERE MAIL =".$mail);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		return new Client($donnees);
 	}
