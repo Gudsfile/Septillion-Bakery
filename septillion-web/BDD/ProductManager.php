@@ -10,55 +10,61 @@ class ProductManager
 
 	public function add(Product $product)
 	{
-		$query = $this->_db->prepare('INSERT INTO `product`(`Name_PRODUCT`, `STOCK_Quantity`, `Description`, `Price`, `Image`, `Created_By_IDEmp`, `Last_update_By_IDEmp`, `ID_Category`) VALUES (:Name_product,:STOCK_Quantity,:Description,:Price,:Image,:Created_By_IDEmp,:Last_update_By_IDEmp,:ID_Category)');
-		$query->bindValue(':Name_product', $product->name_product());
-		$query->bindValue(':STOCK_Quantity', $product->stock_quantity(), PDO::PARAM_STR);
-		$query->bindValue(':Description', $product->Description(), PDO::PARAM_STR);
-		$query->bindValue(':Price', $product->price(), PDO::PARAM_STR);
-		$query->bindValue(':Image', $product->image(), PDO::PARAM_STR);
-		$query->bindValue(':Created_By_IDEmp', $product->created_by_idEmp(), PDO::PARAM_STR);
-		$query->bindValue(':Last_update_By_IDEmp', $product->last_update_by_idEmp(), PDO::PARAM_STR);
-		$query->bindValue(':ID_Category', $product->id_category(), PDO::PARAM_STR);
+		$query = $this->_db->prepare("INSERT INTO PRODUCT(NAME, STOCK, DESCRIPTION, PRICE, IMAGE, CREATED_BY, LAST_UPDATED_BY ,ID_CATEGORY) VALUES (:name, :stock, :description, :price, :image, :created_by, :last_updated_by, :id_category)");
+		$query->bindValue(':name', $product->name());
+		$query->bindValue(':stock', $product->stock(), PDO::PARAM_STR);
+		$query->bindValue(':description', $product->description(), PDO::PARAM_STR);
+		$query->bindValue(':price', $product->price(), PDO::PARAM_STR);
+		$query->bindValue(':image', $product->image(), PDO::PARAM_STR);
+		$query->bindValue(':created_by', $product->created_by(), PDO::PARAM_STR);
+		$query->bindValue(':last_updated_by', $product->last_updated_by(), PDO::PARAM_STR);
+		$query->bindValue(':id_category', $product->id_category(), PDO::PARAM_STR);
 		$query->execute();
 		return $this->_db->lastInsertId();	
 	}
 	
-	public function delete(Product $product)
+	public function delete($id)
 	{
-		$this->_db->exec('DELETE FROM product WHERE ID_PRODUCT = '.$product->id());
+
+		$id = (int) $id;
+		$query = $this->_db->prepare("DELETE FROM PRODUCT WHERE ID_PRODUCT=:id");
+		$query->bindValue(':id', $id);
+		$query->execute();
 	}
 
 	public function get($id)
 	{
 		$id = (int) $id;
-		$query = $this->_db->prepare('SELECT * FROM Product WHERE ID_PRODUCT = '.$id);
+		$query = $this->_db->query('SELECT * FROM PRODUCT WHERE ID_PRODUCT = '.$id);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		print_r($donnees);
 		return new Product($donnees);
+
 	}
 
 	public function getList()
 	{
 		$product = [];
 
-		$query = $this->_db->query('SELECT * FROM Product ORDER BY ID_PRODUCT');
+		$query = $this->_db->query('SELECT * FROM PRODUCT ORDER BY ID_PRODUCT');
 		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$product[] = new Product($donnees);
 		}
     	return $product;
 	}
 
-	public function update(Product $product)
+	public function update($id, Product $newProduct)
 	{
-    	$query = $this->_db->prepare('UPDATE `product` SET `ID_PRODUCT`=:ID_PRODUCT,`Name_PRODUCT`=:Name_PRODUCT,`STOCK_Quantity`=:Name_PRODUCT,`Description`=:Description,`Price`=:Price,`Image`=:Image,`Created_By_IDEmp`=:Created_By_IDEmp,`Last_update_By_IDEmp`=:Last_update_By_IDEmp,`ID_Category`=:ID_Category WHERE ID_PRODUCT = :id');
-    	$query->bindValue(':id', $product->id(), PDO::PARAM_INT);
-		$query->bindValue(':Name_PRODUCT', $product->name_product(), PDO::PARAM_STR);
-		$query->bindValue(':STOCK_Quantity', $product->stock_quantity(), PDO::PARAM_STR);
-		$query->bindValue(':Description', $product->description(), PDO::PARAM_STR);
-		$query->bindValue(':Price', $product->price(), PDO::PARAM_STR);
-		$query->bindValue(':Image', $product->image(), PDO::PARAM_STR);
-		$query->bindValue(':Created_By_IDEmp', $product->created_by_idEmp(), PDO::PARAM_STR);
-		$query->bindValue(':Last_update_By_IDEmp', $product->last_update_by_idEmp(), PDO::PARAM_STR);
-		$query->bindValue(':ID_Category', $product->id_category(), PDO::PARAM_STR);
+    	$query = $this->_db->prepare("UPDATE PRODUCT SET NAME=:name, STOCK=:stock, DESCRIPTION=:description, PRICE=:price, IMAGE=:image, CREATED_BY=:created_by, LAST_UPDATED_BY=:last_updated_by, ID_CATEGORY=:id_category WHERE ID_PRODUCT=:id");
+    	$query->bindValue(':id',$id , PDO::PARAM_INT);
+		$query->bindValue(':name', $newProduct->name(), PDO::PARAM_STR);
+		$query->bindValue(':stock', $newProduct->stock(), PDO::PARAM_STR);
+		$query->bindValue(':description', $newProduct->description(), PDO::PARAM_STR);
+		$query->bindValue(':price', $newProduct->price(), PDO::PARAM_STR);
+		$query->bindValue(':image', $newProduct->image(), PDO::PARAM_STR);
+		$query->bindValue(':created_by', $newProduct->created_by(), PDO::PARAM_STR);
+		$query->bindValue(':last_updated_by', $newProduct->last_updated_by(), PDO::PARAM_STR);
+		$query->bindValue(':id_category', $newProduct->id_category(), PDO::PARAM_STR);
 
 		$query->execute();
 	}
