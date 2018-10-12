@@ -2411,3 +2411,60 @@ input.num-product::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* RECHERCHE */
+
+ressearch {
+  transition-property: margin, background-color, border-color;
+  transition-duration: .8s, .2s, .2s;
+  transition-timing-function: ease-in-out, ease, ease;
+}
+
+.empty-item {
+  transition-property: opacity;
+  transition-duration: 0s;
+  transition-delay: 0s;
+  transition-timing-function: ease;
+}
+
+.empty .empty-item {
+  transition-property: opacity;
+  transition-duration: .2s;
+  transition-delay: .3s;
+  transition-timing-function: ease;
+}
+
+.hiding {
+  margin-left:-100%;
+  opacity:0.5;
+}
+
+.hidden {
+  display:none;
+}
+
+.empty-item {
+  visibility:hidden;
+  float:left;
+  clear:right;
+}
+
+.empty .empty-item {
+  opacity:1;
+  visibility:visible;
+}
