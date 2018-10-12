@@ -37,21 +37,29 @@ class ClientManager
 		return new Client($donnees);
 	}
 
-	public function getClient($mail, $password)
-	{
-		$mail = "'".$mail."'";
-		$password = "'".$password."'";
-		$query = $this->_db->query("SELECT * FROM CLIENT WHERE MAIL =".$mail." AND PASSWORD = ".$password);
-		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		return new Client($donnees);
-	}
-
-	public function getClientByMail($mail)
+	public function getByMail($mail)
 	{
 		$mail = "'".$mail."'";
 		$query = $this->_db->query("SELECT * FROM CLIENT WHERE MAIL =".$mail);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		return new Client($donnees);
+		return new Employee($donnees);
+	}
+
+	public function getByMailAndPassword($mail, $passwd)
+	{
+		$mail = "'".$mail."'";
+		$passwd = "'".$passwd."'";
+		$query = $this->_db->query("SELECT * FROM CLIENT WHERE MAIL =".$mail." AND PASSWORD =".$passwd);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		return new Employee($donnees);
+	}
+
+	public function getByLastName($lastName)
+	{
+		$lastName = "'".$lastName."'";
+		$query = $this->_db->query("SELECT * FROM CLIENT WHERE LAST_NAME =".$lastName);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		return new Employee($donnees);
 	}
 
 	public function getList()
@@ -66,7 +74,7 @@ class ClientManager
 
 	public function update($id, Client $client)
 	{
-    $query = $this->_db->prepare('UPDATE CLIENT SET MAIL = :mail, PASSWORD = :Password, FIRST_NAME = :first_name, LAST_NAME = :last_name, ADDRESS = :address, PHONE_NUMBER = :phone_number WHERE ID_CLIENT = :id');
+    $query = $this->_db->prepare('UPDATE CLIENT SET MAIL = :mail, PASSWORD = :password, FIRST_NAME = :first_name, LAST_NAME = :last_name, ADDRESS = :address, PHONE_NUMBER = :phone_number WHERE ID_CLIENT = :id');
     $query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->bindValue(':mail', $client->mail(), PDO::PARAM_STR);
 		$query->bindValue(':password', $client->password(), PDO::PARAM_STR);

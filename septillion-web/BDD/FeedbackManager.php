@@ -10,12 +10,11 @@ class FeedbackManager
 
 	public function add(Feedback $feedback)
 	{
-		$query = $this->_db->prepare("INSERT INTO FEEDBACK(ID_PRODUCT, ID_CLIENT, GRADE, COMMENT, SUBMIT_DATE) VALUES(:id_product, :id_client, :grade, :comment, :submit_date)");
-		$query->bindValue(':id_product', $feedback->idProduct(), PDO::PARAM_INT);
-		$query->bindValue(':id_client', $feedback->idClient(), PDO::PARAM_INT);
+		$query = $this->_db->prepare("INSERT INTO FEEDBACK(ID_PRODUCT, ID_CLIENT, GRADE, COMMENT) VALUES(:id_product, :id_client, :grade, :comment)");
+		$query->bindValue(':id_product', $feedback->id_product(), PDO::PARAM_INT);
+		$query->bindValue(':id_client', $feedback->id_client(), PDO::PARAM_INT);
 		$query->bindValue(':grade', $feedback->grade(), PDO::PARAM_INT);
 		$query->bindValue(':comment', $feedback->comment(), PDO::PARAM_STR);
-		$query->bindValue(':submit_date', $feedback->submit_date(), PDO::PARAM_STR);
 		$query->execute();
 	}
 
@@ -42,8 +41,8 @@ class FeedbackManager
 	{
 		$id = (int) $id;
 		$feedback = [];
-		$query = $this->_db->query("SELECT * FROM FEEDBACK WHERE ID_PRODUCT =:".$id." ORDER BY ID_PRODUCT");
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+		$query = $this->_db->query("SELECT * FROM FEEDBACK WHERE ID_PRODUCT = ".$id);
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$feedback[] = new Feedback($donnees);
 		}
 		return $feedback;
@@ -53,8 +52,8 @@ class FeedbackManager
 	{
 		$id = (int) $id;
 		$feedback = [];
-		$query = $this->_db->query("SELECT * FROM FEEDBACK WHERE ID_CLIENT =:".$id." ORDER BY ID_CLIENT");
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+		$query = $this->_db->query("SELECT * FROM FEEDBACK WHERE ID_CLIENT = ".$id);
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$feedback[] = new Feedback($donnees);
 		}
 		return $feedback;
@@ -64,7 +63,7 @@ class FeedbackManager
 	{
 		$feedback = [];
 		$query = $this->_db->query("SELECT * FROM FEEDBACK");
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$feedback[] = new Feedback($donnees);
 		}
 		return $feedback;
@@ -72,18 +71,17 @@ class FeedbackManager
 
 	public function update($id_product, $id_client, Feedback $feedback)
 	{
-		$query = $this->_db->prepare("UPDATE FEEDBACK SET GRADE =:grade, COMMENT =:comment, SUBMIT_DATE =:submit_date WHERE ID_PRODUCT =:id_product AND ID_CLIENT =:id_client");
+		$query = $this->_db->prepare("UPDATE FEEDBACK SET GRADE =:grade, COMMENT =:comment WHERE ID_PRODUCT =:id_product AND ID_CLIENT =:id_client");
 		$query->bindValue(':id_product', $id_product, PDO::PARAM_INT);
 		$query->bindValue(':id_client', $id_client, PDO::PARAM_INT);
 		$query->bindValue(':grade', $feedback->grade(), PDO::PARAM_INT);
 		$query->bindValue(':comment', $feedback->comment(), PDO::PARAM_STR);
-		$query->bindValue(':submit_date', $feedback->submit_date(), PDO::PARAM_STR);
 		$query->execute();
 	}
 
 	public function setDb($db)
 	{
-		$this->$_db $db;
+		$this->_db = $db;
 	}
 }
 ?>

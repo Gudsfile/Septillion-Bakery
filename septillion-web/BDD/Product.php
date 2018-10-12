@@ -41,7 +41,7 @@ class Product
 
 	public function created_by() { return $this->_created_by; }
 
-	public function last_updated_by() { return $this->_last_update_by; }
+	public function last_updated_by() { return $this->_last_updated_by; }
 
 	public function id_category() { return $this->_id_category; }
 
@@ -57,7 +57,7 @@ class Product
 	public function setName($name)
 	{
 		if (is_string($name)) {
-			$this->_name_product = $name;
+			$this->_name = $name;
 		}
 	}
 
@@ -77,7 +77,7 @@ class Product
 
 	public function setPrice($price)
 	{
-		if (is_numeric($price)) {
+		if (is_string($price)) {
 			$this->_price = $price;
 		}
 	}
@@ -95,11 +95,11 @@ class Product
 			$this->_created_by = $created_by;
 		}
 	}
-	
-	public function setLast_updated_by($last_update_by_idEmp)
+
+	public function setLast_updated_by($last_updated_by)
 	{
-		if (is_numeric($last_update_by)) {
-			$this->_last_update_by = $last_update_by;
+		if (is_numeric($last_updated_by)) {
+			$this->_last_updated_by = $last_updated_by;
 		}
 	}
 

@@ -8,11 +8,11 @@ class Category
 	private $_icon;
 	private $_created_by;
 
-	  public function __construct($value = array())
-    {
-        if(!empty($value))
-            $this->hydrate($value);
-    }
+	 public function __construct($value = array())
+  {
+    if(!empty($value))
+      $this->hydrate($value);
+  }
 
 	public function hydrate(array $donnees)
 	{
@@ -34,7 +34,7 @@ class Category
 
 	public function created_by() { return $this->_created_by; }
 
-	public function setId($id)
+	public function setId_category($id)
 	{
 		$id = (int) $id;
 		if ($id > 0) {

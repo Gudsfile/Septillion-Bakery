@@ -4,7 +4,6 @@ class Order
 	private $_id_order;
 	private $_order_date;
 	private $_description;
-	private $_price;
 	private $_validated;
 	private $_ready;
 	private $_collected;
@@ -33,8 +32,6 @@ class Order
 
 	public function description() { return $this->_description; }
 
-	public function price() { return $this->_price; }
-
 	public function validated() { return $this->_validated; }
 
 	public function ready() { return $this->_ready; }
@@ -55,23 +52,15 @@ class Order
 
 	public function setOrder_date($order_date)
 	{
-		$time = strtotime($order_date);
-		$newformat = date('Y-m-d',$time);
-		$this->_order_date = $time;
+		$phpdate = strtotime( $order_date);
+		$mysqldate = date( 'Y-m-d H:i:s', $phpdate );
+		$this->_order_date = $mysqldate;
 	}
 
 	public function setDescription($description)
 	{
 		if (is_string($description)) {
 			$this->_description = $description;
-		}
-	}
-
-	public function setPrice($price)
-	{
-		$price = (int) $price;
-		if ($price > 0) {
-			$this->_price = $price;
 		}
 	}
 

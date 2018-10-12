@@ -10,8 +10,8 @@ class EmployeeManager
 
 	public function add(Employee $employee)
 	{
-		$query = $this->_db->prepare("INSERT INTO EMPLOYEE(MAIL, PASSWORD, FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NUMBER, ROLE) VALUES(:mail, :password, :first_name, :last_name, :address, :phone_number, :role)");
-		$query->bindValue(':mail', $employee->mail());
+		$query = $this->_db->prepare("INSERT INTO EMPLOYEE(MAIL, PASSWORD, FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NUMBER, ROLE) VALUES (:mail,:password,:first_name,:last_name,:address,:phone_number,:role)");
+		$query->bindValue(':mail', $employee->mail(), PDO::PARAM_STR);
 		$query->bindValue(':password', $employee->password(), PDO::PARAM_STR);
 		$query->bindValue(':first_name', $employee->first_name(), PDO::PARAM_STR);
 		$query->bindValue(':last_name', $employee->last_name(), PDO::PARAM_STR);
@@ -38,6 +38,31 @@ class EmployeeManager
 		return new Employee($donnees);
 	}
 
+	public function getByMail($mail)
+	{
+		$mail = "'".$mail."'";
+		$query = $this->_db->query("SELECT * FROM EMPLOYEE WHERE MAIL =".$mail);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		return new Employee($donnees);
+	}
+
+	public function getByMailAndPassword($mail, $passwd)
+	{
+		$mail = "'".$mail."'";
+		$passwd = "'".$passwd."'";
+		$query = $this->_db->query("SELECT * FROM EMPLOYEE WHERE MAIL =".$mail." AND PASSWORD =".$passwd);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		return new Employee($donnees);
+	}
+
+	public function getByLastName($lastName)
+	{
+		$lastName = "'".$lastName."'";
+		$query = $this->_db->query("SELECT * FROM EMPLOYEE WHERE LAST_NAME =".$lastName);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		return new Employee($donnees);
+	}
+
 	public function getList()
 	{
 		$employees = [];
@@ -50,7 +75,7 @@ class EmployeeManager
 
 	public function update($id, Employee $employee)
 	{
-		$query = $this->_db->prepare('UPDATE EMPLOYEE SET MAIL = :mail, PASSWORD = :Password, FIRST_NAME = :first_name, LAST_NAME = :last_name, ADDRESS = :address, PHONE_NUMBER = :phone_number, ROLE = :role WHERE ID_EMPLOYEE = :id');
+		$query = $this->_db->prepare("UPDATE EMPLOYEE SET MAIL = :mail, PASSWORD = :password, FIRST_NAME = :first_name, LAST_NAME = :last_name, ADDRESS = :address, PHONE_NUMBER = :phone_number, ROLE = :role WHERE ID_EMPLOYEE = :id");
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->bindValue(':mail', $employee->mail(), PDO::PARAM_STR);
 		$query->bindValue(':password', $employee->password(), PDO::PARAM_STR);

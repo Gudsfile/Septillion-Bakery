@@ -3,7 +3,13 @@ class IsOrdered
 {
 	private $_id_order;
 	private $_id_product;
-	private $_quantity
+	private $_quantity;
+
+	public function __construct($value = array())
+  {
+    if(!empty($value))
+      $this->hydrate($value);
+  }
 
 	public function hydrate(array $donnees)
 	{
@@ -21,12 +27,12 @@ class IsOrdered
 
 	public function quantity() { return $this->_quantity; }
 
-	public function setId_order(Order $order) {
-		$this->_id_order = $order->id();
+	public function setId_order($id) {
+		$this->_id_order = $id;
 	}
 
-	public function setId_product(Product $product) {
-		$this->_id_product = $product->id();
+	public function setId_product($id) {
+		$this->_id_product = $id;
 	}
 
 	public function setQuantity($quantity)

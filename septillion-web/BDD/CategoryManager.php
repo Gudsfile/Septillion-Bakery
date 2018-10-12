@@ -36,6 +36,17 @@ class CategoryManager
 		return new Category($donnees);
 	}
 
+	public function getCreatedBy($id)
+	{
+		$id = (int) $id;
+		$category = [];
+		$query = $this->_db->query("SELECT * FROM CATEGORY WHERE CREATED_BY =".$id);
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$category[] = new Category($donnees);
+		}
+    return $category;
+	}
+
 	public function getList()
 	{
 		$category = [];
@@ -43,7 +54,7 @@ class CategoryManager
 		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$category[] = new Category($donnees);
 		}
-    	return $category;
+    return $category;
 	}
 
 	public function update($id, Category $newCategory)
