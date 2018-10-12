@@ -8,10 +8,22 @@
 	<?php require('connexion.php')?>
 	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js"></script>
 	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css" rel="stylesheet">
-<!--===============================================================================================-->
-	<?php $conn = Connect::connexion(); ?>
 </head>
 <body class="animsition">
+
+	<!-- BDD -->
+	<?php
+		// récupération des infos get
+		if(isset($_SESSION['mail'])): $sessionMail = $_SESSION['mail']; else: $sessionMail = null; endif;
+		if(isset($_SESSION['password'])): $sessionPass = $_SESSION['pass']; else: $sessionPass = null; endif;
+
+		// bdd
+		$conn = Connect::connexion();
+
+		// récupération de la liste des employées
+		$employeeManager = new EmployeeManager($conn);
+		$employeeList = $employeeManager->getList();
+	?>
 
 	<!-- Header -->
 	<header class="header1">
@@ -31,8 +43,7 @@
 			<div class="row">
 				<div class="col-md-6 p-b-30">
 					<div class="p-r-20 p-r-0-lg">
-						<!--<div class="contact-map size21" id="google_map" data-map-x="40.614439" data-map-y="-73.926781" data-pin="images/icons/icon-position-map.png" data-scrollwhell="0" data-draggable="1"></div>
-						--><div class="contact-map size21" id='map'></div>
+						<div class="contact-map size21" id='map'></div>
 					</div>
 				</div>
 
@@ -45,15 +56,9 @@
 						<div class="rs2-select2 bo4 of-hidden size15 m-b-20">
 							<select class="selection-2" name="Destinataire">
 								<option value="" selected disabled hidden>Destinataire</option>
-								<?php
-								$employeeManager = new EmployeeManager($conn);
-								$employeeList = $employeeManager->getList();
-								foreach ($employeeList as $e) {
-								?>
-									<option value=" <?php echo $e->id(); ?>"> <?php echo $e->firstName(); ?></option>
-								<?php
-								}
-								?>
+								<?php foreach ($employeeList as $e) { ?>
+									<option value=" <?php echo $e->id(); ?>"> <?php echo $e->first_name(); ?></option>
+								<?php } ?>
 							</select>
 						</div>
 
@@ -63,8 +68,8 @@
 
 						<div class="bo4 of-hidden size15 m-b-20">
 							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Mail"
-								<?php if (isset($_SESSION['mail']) && isset($_SESSION['password'])):?>
-								value="<?php echo $_SESSION['mail'] ?>" disabled
+								<?php if (isset($sessionMail) && isset($sessionMail)):?>
+									value="<?php echo $sessionMail ?>" disabled
 								<?php endif?>
 							>
 						</div>

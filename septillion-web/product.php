@@ -1,9 +1,3 @@
-<?php function console_log( $data ){
-  echo '<script>';
-  echo 'console.log('. json_encode( $data ) .')';
-  echo '</script>';
-} ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +28,7 @@
 		if ($getCategory != null) {
 			$tmp = array();
 			foreach ($productList as $e) {
-				if ($e->id_category() == $getCategory): $tmp[] = $e; endif;
+				if ($e->id() == $getCategory): $tmp[] = $e; endif;
 			}
 			$productList = $tmp;
 		}
@@ -74,7 +68,7 @@
 
 						<ul class="p-b-54">
 							<li class="p-t-4">
-								<a href="product.php" class="s-text13 <?php if ($getCategory == null): ?>active1<?php ; endif; ?>">
+								<a href="product.php<?php if ($getOrder != null): echo '?order='.$getOrder; endif;?>" class="s-text13 <?php if ($getCategory == null): ?>active1<?php ; endif; ?>">
 									Tous les produits
 								</a>
 							</li>
@@ -82,7 +76,7 @@
 								<?php foreach ($categoryList as $e) { ?>
 									<li class="p-t-4">
 									<a href="product.php?category=<?php echo $e->id(); ?>" class="s-text13 <?php if ($getCategory==$e->id()):?>active1<?php ; endif; ?>">
-										<?php echo $e->nameCategory();?>
+										<?php echo $e->name();?>
 									</a>
 								</li>
 									<?php
@@ -126,7 +120,7 @@
 						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 							<!-- Block2 -->
 							<div class="block2">
-								<div class="block2-img wrap-pic-w of-hidden pos-relative <?php if ($e->stock_quantity() < 1): ?> block2-labelsale <?php ; elseif ($e->stock_quantity() < 6): ?> block2-labellast <?php ; else: ?> block2-labelstock <?php ; endif ;?> ">
+								<div class="block2-img wrap-pic-w of-hidden pos-relative <?php if ($e->stock() < 1): ?> block2-labelsale <?php ; elseif ($e->stock() < 6): ?> block2-labellast <?php ; else: ?> block2-labelstock <?php ; endif ;?> ">
 									<img src="images/produits/<?php echo $e->image(); ?>" alt="IMG-PRODUCT">
 									<div class="block2-overlay trans-0-4">
 										<div class="block2-btn-addcart w-size1 trans-0-4">
@@ -138,8 +132,8 @@
 									</div>
 								</div>
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.php/?product=<?php echo $e->name_product();?>" class="block2-name dis-block s-text3 p-b-5">
-										<?php echo $e->name_product(); ?>
+									<a href="product-detail.php/?product=<?php echo $e->name();?>" class="block2-name dis-block s-text3 p-b-5">
+										<?php echo $e->name(); ?>
 									</a>
 									<span class="block2-price m-text6 p-r-5">
 										<?php echo $e->price(); ?>
