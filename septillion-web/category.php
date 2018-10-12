@@ -1,9 +1,13 @@
+<?php function console_log( $data ){ echo '<script>'; echo 'console.log('. json_encode( $data ) .')'; echo '</script>'; }?> 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Administration / Categorie</title>
 	<?php include('header_link_admin.php'); ?>
-	<?php require('category_script.php') ?>
+	<?php require('category_script.php'); ?>
+	
+
 </head>
 <body class="animsition">
 
@@ -44,11 +48,13 @@
 								<tr>
 									<?php foreach ($categoryList as $row) { ?>
 
-									<td><?php var_dump($row->id()); ?></td>
-									<td><?php var_dump($row->nameCategory()); ?></td>
-									<td><?php var_dump($row->description()); ?></td>
-									<td><?php var_dump($row->iconCategory()); ?></td>
-									<td><?php var_dump($row->createdByIdEmp()); ?></td>
+									<td><?php echo strval($row->id()); ?></td>
+									<td><?php echo strval($row->name()); ?></td>
+									<td><?php echo strval($row->description()); ?></td>
+									<td><?php echo strval($row->icon()); ?></td>
+									<td><?php echo strval($row->created_by()); ?></td>
+
+									<?php console_log($row->name()); ?>
 
 								</tr>
 							</thead>

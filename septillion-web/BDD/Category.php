@@ -1,6 +1,7 @@
 <?php
 class Category
 {
+
 	private $_id_category;
 	private $_name;
 	private $_description;
