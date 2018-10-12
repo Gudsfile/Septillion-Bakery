@@ -36,50 +36,50 @@ class IsOrderedManager
 		return new IsOrdered($donnees);
 	}
 
-	public function getOrder($id)
+	public function getByOrder($id)
 	{
 		$id = (int) $id;
-		$IsOrdered = [];
-		$query = $this->_db->query("SELECT * FROM IS_ORDERED WHERE ID_ORDER =:".$id." ORDER BY ID_ORDER");
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
-			$IsOrdered[] = new IsOrdered($donnees);
+		$isOrder = [];
+		$query = $this->_db->query("SELECT * FROM IS_ORDERED WHERE ID_ORDER = ".$id);
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$isOrder[] = new IsOrdered($donnees);
 		}
-		return $orderClient;
+    return $isOrder;
 	}
 
-	public function getProduct($id)
+	public function getByProduct($id)
 	{
 		$id = (int) $id;
-		$feedback = [];
-		$query = $this->_db->query("SELECT * FROM IS_ORDERED WHERE ID_PRODUCT =:".$id." ORDER BY ID_PRODUCT");
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
-			$feedback[] = new IsOrdered($donnees);
+		$isOrder = [];
+		$query = $this->_db->query("SELECT * FROM IS_ORDERED WHERE ID_PRODUCT = ".$id);
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$isOrder[] = new IsOrdered($donnees);
 		}
-		return $feedback;
+    return $isOrder;
 	}
 
 	public function getList()
 	{
 		$IsOrdered = [];
 		$query = $this->_db->query("SELECT * FROM IS_ORDERED");
-		while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$IsOrdered[] = new IsOrdered($donnees);
 		}
-		return $orderClient;
+		return $IsOrdered;
 	}
 
-	public function update($id_order, $id_product, IsOrdered $isOrdered)
+	public function update($id_order, $id_product, $quantity)
 	{
 		$query = $this->_db->prepare("UPDATE IS_ORDERED SET QUANTITY =:quantity WHERE ID_ORDER =:id_order AND ID_PRODUCT =:id_product");
 		$query->bindValue(':id_order', $id_order, PDO::PARAM_INT);
 		$query->bindValue(':id_product', $id_product, PDO::PARAM_INT);
-		$query->bindValue(':quantity', $isOrdered->quantity(), PDO::PARAM_INT);
+		$query->bindValue(':quantity', $quantity, PDO::PARAM_INT);
 		$query->execute();
 	}
 
 	public function setDb($db)
 	{
-		$this->$_db $db;
+		$this->_db = $db;
 	}
 }
 ?>
