@@ -27,22 +27,17 @@
 		// récupération de la liste des produits
 		$productManager = new ProductManager($conn);
 		// ordre de la liste des produits
-		if ($getOrder != null) {
-			$productList = $productManager->getList();
-			//$productList = $productManager->'getListOrderBy'.ucfirst($getOrder).'()';
+		if ($getOrder != null && $getCategory != null) {
+			$method = 'getCategoryOrderBy'.ucfirst($getOrder);
+			$productList = $productManager->$method($getCategory);
+		} else if ($getCategory != null) {
+			$productList = $productManager->getCategory($getCategory);
+		} else if ($getOrder != null) {
+			$method = 'getListBy'.ucfirst($getOrder);
+			$productList = $productManager->$method();
 		} else {
 			$productList = $productManager->getList();
 		}
-
-		// réduction de la liste des produits
-		if ($getCategory != null) {
-			$tmp = array();
-			foreach ($productList as $e) {
-				if ($e->id() == $getCategory): $tmp[] = $e; endif;
-			}
-			$productList = $tmp;
-		}
-
 	?>
 
 	<!-- Header -->
@@ -107,7 +102,6 @@
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
 								<select class="selection-2" name="sorting" onchange="location = this.value;">
 									<option value="product.php?<?php if ($getCategory != null): echo 'category='.$getCategory; endif;?>">Tri par défaut</option>
-									<option value="product.php?<?php if ($getCategory != null): echo 'category='.$getCategory.'&'; endif;?>order=category" <?php if ($getOrder == 'category'):?>selected="selected"<?php ; endif;?>>Tri par catégorie</option>
 									<option value="product.php?<?php if ($getCategory != null): echo 'category='.$getCategory.'&'; endif;?>order=name" <?php if ($getOrder == 'name'):?>selected="selected"<?php ; endif;?>>Tri par nom</option>
 									<option value="product.php?<?php if ($getCategory != null): echo 'category='.$getCategory.'&'; endif;?>order=price" <?php if ($getOrder == 'price'):?>selected="selected"<?php ; endif;?>>Tri par prix</option>
 								</select>
