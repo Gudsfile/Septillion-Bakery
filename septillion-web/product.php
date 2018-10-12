@@ -20,9 +20,19 @@
 		// bdd
 		$conn = Connect::connexion();
 
-		// récupération de la liste des porduits
+		// récupération de la liste des catégories
+		$categoryManager = new CategoryManager($conn);
+		$categoryList = $categoryManager->getList();
+
+		// récupération de la liste des produits
 		$productManager = new ProductManager($conn);
-		$productList = $productManager->getList();
+		// ordre de la liste des produits
+		if ($getOrder != null) {
+			$productList = $productManager->getList();
+			//$productList = $productManager->'getListOrderBy'.ucfirst($getOrder).'()';
+		} else {
+			$productList = $productManager->getList();
+		}
 
 		// réduction de la liste des produits
 		if ($getCategory != null) {
@@ -32,10 +42,6 @@
 			}
 			$productList = $tmp;
 		}
-
-		// récupération de la liste des catégories
-		$categoryManager = new CategoryManager($conn);
-		$categoryList = $categoryManager->getList();
 
 	?>
 
