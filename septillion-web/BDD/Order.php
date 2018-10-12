@@ -1,8 +1,8 @@
 <?php
-class OrderClient 
+class Order
 {
 	private $_id_order;
-	private $_date;
+	private $_order_date;
 	private $_description;
 	private $_price;
 	private $_validated;
@@ -11,13 +11,13 @@ class OrderClient
 	private $_id_client;
 	private $_id_employee;
 
-	  public function __construct($value = array())
-    {
-        if(!empty($value))
-            $this->hydrate($value);
-    }
-    
-	public function hydrate(array $donnees) 
+	public function __construct($value = array())
+  {
+    if(!empty($value))
+      $this->hydrate($value);
+  }
+
+	public function hydrate(array $donnees)
 	{
 		foreach ($donnees as $key => $value) {
 			$method = 'set'.ucfirst($key);
@@ -29,7 +29,7 @@ class OrderClient
 
 	public function id() { return $this->_id_order; }
 
-	public function date() { return $this->_date; }
+	public function order_date() { return $this->_order_date; }
 
 	public function description() { return $this->_description; }
 
@@ -41,11 +41,11 @@ class OrderClient
 
 	public function collected() { return $this->_collected; }
 
-	public function client() { return $this->_id_client; }	
+	public function client() { return $this->_id_client; }
 
 	public function employee() { return $this->_id_employee; }
 
-	public function setId_order($id) 
+	public function setId_order($id)
 	{
 		$id = (int) $id;
 		if ($id > 0) {
@@ -53,21 +53,21 @@ class OrderClient
 		}
 	}
 
-	public function setDate($date) 
+	public function setOrder_date($order_date)
 	{
-		$time = strtotime($date);
+		$time = strtotime($order_date);
 		$newformat = date('Y-m-d',$time);
-		$this->_date = $date;
+		$this->_order_date = $time;
 	}
 
-	public function setDescription($description) 
+	public function setDescription($description)
 	{
 		if (is_string($description)) {
 			$this->_description = $description;
 		}
 	}
 
-	public function setPrice($price) 
+	public function setPrice($price)
 	{
 		$price = (int) $price;
 		if ($price > 0) {
@@ -75,34 +75,36 @@ class OrderClient
 		}
 	}
 
-	public function setValidated($isValid) 
+	public function setValidated($isValid)
 	{
-		$this->_validated = $isValid;
+		if ($isValid == 0 || $isValid == 1)
+			$this->_validated = $isValid;
 	}
 
-	public function setReady($isReady) 
+	public function setReady($isReady)
 	{
-		$this->_ready = $isReady;
+		if ($isReady == 0 || $isReady == 1)
+			$this->_ready = $isReady;
 	}
 
-	public function setCollected($isCollected) 
+	public function setCollected($isCollected)
 	{
-		$this->_collected = $isCollected;
+		if ($isCollected == 0 || $isCollected == 1)
+			$this->_collected = $isCollected;
 	}
 
-	public function setId_Client($idClient) 
+	public function setId_client($idClient)
 	{
 		if (is_numeric($idClient)) {
 			$this->_id_client = $idClient;
 		}
 	}
 
-	public function setId_Employee($idEmployee) 
+	public function setId_employee($idEmployee)
 	{
 		if (is_numeric($idEmployee)) {
 			$this->_id_employee = $idEmployee;
 		}
 	}
-
 }
 ?>

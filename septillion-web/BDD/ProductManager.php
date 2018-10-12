@@ -1,5 +1,5 @@
 <?php
-class ProductManager 
+class ProductManager
 {
 	private $_db;
 
@@ -20,12 +20,11 @@ class ProductManager
 		$query->bindValue(':last_updated_by', $product->last_updated_by(), PDO::PARAM_STR);
 		$query->bindValue(':id_category', $product->id_category(), PDO::PARAM_STR);
 		$query->execute();
-		return $this->_db->lastInsertId();	
+		return $this->_db->lastInsertId();
 	}
-	
+
 	public function delete($id)
 	{
-
 		$id = (int) $id;
 		$query = $this->_db->prepare("DELETE FROM PRODUCT WHERE ID_PRODUCT=:id");
 		$query->bindValue(':id', $id);
@@ -35,28 +34,56 @@ class ProductManager
 	public function get($id)
 	{
 		$id = (int) $id;
-		$query = $this->_db->query('SELECT * FROM PRODUCT WHERE ID_PRODUCT = '.$id);
+		$query = $this->_db->query("SELECT * FROM PRODUCT WHERE ID_PRODUCT = ".$id);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		print_r($donnees);
 		return new Product($donnees);
+	}
 
+	public function getCreatedBy($id)
+	{
+		$id = (int) $id;
+		$query = $this->_db->query("SELECT * FROM PRODUCT WHERE CREATED_BY = ".$id." ORDER BY CREATED_BY");
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$product[] = new Product($donnees);
+		}
+		return $product;
+	}
+
+	public function getLastUpdatedBy($id)
+	{
+		$id = (int) $id;
+		$query = $this->_db->query("SELECT * FROM PRODUCT WHERE LAST_UPDATED_BY = ".$id." ORDER BY LAST_UPDATED_BY");
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$product[] = new Product($donnees);
+		}
+		return $product;
+	}
+
+	public function getCategory($id)
+	{
+		$id = (int) $id;
+		$query = $this->_db->query("SELECT * FROM PRODUCT WHERE ID_CATEGORY = ".$id." ORDER BY ID_CATEGORY");
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$product[] = new Product($donnees);
+		}
+    return $product;
 	}
 
 	public function getList()
 	{
 		$product = [];
-
-		$query = $this->_db->query('SELECT * FROM PRODUCT ORDER BY ID_PRODUCT');
+		$query = $this->_db->query("SELECT * FROM PRODUCT ORDER BY ID_PRODUCT");
 		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$product[] = new Product($donnees);
 		}
-    	return $product;
+    return $product;
 	}
 
 	public function update($id, Product $newProduct)
 	{
-    	$query = $this->_db->prepare("UPDATE PRODUCT SET NAME=:name, STOCK=:stock, DESCRIPTION=:description, PRICE=:price, IMAGE=:image, CREATED_BY=:created_by, LAST_UPDATED_BY=:last_updated_by, ID_CATEGORY=:id_category WHERE ID_PRODUCT=:id");
-    	$query->bindValue(':id',$id , PDO::PARAM_INT);
+    $query = $this->_db->prepare("UPDATE PRODUCT SET NAME=:name, STOCK=:stock, DESCRIPTION=:description, PRICE=:price, IMAGE=:image, CREATED_BY=:created_by, LAST_UPDATED_BY=:last_updated_by, ID_CATEGORY=:id_category WHERE ID_PRODUCT=:id");
+    $query->bindValue(':id',$id , PDO::PARAM_INT);
 		$query->bindValue(':name', $newProduct->name(), PDO::PARAM_STR);
 		$query->bindValue(':stock', $newProduct->stock(), PDO::PARAM_STR);
 		$query->bindValue(':description', $newProduct->description(), PDO::PARAM_STR);
@@ -65,7 +92,6 @@ class ProductManager
 		$query->bindValue(':created_by', $newProduct->created_by(), PDO::PARAM_STR);
 		$query->bindValue(':last_updated_by', $newProduct->last_updated_by(), PDO::PARAM_STR);
 		$query->bindValue(':id_category', $newProduct->id_category(), PDO::PARAM_STR);
-
 		$query->execute();
 	}
 
