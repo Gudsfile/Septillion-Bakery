@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 	<?php include('header_link.php'); ?>
+	<?php 
+		// verification s'il y a des erreur !
+		$erreur=100;
+		if (isset($_GET['erreur']))
+			$erreur=$_GET['erreur'];
+	?>
 </head>
 <body class="animsition">
 
@@ -45,7 +51,7 @@
 						</div>
 
 						<textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea-->
-						<?php if($_GET['erreur'] == '0'): ?><p class="m-b-20" style="color : #F08080">Le mail ou le mot de passe est incorrect, le compte n'a pas été trouvé.</p><?php ; endif?>
+						<?php if($erreur == '0'): ?><p class="m-b-20" style="color : #F08080">Le mail ou le mot de passe est incorrect, le compte n'a pas été trouvé.</p><?php ; endif?>
 						<div class="w-size25">
 							<!-- Button -->
 							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" name="connexion">
@@ -60,22 +66,10 @@
 
 
 				<div class="col-md-6 p-b-30">
-					<form class="leave-comment" action="login_script.php" method="post">
+					<form class="leave-comment" action="signUp_script.php" method="post">
 						<h4 class="m-text26 p-b-36 p-t-15">
 							Créer un compte
 						</h4>
-
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="first_name" placeholder="Prénom">
-						</div>
-
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="last_name" placeholder="Nom">
-						</div>
-
-						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone_number" placeholder="Numéro de téléphone">
-						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
 							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Email">
@@ -92,15 +86,31 @@
 						<div class="bo4 of-hidden size15 m-b-20">
 							<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password_conf" placeholder="Confirmer votre mot de passe">
 						</div>
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="first_name" placeholder="Prénom">
+						</div>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="last_name" placeholder="Nom">
+						</div>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone_number" placeholder="Numéro de téléphone">
+						</div>
+
+						<div class="bo4 of-hidden size15 m-b-20">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" placeholder="Address">
+						</div>
+
 						<!--textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea-->
-						<?php if($_GET['erreur'] == '1'): ?><p class="m-b-20" style="color : #F08080">Un champ est vide.</p><?php ; endif?>
-						<?php if($_GET['erreur'] == '2'): ?><p class="m-b-20" style="color : #F08080">Le mail doit être renseigné en lettres minuscules sans accents, sans caractères spéciaux.</p><?php ; endif?>
-						<?php if($_GET['erreur'] == '3'): ?><p class="m-b-20" style="color : #F08080">Ce mail est déjà utilisé.</p><?php ; endif?>
-						<?php if($_GET['erreur'] == '4'): ?><p class="m-b-20" style="color : #F08080">Les mails sont différents.</p><?php ; endif?>
-						<?php if($_GET['erreur'] == '5'): ?><p class="m-b-20" style="color : #F08080">Les mots de passe sont différents.</p><?php ; endif?>
+						<?php if($erreur == '1'): ?><p class="m-b-20" style="color : #F08080">Un champ est vide.</p><?php ; endif?>
+						<?php if($erreur == '2'): ?><p class="m-b-20" style="color : #F08080">Le mail doit être renseigné en lettres minuscules sans accents, sans caractères spéciaux.</p><?php ; endif?>
+						<?php if($erreur == '3'): ?><p class="m-b-20" style="color : #F08080">Ce mail est déjà utilisé.</p><?php ; endif?>
+						<?php if($erreur == '4'): ?><p class="m-b-20" style="color : #F08080">Les mails sont différents.</p><?php ; endif?>
+						<?php if($erreur == '5'): ?><p class="m-b-20" style="color : #F08080">Les mots de passe sont différents.</p><?php ; endif?>
 						<div class="w-size25">
 							<!-- Button -->
-							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" name="inscription">
+							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" >
 								Créer un compte
 							</button>
 						</div>
