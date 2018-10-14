@@ -1,24 +1,19 @@
 <?php
 require('BDD/Client.php');
 require('BDD/ClientManager.php');
-$conn = new PDO("mysql:host=localhost;dbname=septillion", "root", "root");
-$productManager = new ClientManager($conn);
-$productManager->setDb($conn);
-$error = 100;
-if (isset($_GET["erreur"]))
-    $error = $_GET["erreur"];
+require('connexion.php');
+$conn = Connect::connexion();
+$clientManager = new ClientManager($conn);
 
-
-//Connexion:
 
 if (empty($_POST['mail']) || empty($_POST['password'])) {
-    echo "Un des champs est vide.";
+    header("Location: login.php?erreur=0");
 } else {
 
     // les champs sont bien posté et pas vide, on sécurise les données entrées par le membre:
     $Mail = htmlentities($_POST['mail'], ENT_QUOTES, "ISO-8859-1"); // le htmlentities() passera les guillemets en entités HTML, ce qui empêchera les injections SQL
     $MotDePasse = htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1");
-    $verif = $productManager->getClient($Mail, $MotDePasse);
+    $verif = $clientManager->getByMailAndPassword($Mail, $MotDePasse);
     if ($verif == 0)
         header("Location: login.php?erreur=0");
     else {
