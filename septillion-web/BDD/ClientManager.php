@@ -42,7 +42,7 @@ class ClientManager
 		$mail = "'".$mail."'";
 		$query = $this->_db->query("SELECT * FROM CLIENT WHERE MAIL =".$mail);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		return new Employee($donnees);
+		return new Client($donnees);
 	}
 
 	public function getByMailAndPassword($mail, $passwd)
@@ -51,7 +51,11 @@ class ClientManager
 		$passwd = "'".$passwd."'";
 		$query = $this->_db->query("SELECT * FROM CLIENT WHERE MAIL =".$mail." AND PASSWORD =".$passwd);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		return new Employee($donnees);
+		if ($donnees == null) {
+			return 0;
+		}
+		else
+		return new Client($donnees);
 	}
 
 	public function getByLastName($lastName)
@@ -59,7 +63,7 @@ class ClientManager
 		$lastName = "'".$lastName."'";
 		$query = $this->_db->query("SELECT * FROM CLIENT WHERE LAST_NAME =".$lastName);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		return new Employee($donnees);
+		return new Client($donnees);
 	}
 
 	public function getList()
