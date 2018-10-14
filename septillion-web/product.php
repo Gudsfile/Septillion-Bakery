@@ -17,8 +17,7 @@
 	// récupération des infos get
 	if(isset($_GET['category'])): $getCategory = $_GET['category']; else: $getCategory = null; endif;
 	if(isset($_GET['order'])): $getOrder = $_GET['order']; else: $getOrder = null; endif;
-	console_log('order:'.$getOrder);
-	console_log('cater:'.$getCategory);
+
 	// bdd
 	$conn = Connect::connexion();
 
@@ -121,7 +120,7 @@
 								<!-- Block2 -->
 								<div class="block2">
 									<div class="block2-img wrap-pic-w of-hidden pos-relative <?php if ($e->stock() < 1): ?> block2-labelsale <?php ; elseif ($e->stock() < 6): ?> block2-labellast <?php ; else: ?> block2-labelstock <?php ; endif ;?> ">
-										<img src="images/produits/<?php echo $e->image(); ?>" alt="IMG-PRODUCT">
+										<img src="images/products/<?php echo $e->image(); ?>" alt="IMG-PRODUCT">
 										<div class="block2-overlay trans-0-4">
 											<div class="block2-btn-addcart w-size1 trans-0-4">
 												<!-- Button -->
@@ -132,7 +131,7 @@
 										</div>
 									</div>
 									<div class="block2-txt p-t-20">
-										<a href="product-detail.php?product=<?php echo $e->name();?>" class="block2-name dis-block s-text3 p-b-5">
+										<a href="product-detail.php?product=<?php echo $e->id();?>" class="block2-name dis-block s-text3 p-b-5">
 											<?php echo $e->name(); ?>
 										</a>
 										<span class="block2-price m-text6 p-r-5">
@@ -181,15 +180,15 @@
 <!--===============================================================================================-->
 <script type="text/javascript" src="vendor/select2/select2.min.js"></script>
 <script type="text/javascript">
-$(".selection-1").select2({
-	minimumResultsForSearch: 20,
-	dropdownParent: $('#dropDownSelect1')
-});
+	$(".selection-1").select2({
+		minimumResultsForSearch: 20,
+		dropdownParent: $('#dropDownSelect1')
+	});
 
-$(".selection-2").select2({
-	minimumResultsForSearch: 20,
-	dropdownParent: $('#dropDownSelect2')
-});
+	$(".selection-2").select2({
+		minimumResultsForSearch: 20,
+		dropdownParent: $('#dropDownSelect2')
+	});
 </script>
 <!--===============================================================================================-->
 <script type="text/javascript" src="vendor/daterangepicker/moment.min.js"></script>
@@ -200,51 +199,51 @@ $(".selection-2").select2({
 <!--===============================================================================================-->
 <script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
 <script type="text/javascript">
-$('.block2-btn-addcart').each(function(){
-	var nameProduct = $(this).parent().parent().parent().find('.block2-name').php();
-	$(this).on('click', function(){
-		swal(nameProduct, "is added to cart !", "success");
+	$('.block2-btn-addcart').each(function(){
+		var nameProduct = $(this).parent().parent().parent().find('.block2-name').php();
+		$(this).on('click', function(){
+			swal(nameProduct, "is added to cart !", "success");
+		});
 	});
-});
 </script>
 <!--===============================================================================================-->
 <script>
-$(document).ready(function() {
-	var jobCount = $('#list .in').length;
-	$('.list-count').text(jobCount + ' produit(s) trouvé(s)');
-	$("#search-text").keyup(function () {
-		var searchTerm = $("#search-text").val();
-		var listItem = $('#list').children('ressearch');
-		var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
-		$.extend($.expr[':'], {
-			'containsi': function(elem, i, match, array)
-			{
-				return (elem.textContent || elem.innerText || '').toLowerCase()
-				.indexOf((match[3] || "").toLowerCase()) >= 0;
-			}
-		});
-		$("#list ressearch").not(":containsi('" + searchSplit + "')").each(function(e)   {
-			$(this).addClass('hiding out').removeClass('in');
-			setTimeout(function() {
-				$('.out').addClass('hidden');
-			}, 300);
-		});
-		$("#list ressearch:containsi('" + searchSplit + "')").each(function(e) {
-			$(this).removeClass('hidden out').addClass('in');
-			setTimeout(function() {
-				$('.in').removeClass('hiding');
-			}, 1);
-		});
+	$(document).ready(function() {
 		var jobCount = $('#list .in').length;
 		$('.list-count').text(jobCount + ' produit(s) trouvé(s)');
-		if(jobCount == '0') {
-			$('#list').addClass('empty');
-		}
-		else {
-			$('#list').removeClass('empty');
-		}
+		$("#search-text").keyup(function () {
+			var searchTerm = $("#search-text").val();
+			var listItem = $('#list').children('ressearch');
+			var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+			$.extend($.expr[':'], {
+				'containsi': function(elem, i, match, array)
+				{
+					return (elem.textContent || elem.innerText || '').toLowerCase()
+					.indexOf((match[3] || "").toLowerCase()) >= 0;
+				}
+			});
+			$("#list ressearch").not(":containsi('" + searchSplit + "')").each(function(e)   {
+				$(this).addClass('hiding out').removeClass('in');
+				setTimeout(function() {
+					$('.out').addClass('hidden');
+				}, 300);
+			});
+			$("#list ressearch:containsi('" + searchSplit + "')").each(function(e) {
+				$(this).removeClass('hidden out').addClass('in');
+				setTimeout(function() {
+					$('.in').removeClass('hiding');
+				}, 1);
+			});
+			var jobCount = $('#list .in').length;
+			$('.list-count').text(jobCount + ' produit(s) trouvé(s)');
+			if(jobCount == '0') {
+				$('#list').addClass('empty');
+			}
+			else {
+				$('#list').removeClass('empty');
+			}
+		});
 	});
-});
 </script>
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
