@@ -7,7 +7,6 @@
 	<?php require('BDD/CategoryManager.php'); ?>
 	<?php require('BDD/Category.php'); ?>
 	<?php require('connexion.php')?>
-	<title>Septillion / Nos produits</title>
 </head>
 
 <body class="animsition">
@@ -30,8 +29,8 @@
 		// récupération de la liste des catégories
 		$categoryManager = new CategoryManager($conn);
 		$category = $categoryManager->get($product->id_category())
-
 	?>
+		<title>Septillion / <?php echo $product->name(); ?></title>
 	</header>
 
 	<!-- breadcrumb -->
@@ -56,11 +55,6 @@
 		<div class="flex-w flex-sb">
 			<div class="w-size13 p-t-30 respon5">
 				<div class="wrap-slick3 flex-sb flex-w">
-
-					<!-- Pour mettre plusieurs images -->
-
-					<!--div class="wrap-slick3-dots"></div-->
-
 					<div class="slick3">
 						<div class="item-slick3" data-thumb="images/thumb-item-01.jpg">
 							<div class="wrap-pic-w">
