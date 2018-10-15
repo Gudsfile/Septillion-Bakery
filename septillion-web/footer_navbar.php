@@ -1,12 +1,13 @@
 <div class="flex-w p-b-90">
+  
   <div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
     <h4 class="s-text12 p-b-30">
-      GET IN TOUCH
+      Suivez nous
     </h4>
 
     <div>
       <p class="s-text7 w-size27">
-        Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+        Venez nous retrouver Rue Yves Mainguy sur le Campus de Tohannic à Vannes.
       </p>
 
       <div class="flex-m p-t-30">
@@ -21,63 +22,37 @@
 
   <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
     <h4 class="s-text12 p-b-30">
-      Categories
+      Plan du site
     </h4>
 
     <ul>
       <li class="p-b-9">
-        <a href="#" class="s-text7">
-          Men
+        <a href="index.php" class="s-text7">
+          Accueil
+        </a>
+      </li>
+
+      <li class="p-b-9">
+        <a href="about.php" class="s-text7">
+          Septillion
         </a>
       </li>
 
       <li class="p-b-9">
         <a href="#" class="s-text7">
-          Women
+          Produits
         </a>
       </li>
 
       <li class="p-b-9">
         <a href="#" class="s-text7">
-          Dresses
+          Mon panier
         </a>
       </li>
 
       <li class="p-b-9">
         <a href="#" class="s-text7">
-          Sunglasses
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
-    <h4 class="s-text12 p-b-30">
-      Links
-    </h4>
-
-    <ul>
-      <li class="p-b-9">
-        <a href="#" class="s-text7">
-          Search
-        </a>
-      </li>
-
-      <li class="p-b-9">
-        <a href="#" class="s-text7">
-          About Us
-        </a>
-      </li>
-
-      <li class="p-b-9">
-        <a href="#" class="s-text7">
-          Contact Us
-        </a>
-      </li>
-
-      <li class="p-b-9">
-        <a href="#" class="s-text7">
-          Returns
+          Contactez nous
         </a>
       </li>
     </ul>
@@ -129,12 +104,12 @@
       <div class="w-size2 p-t-20">
         <!-- Button -->
         <button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">
-          Subscribe
+          Souscrivez
         </button>
       </div>
-
     </form>
   </div>
+
 </div>
 
 <div class="t-center p-l-15 p-r-15">
