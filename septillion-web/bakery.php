@@ -88,7 +88,7 @@
             <div class="bakery__roof-top-decorations"></div>
             <!--main sign block-->
             <div class="bakery__roof-main-sign">
-              <p>Bakery</p>
+              <p>Septillion</p>
             </div>
           </div>
           <!-- bottom block -->
@@ -98,10 +98,7 @@
     </div>
   </div>
 
-  <script  src="js/index.js"></script>
-
 </body>
-
 </html>
 
 
