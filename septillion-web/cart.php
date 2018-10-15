@@ -3,8 +3,26 @@
 <head>
 	<title>Septillion / Mon panier</title>
 	<?php include('header_link.php'); ?>
+	<?php require('BDD/ProductManager.php'); ?>
+	<?php require('BDD/Product.php'); ?>
+	<?php require('connexion.php')?>
 </head>
 <body class="animsition">
+
+	<!-- BDD AND CART -->
+	<?php
+	// récupération des infos du panier
+	$cookie = isset($_COOKIE['cart_items_cookie']) ? $_COOKIE['cart_items_cookie'] : "";
+	$cookie = stripslashes($cookie);
+	$cart = json_decode($cookie, true);
+
+	// bdd
+	$conn = Connect::connexion();
+
+	// récupération de la liste des produits
+	$productManager = new ProductManager($conn);
+	$productManager->getList();
+	?>
 
 	<!-- Header -->
 	<header class="header1">
@@ -28,59 +46,38 @@
 					<table class="table-shopping-cart">
 						<tr class="table-head">
 							<th class="column-1"></th>
-							<th class="column-2">Product</th>
-							<th class="column-3">Price</th>
-							<th class="column-4 p-l-70">Quantity</th>
+							<th class="column-2">Produit</th>
+							<th class="column-3">Prix</th>
+							<th class="column-4 p-l-70">Quantité</th>
 							<th class="column-5">Total</th>
 						</tr>
 
-						<tr class="table-row">
-							<td class="column-1">
-								<div class="cart-img-product b-rad-4 o-f-hidden">
-									<img src="images/item-10.jpg" alt="IMG-PRODUCT">
-								</div>
-							</td>
-							<td class="column-2">Men Tshirt</td>
-							<td class="column-3">$36.00</td>
-							<td class="column-4">
-								<div class="flex-w bo5 of-hidden w-size17">
-									<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-										<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-									</button>
+						<?php foreach ($cart as $key=>$value) { ?>
+							<?php $product = $productManager->get($key)?>
+							<tr class="table-row">
+								<td class="column-1">
+									<div class="cart-img-product b-rad-4 o-f-hidden">
+										<img src="images/product/<?php echo $product->image();?>" alt="IMG-PRODUCT">
+									</div>
+								</td>
+								<td class="column-2"><?php echo $product->name();?></td>
+								<td class="column-3"><?php echo $product->price();?></td>
+								<td class="column-4">
+									<div class="flex-w bo5 of-hidden w-size17">
+										<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
+											<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
+										</button>
 
-									<input class="size8 m-text18 t-center num-product" type="number" name="num-product1" value="1">
+										<input class="size8 m-text18 t-center num-product" type="number" name="num-product1" value="<?php echo $cart[$key]['quantity'];?>">
 
-									<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-										<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-									</button>
-								</div>
-							</td>
-							<td class="column-5">$36.00</td>
-						</tr>
-
-						<tr class="table-row">
-							<td class="column-1">
-								<div class="cart-img-product b-rad-4 o-f-hidden">
-									<img src="images/item-05.jpg" alt="IMG-PRODUCT">
-								</div>
-							</td>
-							<td class="column-2">Mug Adventure</td>
-							<td class="column-3">$16.00</td>
-							<td class="column-4">
-								<div class="flex-w bo5 of-hidden w-size17">
-									<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-										<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-									</button>
-
-									<input class="size8 m-text18 t-center num-product" type="number" name="num-product2" value="1">
-
-									<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-										<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-									</button>
-								</div>
-							</td>
-							<td class="column-5">$16.00</td>
-						</tr>
+										<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+											<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
+										</button>
+									</div>
+								</td>
+								<td class="column-5"><?php echo $product->price()*$cart[$key]['quantity'];?>€</td>
+							</tr>
+						<?php } ?>
 					</table>
 				</div>
 			</div>
@@ -94,7 +91,7 @@
 					<div class="size12 trans-0-4 m-t-10 m-b-10 m-r-10">
 						<!-- Button -->
 						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-							Apply coupon
+							Appliquer un code promo
 						</button>
 					</div>
 				</div>
@@ -102,7 +99,7 @@
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
 					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-						Update Cart
+						Appliquer les changements
 					</button>
 				</div>
 			</div>
@@ -110,13 +107,13 @@
 			<!-- Total -->
 			<div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
 				<h5 class="m-text20 p-b-24">
-					Cart Totals
+					Panier total
 				</h5>
 
 				<!--  -->
 				<div class="flex-w flex-sb-m p-b-12">
 					<span class="s-text18 w-size19 w-full-sm">
-						Subtotal:
+						Sous total:
 					</span>
 
 					<span class="m-text21 w-size20 w-full-sm">
@@ -172,14 +169,14 @@
 					</span>
 
 					<span class="m-text21 w-size20 w-full-sm">
-						$39.00
+						PRIX €
 					</span>
 				</div>
 
 				<div class="size15 trans-0-4">
 					<!-- Button -->
 					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-						Proceed to Checkout
+						Payer
 					</button>
 				</div>
 			</div>

@@ -12,7 +12,7 @@
 
 <body class="animsition">
 
-	<!-- BDD -->
+	<!-- BDD AND GET -->
 	<?php
 	// récupération des infos get
 	if(isset($_GET['category'])): $getCategory = $_GET['category']; else: $getCategory = null; endif;
