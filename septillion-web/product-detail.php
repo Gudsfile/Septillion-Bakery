@@ -67,26 +67,13 @@
 								<img src="images/products/<?php echo $product->image(); ?>" alt="IMG-PRODUCT">
 							</div>
 						</div>
-
-						<!-- Pour mettre plusieurs images -->
-
-						<!--div class="item-slick3" data-thumb="images/thumb-item-02.jpg">
-							<div class="wrap-pic-w">
-								<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-							</div>
-						</div>
-
-						<div class="item-slick3" data-thumb="images/thumb-item-03.jpg">
-							<div class="wrap-pic-w">
-								<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-							</div>
-						</div-->
-
 					</div>
 				</div>
 			</div>
 
 			<div class="w-size14 p-t-30 respon5">
+				<p hidden class="product-detail-id" name="id"><?php echo $product->id(); ?></p>
+
 				<h4 class="product-detail-name m-text16 p-b-13">
 					<?php echo $product->name(); ?>
 				</h4>
@@ -108,7 +95,7 @@
 									<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 								</button>
 
-								<input class="size8 m-text18 t-center num-product" type="number" name="num-product" value="1">
+								<input class="size8 m-text18 t-center num-product product-detail-quantity" type="number" name="quantity" value="1">
 
 								<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
 									<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
@@ -204,24 +191,16 @@
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript">
-		$('.block2-btn-addcart').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to cart !", "success");
-			});
-		});
-
-		$('.block2-btn-addwishlist').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to wishlist !", "success");
-			});
-		});
-
 		$('.btn-addcart-product-detail').each(function(){
-			var nameProduct = $('.product-detail-name').html();
 			$(this).on('click', function(){
-				swal(nameProduct, "is added to wishlist !", "success");
+				var idProduct = $('.product-detail-id').html();
+				var nameProduct = $('.product-detail-name').html();
+				var quantityProduct = document.getElementsByClassName("product-detail-quantity")[0].value;
+				var arf = new XMLHttpRequest();
+				arf.open("GET","add_to_cart.php?id="+idProduct+"&quantity="+quantityProduct,false);
+				arf.send(null);
+				console.log(arf.response);
+				swal(nameProduct, "a été ajouté à votre panier !", "success");
 			});
 		});
 	</script>

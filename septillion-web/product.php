@@ -122,16 +122,16 @@
 									<div class="block2-img wrap-pic-w of-hidden pos-relative <?php if ($e->stock() < 1): ?> block2-labelsale <?php ; elseif ($e->stock() < 6): ?> block2-labellast <?php ; else: ?> block2-labelstock <?php ; endif ;?> ">
 										<img src="images/products/<?php echo $e->image(); ?>" alt="IMG-PRODUCT">
 										<div class="block2-overlay trans-0-4">
-											<div class="block2-btn-addcart w-size1 trans-0-4">
+											<div class="block2-btn-addcart w-size1 trans-0-4 btn-addcart">
 												<!-- Button -->
-												<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-													Ajouter au panier
-												</button>
+												<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">Ajouter au panier</button>
 											</div>
 										</div>
 									</div>
 									<div class="block2-txt p-t-20">
-										<a href="product-detail.php?product=<?php echo $e->id();?>" class="block2-name dis-block s-text3 p-b-5">
+										<p hidden class="product-detail-id"><?php echo $e->id(); ?></p>
+										<p hidden class="product-detail-quantity"><?php echo $e->id(); ?></p>
+										<a href="product-detail.php?product=<?php echo $e->id();?>" class="block2-name dis-block s-text3 p-b-5 product-detail-name">
 											<?php echo $e->name(); ?>
 										</a>
 										<span class="block2-price m-text6 p-r-5">
@@ -199,10 +199,15 @@
 <!--===============================================================================================-->
 <script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
 <script type="text/javascript">
-	$('.block2-btn-addcart').each(function(){
-		var nameProduct = $(this).parent().parent().parent().find('.block2-name').php();
+$('.btn-addcart-product-detail').each(function(){
+		var arf = new XMLHttpRequest();
+		var quantityProduct = $('.product-detail-quantity').html();
+		var idProduct = $('.product-detail-id').html();
+		var nameProduct = $('.product-detail-name').html();
 		$(this).on('click', function(){
-			swal(nameProduct, "is added to cart !", "success");
+			arf.open("GET","add_to_cart.php?id="+idProduct+"&quantity="+quantityProduct,false);
+			arf.send(null);
+			swal(nameProduct, "a été ajouté à votre panier !", "success");
 		});
 	});
 </script>
