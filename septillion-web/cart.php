@@ -52,12 +52,12 @@
 							<th class="column-5">Total</th>
 						</tr>
 
-						<?php foreach ($cart as $key=>$value) { ?>
+						<?php if (isset($cart)){ foreach ($cart as $key=>$value) { ?>
 							<?php $product = $productManager->get($key)?>
 							<tr class="table-row">
 								<td class="column-1">
 									<div class="cart-img-product b-rad-4 o-f-hidden">
-										<img src="images/product/<?php echo $product->image();?>" alt="IMG-PRODUCT">
+										<img src="images/products/<?php echo $product->image();?>" alt="IMG-PRODUCT">
 									</div>
 								</td>
 								<td class="column-2"><?php echo $product->name();?></td>
@@ -77,7 +77,7 @@
 								</td>
 								<td class="column-5"><?php echo $product->price()*$cart[$key]['quantity'];?>€</td>
 							</tr>
-						<?php } ?>
+						<?php }} ?>
 					</table>
 				</div>
 			</div>

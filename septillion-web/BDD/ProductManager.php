@@ -36,7 +36,6 @@ class ProductManager
 		$id = (int) $id;
 		$query = $this->_db->query("SELECT * FROM PRODUCT WHERE ID_PRODUCT = ".$id);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		print_r($donnees);
 		return new Product($donnees);
 	}
 

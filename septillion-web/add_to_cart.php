@@ -44,7 +44,7 @@ else {
 
   // put item to cookie
   $json = json_encode($cart_items, true);
-  setcookie("cart_items_cookie", $json, time() + (86400 * 30), '/'); // 86400 = 1 day
+  setcookie("cart_items_cookie", $json, time() + (600), '/'); // 600 = 10 minutes
   $_COOKIE['cart_items_cookie']=$json;
 }
 die();
