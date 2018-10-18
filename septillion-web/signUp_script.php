@@ -22,7 +22,7 @@ $clientManager = new ClientManager($conn);
             header("Location: login.php?erreur=5");
     }
 
-   else {
+   elseif($_POST!=null) {
         $newClient = new Client($_POST);
     if($clientManager->add($newClient)>0){
         session_start();
