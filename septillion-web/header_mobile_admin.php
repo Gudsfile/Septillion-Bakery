@@ -88,7 +88,7 @@
     <ul class="main-menu">
 
       <li class="item-menu-mobile">
-        <a href="index.php">Accueil administration</a>
+        <a href="administration.php">Accueil administration</a>
       </li>
 
       <li class="item-menu-mobile">
@@ -100,15 +100,15 @@
       </li>
 
       <li class="item-menu-mobile">
-        <a href="product.php">Editer un produit</a>
+        <a href="edit_product.php">Editer un produit</a>
       </li>
 
       <li class="item-menu-mobile">
-        <a href="cart.php">Catégorie</a>
+        <a href="category.php">Catégorie</a>
       </li>
 
       <li class="item-menu-mobile">
-        <a href="contact.php">Déconnexion</a>
+        <a href="logout_script.php">Déconnexion</a>
       </li>
     </ul>
   </nav>

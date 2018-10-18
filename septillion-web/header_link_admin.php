@@ -1,9 +1,9 @@
-<?php if (basename($_SERVER['PHP_SELF'])=='index.php'):?><title>Septillion / Accueil administration</title><?php ; endif?>
+<?php if (basename($_SERVER['PHP_SELF'])=='administration.php'):?><title>Septillion / Accueil administration</title><?php ; endif?>
 <?php if (basename($_SERVER['PHP_SELF'])=='about.php'):?><title>Septillion / Gestion des produits</title><?php ; endif?>
 <?php if (basename($_SERVER['PHP_SELF'])=='about.php'):?><title>Septillion / Créer un produit</title><?php ; endif?>
-<?php if (basename($_SERVER['PHP_SELF'])=='product.php'):?><title>Septillion / Editer un produit</title><?php ; endif?>
-<?php if (basename($_SERVER['PHP_SELF'])=='product-detail.php'):?><title>Septillion / Catégorie</title><?php ; endif?>
-<?php if (basename($_SERVER['PHP_SELF'])=='contact.php'):?><title>Septillion / Déconnexion</title><?php ; endif?>
+<?php if (basename($_SERVER['PHP_SELF'])=='edit_product.php'):?><title>Septillion / Editer un produit</title><?php ; endif?>
+<?php if (basename($_SERVER['PHP_SELF'])=='category.php'):?><title>Septillion / Catégorie</title><?php ; endif?>
+<?php if (basename($_SERVER['PHP_SELF'])=='logout_script.php'):?><title>Septillion / Déconnexion</title><?php ; endif?>
 <?php if (basename($_SERVER['PHP_SELF'])=='login.php'):?><title>Septillion / Espace client</title><?php ; endif?>
 
 <meta charset="UTF-8">

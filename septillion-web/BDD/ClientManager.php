@@ -45,6 +45,17 @@ class ClientManager
 		return new Client($donnees);
 	}
 
+		public function getMail($mail)
+	{
+		$mail = "'".$mail."'";
+		$query = $this->_db->query("SELECT * FROM CLIENT WHERE MAIL =".$mail);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		if ($donnees!=null)
+			return true;
+			return false;
+	}
+
+
 	public function getByMailAndPassword($mail, $passwd)
 	{
 		$mail = "'".$mail."'";
