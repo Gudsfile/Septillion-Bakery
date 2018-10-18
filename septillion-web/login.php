@@ -7,6 +7,9 @@
     $erreur = 100;
     if (isset($_GET['erreur']))
         $erreur = $_GET['erreur'];
+    session_start();
+    if(!isset($_SESSION['data']))
+        $_SESSION['data']=null;
     ?>
 </head>
 <body class="animsition">
@@ -39,12 +42,12 @@
                     </h4>
 
                     <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Votre mail">
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="email" name="mail" placeholder="Votre mail" required>
                     </div>
 
                     <div class="bo4 of-hidden size15 m-b-20">
                         <input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password"
-                               placeholder="Votre mot de passe">
+                               placeholder="Votre mot de passe" required>
                     </div>
 
                     <!--div class="bo4 of-hidden size15 m-b-20">
@@ -71,52 +74,50 @@
                     </h4>
 
                     <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Email">
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="email" name="mail" placeholder="Email" value="<?php echo $_SESSION['data']['mail'] ?>" required>
                     </div>
 
                     <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail_conf"
-                               placeholder="Confirmer votre email">
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="email" name="mail_conf"
+                               placeholder="Confirmer votre email" required>
                     </div>
 
                     <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password"
-                               placeholder="Mot de passe">
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password" placeholder="Mot de passe" required>
                     </div>
 
                     <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password_conf"
-                               placeholder="Confirmer votre mot de passe">
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password_conf" placeholder="Confirmer votre mot de passe" required>
                     </div>
                     <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="first_name"
-                               placeholder="Prénom">
-                    </div>
-
-                    <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="last_name" placeholder="Nom">
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="first_name" value="<?php echo $_SESSION['data']['first_name'] ?>"
+                               placeholder="Prénom" required>
                     </div>
 
                     <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone_number"
-                               placeholder="Numéro de téléphone">
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="last_name" placeholder="Nom" value="<?php echo $_SESSION['data']['last_name'] ?>" required>
                     </div>
 
                     <div class="bo4 of-hidden size15 m-b-20">
-                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" placeholder="Address">
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="tel" name="phone_number"
+                               placeholder="Numéro de téléphone"  value="<?php echo $_SESSION['data']['phone_number'] ?>"  required>
+                    </div>
+
+                    <div class="bo4 of-hidden size15 m-b-20">
+                        <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" placeholder="Address" value="<?php echo $_SESSION['data']['address'] ?>" >
                     </div>
 
                     <!--textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea-->
-                    <?php if ($erreur == '1'): ?><p class="m-b-20" style="color : #F08080">Un champ est
-                        vide.</p><?php ; endif ?>
-                    <?php if ($erreur == '2'): ?><p class="m-b-20" style="color : #F08080">Le mail doit être renseigné
-                        en lettres minuscules sans accents, sans caractères spéciaux.</p><?php ; endif ?>
                     <?php if ($erreur == '3'): ?><p class="m-b-20" style="color : #F08080">Ce mail est déjà
                         utilisé.</p><?php ; endif ?>
                     <?php if ($erreur == '4'): ?><p class="m-b-20" style="color : #F08080">Les mails sont
                         différents.</p><?php ; endif ?>
                     <?php if ($erreur == '5'): ?><p class="m-b-20" style="color : #F08080">Les mots de passe sont
                         différents.</p><?php ; endif ?>
+                    <?php 
+                        session_unset ();
+                        session_destroy (); 
+                    ?>
                     <div class="w-size25">
                         <!-- Button -->
                         <button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
@@ -138,16 +139,29 @@
 
 <!-- Back to top -->
 <div class="btn-back-to-top bg0-hov" id="myBtn">
-		<span class="symbol-btn-back-to-top">
-			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
-		</span>
+        <span class="symbol-btn-back-to-top">
+            <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+        </span>
 </div>
 
 <!-- Container Selection -->
 <div id="dropDownSelect1"></div>
 <div id="dropDownSelect2"></div>
 
+<!--================================================================================================-->
+<script type="text/javascript">
+    var fields = {};
+    $("#theForm").find(":input").each(function() {
+    // The selector will match buttons; if you want to filter
+    // them out, check `this.tagName` and `this.type`; see
+    // below
+    fields[this.name] = $(this).val();
+});
+var obj = {fields: fields}; // You said you wanted an object with a `fields` property, so
 
+
+
+</script>
 <!--===============================================================================================-->
 <script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
