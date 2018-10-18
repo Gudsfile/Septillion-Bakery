@@ -53,22 +53,23 @@
 						</tr>
 
 						<?php if (isset($cart)){ foreach ($cart as $key=>$value) { ?>
-							<?php $product = $productManager->get($key)?>
+							<?php $product = $productManager->get($key);?>
 							<tr class="table-row product">
 								<td class="column-1">
 									<div class="cart-img-product b-rad-4 o-f-hidden">
 										<img src="images/products/<?php echo $product->image();?>" alt="IMG-PRODUCT">
 									</div>
 								</td>
+								<td class="product-id" hidden><?php echo $product->id();?></td>
 								<td class="column-2"><?php echo $product->name();?></td>
 								<td class="column-3 product-price"><?php echo $product->price();?></td>
-								<td class="column-4">
+								<td class="column-4 product-quantity-control">
 									<div class="flex-w bo5 of-hidden w-size17">
 										<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2 product-remove">
 											<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 										</button>
 
-										<input class="size8 m-text18 t-center num-product product-quantity" type="number" name="num-product1" value="<?php echo $cart[$key]['quantity'];?>">
+										<input class="size8 m-text18 t-center num-product product-quantity" type="number" value="<?php echo $cart[$key]['quantity'];?>">
 
 										<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2 product-add">
 											<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
@@ -99,7 +100,7 @@
 
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-changecart">
 						Appliquer les changements
 					</button>
 				</div>
@@ -171,7 +172,7 @@
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!--===============================================================================================-->
+<!--===============================================================================================-->
 	<script>
 	/* Set rates + misc */
 	var taxRate = 0.05;
@@ -183,17 +184,14 @@
 	});
 	/* Assign actions */
 	$('.product-quantity').change( function() {
-		console.log('change text');
 		updateQuantity(this, "O");
 	});
 
 	$('.product-add').click( function() {
-		console.log('change add');
 		updateQuantity(this, "P");
 	});
 
 	$('.product-remove').click( function() {
-		console.log('change del');
 		updateQuantity(this, "M");
 	});
 
@@ -206,7 +204,6 @@
 		$('.product').each(function () {
 			subtotal += parseFloat($(this).children('.product-line-price').text());
 		});
-		console.log(subtotal);
 
 		/* Calculate totals */
 		//var tax = subtotal * taxRate;
@@ -269,6 +266,25 @@
 		});
 	}
 	</script>
+<!--===============================================================================================-->
+<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript">
+$('.btn-changecart').click(function(){
+		// Get url
+		var url = "change_to_cart.php?";
+		var count = 0;
+		$('.product').each(function () {
+			url += "id"+count+"="+($(this).children('.product-id').text())+"&quantity"+count+"="+($(this).children('.product-quantity-control').children().children('.product-quantity').val()+"&");
+			count+=1;
+		});
+		console.log(url);
+		// Request
+		var arf = new XMLHttpRequest();
+		arf.open("GET",url,false);
+		arf.send(null);
+		swal("","Les changements ont bien été enregistrés !", "success");
+	});
+</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
