@@ -54,34 +54,35 @@
 
 						<?php if (isset($cart)){ foreach ($cart as $key=>$value) { ?>
 							<?php $product = $productManager->get($key)?>
-							<tr class="table-row">
+							<tr class="table-row product">
 								<td class="column-1">
 									<div class="cart-img-product b-rad-4 o-f-hidden">
 										<img src="images/products/<?php echo $product->image();?>" alt="IMG-PRODUCT">
 									</div>
 								</td>
 								<td class="column-2"><?php echo $product->name();?></td>
-								<td class="column-3"><?php echo $product->price();?></td>
+								<td class="column-3 product-price"><?php echo $product->price();?></td>
 								<td class="column-4">
 									<div class="flex-w bo5 of-hidden w-size17">
-										<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
+										<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2 product-remove">
 											<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 										</button>
 
-										<input class="size8 m-text18 t-center num-product" type="number" name="num-product1" value="<?php echo $cart[$key]['quantity'];?>">
+										<input class="size8 m-text18 t-center num-product product-quantity" type="number" name="num-product1" value="<?php echo $cart[$key]['quantity'];?>">
 
-										<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+										<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2 product-add">
 											<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
 										</button>
 									</div>
 								</td>
-								<td class="column-5"><?php echo $product->price()*$cart[$key]['quantity'];?>€</td>
+								<td class="column-5 product-line-price"><?php echo $product->price()*$cart[$key]['quantity'];?></td>
 							</tr>
 						<?php }} ?>
 					</table>
 				</div>
 			</div>
 
+			<!-- MODIF -->
 			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm">
 				<div class="flex-w flex-m w-full-sm">
 					<div class="size11 bo4 m-r-10">
@@ -104,82 +105,40 @@
 				</div>
 			</div>
 
-			<!-- Total -->
-			<div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
-				<h5 class="m-text20 p-b-24">
-					Panier total
-				</h5>
+			<!-- TOTAL -->
+			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm">
+				<div class="flex-w flex-m w-full-sm">
+					<h5 class="m-text20 p-b-24">
+						Panier total
+					</h5>
+				</div>
 
-				<!--  -->
-				<div class="flex-w flex-sb-m p-b-12">
+				<div class="size10 trans-0-4 m-t-10 m-b-10 totals-value">
+					<!-- Button -->
 					<span class="s-text18 w-size19 w-full-sm">
 						Sous total:
 					</span>
-
-					<span class="m-text21 w-size20 w-full-sm">
-						$39.00
+					<span class="m-text21 w-size20 w-full-sm cart-subtotal">
+						SOUS TOTAL
 					</span>
 				</div>
-
-				<!--  -->
-				<div class="flex-w flex-sb bo10 p-t-15 p-b-20">
-					<span class="s-text18 w-size19 w-full-sm">
-						Shipping:
-					</span>
-
-					<div class="w-size20 w-full-sm">
-						<p class="s-text8 p-b-23">
-							There are no shipping methods available. Please double check your address, or contact us if you need any help.
-						</p>
-
-						<span class="s-text19">
-							Calculate Shipping
-						</span>
-
-						<div class="rs2-select2 rs3-select2 rs4-select2 bo4 of-hidden w-size21 m-t-8 m-b-12">
-							<select class="selection-2" name="country">
-								<option>Select a country...</option>
-								<option>US</option>
-								<option>UK</option>
-								<option>Japan</option>
-							</select>
-						</div>
-
-						<div class="size13 bo4 m-b-12">
-						<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="state" placeholder="State /  country">
-						</div>
-
-						<div class="size13 bo4 m-b-22">
-							<input class="sizefull s-text7 p-l-15 p-r-15" type="text" name="postcode" placeholder="Postcode / Zip">
-						</div>
-
-						<div class="size14 trans-0-4 m-b-10">
-							<!-- Button -->
-							<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-								Update Totals
-							</button>
-						</div>
-					</div>
-				</div>
-
-				<!--  -->
-				<div class="flex-w flex-sb-m p-t-26 p-b-30">
+				<div class="size10 trans-0-4 m-t-10 m-b-10 totals-value">
 					<span class="m-text22 w-size19 w-full-sm">
 						Total:
 					</span>
 
-					<span class="m-text21 w-size20 w-full-sm">
-						PRIX €
+					<span class="m-text21 w-size20 w-full-sm cart-total">
+						PRIX
 					</span>
 				</div>
-
-				<div class="size15 trans-0-4">
+				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
 					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
 						Payer
 					</button>
 				</div>
 			</div>
+
 		</div>
 	</section>
 
@@ -212,18 +171,103 @@
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
-	<script type="text/javascript">
-		$(".selection-1").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect1')
-		});
+	<!--===============================================================================================-->
+	<script>
+	/* Set rates + misc */
+	var taxRate = 0.05;
+	var shippingRate = 15.00;
+	var fadeTime = 300;
 
-		$(".selection-2").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect2')
+	$(document).ready(function() {
+		recalculateCart();
+	});
+	/* Assign actions */
+	$('.product-quantity').change( function() {
+		console.log('change text');
+		updateQuantity(this, "O");
+	});
+
+	$('.product-add').click( function() {
+		console.log('change add');
+		updateQuantity(this, "P");
+	});
+
+	$('.product-remove').click( function() {
+		console.log('change del');
+		updateQuantity(this, "M");
+	});
+
+	/* Recalculate cart */
+	function recalculateCart()
+	{
+		var subtotal = 0;
+
+		/* Sum up row totals */
+		$('.product').each(function () {
+			subtotal += parseFloat($(this).children('.product-line-price').text());
 		});
+		console.log(subtotal);
+
+		/* Calculate totals */
+		//var tax = subtotal * taxRate;
+		//var shipping = (subtotal > 0 ? shippingRate : 0);
+		var total = subtotal //+ tax + shipping;
+
+		/* Update totals display */
+		$('.totals-value').fadeOut(fadeTime, function() {
+			$('.cart-subtotal').html(subtotal.toFixed(2));
+			$('.cart-total').html(total.toFixed(2));
+			if(total == 0){
+				$('.checkout').fadeOut(fadeTime);
+			}else{
+				$('.checkout').fadeIn(fadeTime);
+			}
+			$('.totals-value').fadeIn(fadeTime);
+		});
+	}
+
+	/* Update quantity */
+	function updateQuantity(quantityInput, instruction)
+	{
+		/* Calculate line price */
+		var productRow = $(quantityInput).parent().parent().parent();
+		var price = parseFloat(productRow.children('.product-price').text());
+
+		if (instruction == "P") {
+			var jsp = ($(quantityInput).parent().children('.product-quantity')).val()
+			var quantity = (parseFloat(jsp)+1).toString();
+		} else if (instruction == "M") {
+			var jsp = ($(quantityInput).parent().children('.product-quantity')).val()
+			var quantity = (parseFloat(jsp)-1).toString();
+		} else {
+			var quantity = $(quantityInput).val();
+		}
+
+		if (quantity != "0") {
+			var linePrice = price * quantity;
+			/* Update line price display and recalc cart totals */
+			productRow.children('.product-line-price').each(function () {
+				$(this).fadeOut(fadeTime, function() {
+					$(this).text(linePrice.toFixed(2));
+					recalculateCart();
+					$(this).fadeIn(fadeTime);
+				});
+			});
+		} else {
+			removeItem(productRow);
+		}
+	}
+
+	/* Remove item from cart */
+	function removeItem(removeObject)
+	{
+		/* Remove row from DOM and recalc cart total */
+		var productRow = $(removeObject);
+		productRow.slideUp(fadeTime, function() {
+			productRow.remove();
+			recalculateCart();
+		});
+	}
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>

@@ -130,7 +130,6 @@
 									</div>
 									<div class="block2-txt p-t-20">
 										<p hidden class="product-detail-id"><?php echo $e->id(); ?></p>
-										<p hidden class="product-detail-quantity">1</p>
 										<a href="product-detail.php?product=<?php echo $e->id();?>" class="block2-name dis-block s-text3 p-b-5 product-detail-name">
 											<?php echo $e->name(); ?>
 										</a>
@@ -201,7 +200,7 @@
 <script type="text/javascript">
 $('.btn-addcart-product-detail').each(function(){
 		var arf = new XMLHttpRequest();
-		var quantityProduct = $('.product-detail-quantity').html();
+		var quantityProduct = "1";
 		var idProduct = $('.product-detail-id').html();
 		var nameProduct = $('.product-detail-name').html();
 		$(this).on('click', function(){
