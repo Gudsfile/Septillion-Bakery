@@ -5,31 +5,33 @@ require('connexion.php');
 $conn = Connect::connexion();
 $clientManager = new ClientManager($conn);
 
-foreach ($_POST as $key => $value) {
-    if($value == null){
-        header("Location: login.php?erreur=1");
+    session_start();
+    session_unset();
+
+    if ($clientManager->getMail($_POST['mail'])) {
+        $_SESSION['data'] = $_POST;
+        header("Location: login.php?erreur=3");
         exit();
     }
-}
-    if (!filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)){
-        header("Location: login.php?erreur=2");
+    if ($_POST['mail_conf']!=$_POST['mail']) {
+        $_SESSION['data'] = $_POST;
         exit();
-    }
-    if ($_POST['mail']!=$_POST['mail_conf']){
         header("Location: login.php?erreur=4");
-        exit();
-    }
-    if ($_POST['password_conf']!=$_POST['password']) {
-        header("Location: login.php?erreur=5");
-        exit();
+    }if ($_POST['password_conf']!=$_POST['password']) {
+             $_SESSION['data'] = $_POST;
+            header("Location: login.php?erreur=5");
     }
 
-    $newClient = new Client($_POST);
+   else {
+        $newClient = new Client($_POST);
     if($clientManager->add($newClient)>0){
         session_start();
+        session_unset ();
         $_SESSION['mail'] = $_POST['mail'];
         $_SESSION['password'] = $_POST['password'];
         header("Location: index.php");
+   }
+
     }
 
 
