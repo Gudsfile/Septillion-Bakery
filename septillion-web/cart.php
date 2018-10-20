@@ -134,7 +134,7 @@
 				</div>
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-paycart">
 						Payer
 					</button>
 				</div>
@@ -174,6 +174,7 @@
 	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
 	<!--===============================================================================================-->
 	<script>
+	var changement = false;
 	/* Set rates + misc */
 	var taxRate = 0.05;
 	var shippingRate = 15.00;
@@ -184,14 +185,17 @@
 	});
 	/* Assign actions */
 	$('.product-quantity').change( function() {
+		changement = true;
 		updateQuantity(this, "O");
 	});
 
 	$('.product-add').click( function() {
+		changement = true;
 		updateQuantity(this, "P");
 	});
 
 	$('.product-remove').click( function() {
+		changement = true;
 		updateQuantity(this, "M");
 	});
 
@@ -267,9 +271,10 @@
 	}
 	</script>
 	<!--===============================================================================================-->
-	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
 	$('.btn-changecart').click(function(){
+		changement = false;
 		// Get url
 		var url = "change_to_cart.php?";
 		var count = 0;
@@ -285,7 +290,58 @@
 	});
 	</script>
 <!--===============================================================================================-->
-	<script src="js/main.js"></script>
+	<script type="text/javascript">
+
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0; i<ca.length; i++) {
+	        var c = ca[i].trim();
+	           if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+	    }
+	    return "";
+	}
+
+	$('.btn-paycart').click(function(){
+		if (changement == true) {
+		swal({
+			title: "Êtes vous sur ?",
+			text: "Vous n'avez pas enregistré vos changements!",
+			icon: 'warning',
+			buttons: {
+		    cancel: "Modifier ma commande",
+		    catch: {
+		      text: "Payer",
+		      value: "pay",
+		    }
+			}
+		}).then((value) => {
+		  	if (value != "pay") {
+		  	} else {
+					var cart = getCookie('cart_items_cookie');
+					if (cart == "") {
+						swal("Oops…","Le panier est vide !", "error");
+					} else {
+						//console.log(JSON.parse(decodeURIComponent(getCookie('cart_items_cookie'))));
+						document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+						swal("Acheté","Achat validé !", "success");
+					}
+				}
+			});
+		} else {
+			var cart = getCookie('cart_items_cookie');
+			if (cart == "") {
+				swal("Oops…","Le panier est vide !", "error");
+			} else {
+				//console.log(JSON.parse(decodeURIComponent(getCookie('cart_items_cookie'))));
+				document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+				swal("Acheté","Achat validé !", "success");
+			}
+		}
+	});
+	</script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
 
 </body>
 
