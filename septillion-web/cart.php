@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<title>Septillion / Mon panier</title>
 	<?php include('header_link.php'); ?>
@@ -165,14 +165,14 @@
 
 
 
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script>
 	/* Set rates + misc */
 	var taxRate = 0.05;
@@ -266,10 +266,10 @@
 		});
 	}
 	</script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
-<script type="text/javascript">
-$('.btn-changecart').click(function(){
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript">
+	$('.btn-changecart').click(function(){
 		// Get url
 		var url = "change_to_cart.php?";
 		var count = 0;
@@ -277,16 +277,16 @@ $('.btn-changecart').click(function(){
 			url += "id"+count+"="+($(this).children('.product-id').text())+"&quantity"+count+"="+($(this).children('.product-quantity-control').children().children('.product-quantity').val()+"&");
 			count+=1;
 		});
-		console.log(url);
 		// Request
 		var arf = new XMLHttpRequest();
 		arf.open("GET",url,false);
 		arf.send(null);
 		swal("","Les changements ont bien été enregistrés !", "success");
 	});
-</script>
+	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
 </body>
+
 </html>

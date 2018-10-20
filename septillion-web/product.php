@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<title>Septillion / Nos produits</title>
 	<?php include('header_link.php'); ?>
@@ -128,7 +128,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="block2-txt p-t-20">
+									<div class="block2-txt p-t-20 product-detail">
 										<p hidden class="product-detail-id"><?php echo $e->id(); ?></p>
 										<a href="product-detail.php?product=<?php echo $e->id();?>" class="block2-name dis-block s-text3 p-b-5 product-detail-name">
 											<?php echo $e->name(); ?>
@@ -146,39 +146,38 @@
 
 			</div>
 		</div>
+	</section>
+
+
+	<!-- Footer -->
+	<footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
+		<?php include('footer_navbar.php');?>
+	</footer>
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top bg0-hov" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
+		</span>
 	</div>
-</section>
 
-
-<!-- Footer -->
-<footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
-	<?php include('footer_navbar.php');?>
-</footer>
-
-
-<!-- Back to top -->
-<div class="btn-back-to-top bg0-hov" id="myBtn">
-	<span class="symbol-btn-back-to-top">
-		<i class="fa fa-angle-double-up" aria-hidden="true"></i>
-	</span>
-</div>
-
-<!-- Container Selection -->
-<div id="dropDownSelect1"></div>
-<div id="dropDownSelect2"></div>
+	<!-- Container Selection -->
+	<div id="dropDownSelect1"></div>
+	<div id="dropDownSelect2"></div>
 
 
 
-<!--===============================================================================================-->
-<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
-<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
-<script type="text/javascript">
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
+	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
+	<script type="text/javascript">
 	$(".selection-1").select2({
 		minimumResultsForSearch: 20,
 		dropdownParent: $('#dropDownSelect1')
@@ -188,30 +187,31 @@
 		minimumResultsForSearch: 20,
 		dropdownParent: $('#dropDownSelect2')
 	});
-</script>
+	</script>
 <!--===============================================================================================-->
-<script type="text/javascript" src="vendor/daterangepicker/moment.min.js"></script>
-<script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="vendor/daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script type="text/javascript" src="vendor/slick/slick.min.js"></script>
-<script type="text/javascript" src="js/slick-custom.js"></script>
+	<script type="text/javascript" src="vendor/slick/slick.min.js"></script>
+	<script type="text/javascript" src="js/slick-custom.js"></script>
 <!--===============================================================================================-->
-<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
-<script type="text/javascript">
-$('.btn-addcart-product-detail').each(function(){
+	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript">
+	$('.btn-addcart-product-detail').each(function(){
 		var arf = new XMLHttpRequest();
 		var quantityProduct = "1";
-		var idProduct = $('.product-detail-id').html();
-		var nameProduct = $('.product-detail-name').html();
+		var rowProduct = $(this).parent().parent().parent();
+		var idProduct = rowProduct.children('.product-detail').children('.product-detail-id').text();
+		var nameProduct = rowProduct.children('.product-detail').children('.product-detail-name').text();
 		$(this).on('click', function(){
 			arf.open("GET","add_to_cart.php?id="+idProduct+"&quantity="+quantityProduct,false);
 			arf.send(null);
 			swal(nameProduct, "a été ajouté à votre panier !", "success");
 		});
 	});
-</script>
+	</script>
 <!--===============================================================================================-->
-<script>
+	<script>
 	$(document).ready(function() {
 		var jobCount = $('#list .in').length;
 		$('.list-count').text(jobCount + ' produit(s) trouvé(s)');
@@ -248,9 +248,9 @@ $('.btn-addcart-product-detail').each(function(){
 			}
 		});
 	});
-</script>
+	</script>
 <!--===============================================================================================-->
-<script src="js/main.js"></script>
+	<script src="js/main.js"></script>
 
 </body>
 </html>

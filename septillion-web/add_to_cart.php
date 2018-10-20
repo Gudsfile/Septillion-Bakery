@@ -19,7 +19,7 @@ else {
 
   // if $saved_cart_items is null, prevent null error
   if(!$saved_cart_items){
-      $saved_cart_items=array();
+    $saved_cart_items=array();
   }
 
   // check if the item is in the array, if it is add new element

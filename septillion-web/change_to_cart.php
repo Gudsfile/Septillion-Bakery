@@ -1,7 +1,5 @@
 <?php
 
-require('console_log.php');
-console_log('toto');
 // get the product id
 $count = 0;
 while (isset($_GET['id'.$count])) {
