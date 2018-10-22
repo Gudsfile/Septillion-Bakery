@@ -1,2 +1,2 @@
-# Projet_Dev_Web
+# Septillion Bakey
 Projet de développement d'une application web e-commerce
