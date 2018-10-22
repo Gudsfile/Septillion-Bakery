@@ -89,7 +89,7 @@
 									<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 								</button>
 
-								<input class="size8 m-text18 t-center num-product product-detail-quantity" type="number" name="quantity" value="1">
+								<input class="size8 m-text18 t-center num-product product-detail-quantity" onkeypress="return isNumberKey(event)" type="number" name="quantity" value="1">
 
 								<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
 									<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
@@ -193,12 +193,18 @@
 				var arf = new XMLHttpRequest();
 				arf.open("GET","add_to_cart.php?id="+idProduct+"&quantity="+quantityProduct,false);
 				arf.send(null);
-				console.log(arf.response);
 				swal(nameProduct, "a été ajouté à votre panier !", "success");
 			});
 		});
 	</script>
-
+	<script type="text/javascript">
+	function isNumberKey(evt){
+		var charCode = (evt.which) ? evt.which : event.keyCode
+		if (charCode > 31 && (charCode < 48 || charCode > 57))
+			return false;
+		return true;
+	}
+	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

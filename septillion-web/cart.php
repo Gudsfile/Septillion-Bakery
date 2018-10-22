@@ -69,7 +69,7 @@
 											<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 										</button>
 
-										<input class="size8 m-text18 t-center num-product product-quantity" type="number" value="<?php echo $cart[$key]['quantity'];?>">
+										<input class="size8 m-text18 t-center num-product product-quantity" onkeypress="return isNumberKey(event)" type="number" value="<?php echo $cart[$key]['quantity'];?>">
 
 										<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2 product-add">
 											<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
@@ -101,7 +101,7 @@
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
 					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-changecart">
-						Appliquer les changements
+						Valider les changements
 					</button>
 				</div>
 			</div>
@@ -134,9 +134,15 @@
 				</div>
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-paycart">
-						Payer
-					</button>
+					<?php if (isset($_SESSION['mail'])): ?>
+						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-paycart">
+							Payer
+						</button>
+					<?php else:?>
+						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-connect">
+							Se connecter
+						</button>
+					<?php endif ?>
 				</div>
 			</div>
 
@@ -244,7 +250,7 @@
 			var quantity = $(quantityInput).val();
 		}
 
-		if (quantity != "0") {
+		if (quantity != "0" && quantity != null && quantity != "" && quantity != " ") {
 			var linePrice = price * quantity;
 			/* Update line price display and recalc cart totals */
 			productRow.children('.product-line-price').each(function () {
@@ -269,25 +275,32 @@
 			recalculateCart();
 		});
 	}
+
+	function isNumberKey(evt){
+		var charCode = (evt.which) ? evt.which : event.keyCode
+		if (charCode > 31 && (charCode < 48 || charCode > 57))
+			return false;
+		return true;
+	}
 	</script>
 	<!--===============================================================================================-->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
-	$('.btn-changecart').click(function(){
-		changement = false;
+		function change_cart() {
 		// Get url
 		var url = "change_to_cart.php?";
 		var count = 0;
 		$('.product').each(function () {
-			url += "id"+count+"="+($(this).children('.product-id').text())+"&quantity"+count+"="+($(this).children('.product-quantity-control').children().children('.product-quantity').val()+"&");
+			var q = $(this).children('.product-quantity-control').children().children('.product-quantity').val();
+
+			url += "id"+count+"="+($(this).children('.product-id').text())+"&quantity"+count+"="+q+"&";
 			count+=1;
 		});
 		// Request
 		var arf = new XMLHttpRequest();
 		arf.open("GET",url,false);
 		arf.send(null);
-		swal("","Les changements ont bien été enregistrés !", "success");
-	});
+	}
 	</script>
 <!--===============================================================================================-->
 	<script type="text/javascript">
@@ -302,42 +315,38 @@
 	    return "";
 	}
 
+	$('.btn-connect').click(function(){
+		window.location.replace('login.php');
+	});
+
 	$('.btn-paycart').click(function(){
-		if (changement == true) {
 		swal({
-			title: "Êtes vous sur ?",
-			text: "Vous n'avez pas enregistré vos changements!",
+			title: "Continuer ?",
+			text: "Voulez-vous valider et payer votre commande ?",
 			icon: 'warning',
 			buttons: {
-		    cancel: "Modifier ma commande",
+		    cancel: "Non",
 		    catch: {
-		      text: "Payer",
+		      text: "Oui",
 		      value: "pay",
 		    }
 			}
 		}).then((value) => {
-		  	if (value != "pay") {
-		  	} else {
-					var cart = getCookie('cart_items_cookie');
-					if (cart == "") {
-						swal("Oops…","Le panier est vide !", "error");
-					} else {
-						//console.log(JSON.parse(decodeURIComponent(getCookie('cart_items_cookie'))));
-						document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-						swal("Acheté","Achat validé !", "success");
-					}
-				}
-			});
-		} else {
-			var cart = getCookie('cart_items_cookie');
-			if (cart == "") {
-				swal("Oops…","Le panier est vide !", "error");
+			if (value != "pay") {
 			} else {
-				//console.log(JSON.parse(decodeURIComponent(getCookie('cart_items_cookie'))));
-				document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-				swal("Acheté","Achat validé !", "success");
+				change_cart()
+				var cart = getCookie('cart_items_cookie');
+				if (cart == "") {
+					swal("Oops…","Le panier est vide !", "error");
+				} else {
+					var arf = new XMLHttpRequest();
+					arf.open("GET","pay_script.php",false);
+					arf.send(null);
+					document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+					swal("Acheté","Achat validé !", "success");
+				}
 			}
-		}
+		});
 	});
 	</script>
 <!--===============================================================================================-->
