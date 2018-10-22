@@ -1,2 +1,2 @@
-# Projet_Dev_Web
+# Septillion Bakery
 Projet de développement d'une application web e-commerce
