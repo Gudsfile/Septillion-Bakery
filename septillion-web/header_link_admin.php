@@ -3,7 +3,7 @@
 <?php if (basename($_SERVER['PHP_SELF'])=='about.php'):?><title>Septillion / Créer un produit</title><?php ; endif?>
 <?php if (basename($_SERVER['PHP_SELF'])=='edit_product.php'):?><title>Septillion / Editer un produit</title><?php ; endif?>
 <?php if (basename($_SERVER['PHP_SELF'])=='category.php'):?><title>Septillion / Catégorie</title><?php ; endif?>
-<?php if (basename($_SERVER['PHP_SELF'])=='logout_script.php'):?><title>Septillion / Déconnexion</title><?php ; endif?>
+<?php if (basename($_SERVER['PHP_SELF'])=='script_logout.php'):?><title>Septillion / Déconnexion</title><?php ; endif?>
 <?php if (basename($_SERVER['PHP_SELF'])=='login.php'):?><title>Septillion / Espace client</title><?php ; endif?>
 
 <meta charset="UTF-8">

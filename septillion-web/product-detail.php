@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
 	<?php include('header_link.php'); ?>
 	<?php require('BDD/ProductManager.php'); ?>
@@ -11,25 +12,31 @@
 
 <body class="animsition">
 
-	<!-- Header -->
-	<header class="header1">
+	<!-- BDD -->
 	<?php
-		include('header_navbar.php');
-		// récupération des infos get
+		// get data in GET
 		if(isset($_GET['product'])): $getProduct = $_GET['product']; else: $getProduct = null; endif;
 
 		// bdd
 		$conn = Connect::connexion();
 
-		// récupération du produit
+		// get product
 		$productManager = new ProductManager($conn);
 		$product = $productManager->get($getProduct);
-		// null si produit inexistant
 
-		// récupération de la liste des catégories
+		// redirect if the product doesn't exists
+		if(empty($product->id())){
+			header('Location: product.php');
+		}
+
+		// get category list
 		$categoryManager = new CategoryManager($conn);
 		$category = $categoryManager->get($product->id_category())
 	?>
+
+	<!-- Header -->
+	<header class="header1">
+		<?php include('header_navbar.php'); ?>
 		<title>Septillion / <?php echo $product->name(); ?></title>
 	</header>
 
@@ -144,20 +151,12 @@
 		<?php include('footer_navbar.php');?>
 	</footer>
 
-
-
 	<!-- Back to top -->
 	<div class="btn-back-to-top bg0-hov" id="myBtn">
 		<span class="symbol-btn-back-to-top">
 			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
 		</span>
 	</div>
-
-	<!-- Container Selection -->
-	<div id="dropDownSelect1"></div>
-	<div id="dropDownSelect2"></div>
-
-
 
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -168,36 +167,27 @@
 	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
-	<script type="text/javascript">
-		$(".selection-1").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect1')
-		});
-
-		$(".selection-2").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect2')
-		});
-	</script>
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/slick/slick.min.js"></script>
 	<script type="text/javascript" src="js/slick-custom.js"></script>
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript">
-		$('.btn-addcart-product-detail').each(function(){
-			$(this).on('click', function(){
-				var idProduct = $('.product-detail-id').html();
-				var nameProduct = $('.product-detail-name').html();
-				var quantityProduct = document.getElementsByClassName("product-detail-quantity")[0].value;
-				var arf = new XMLHttpRequest();
-				arf.open("GET","add_to_cart.php?id="+idProduct+"&quantity="+quantityProduct,false);
-				arf.send(null);
-				swal(nameProduct, "a été ajouté à votre panier !", "success");
-			});
+
+	// add on the cart
+	$('.btn-addcart-product-detail').each(function(){
+		$(this).on('click', function(){
+			var idProduct = $('.product-detail-id').html();
+			var nameProduct = $('.product-detail-name').html();
+			var quantityProduct = document.getElementsByClassName("product-detail-quantity")[0].value;
+			var arf = new XMLHttpRequest();
+			arf.open("GET","script_add_to_cart.php?id="+idProduct+"&quantity="+quantityProduct,false);
+			arf.send(null);
+			swal(nameProduct, "a été ajouté à votre panier !", "success");
 		});
-	</script>
-	<script type="text/javascript">
+	});
+
+	// only digit
 	function isNumberKey(evt){
 		var charCode = (evt.which) ? evt.which : event.keyCode
 		if (charCode > 31 && (charCode < 48 || charCode > 57))

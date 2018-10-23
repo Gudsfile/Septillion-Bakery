@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="fr">
 
 <head>
   <link rel="stylesheet" href="css/bakery.css">
@@ -100,8 +100,6 @@
 
 </body>
 </html>
-
-
 
 <!--
 Copyright (c) 2018 by fox_hover (https://codepen.io/fox_hover/pen/bLeGME)

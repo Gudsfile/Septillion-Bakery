@@ -1,8 +1,5 @@
 <?php
-
 session_start();
-
-require('console_log.php');
 
 require('BDD/IsOrdered.php');
 require('BDD/IsOrderedManager.php');
@@ -20,7 +17,6 @@ $conn = Connect::connexion();
 $cookie = isset($_COOKIE['cart_items_cookie']) ? $_COOKIE['cart_items_cookie'] : "";
 $cookie = stripslashes($cookie);
 $cart = json_decode($cookie, true);
-
 
 // get clientID
 $clientManager = new ClientManager($conn);
@@ -40,7 +36,7 @@ $order = new Order($orderConfig);
 $orderManager = new OrderManager($conn);
 $orderId = $orderManager->add($order);
 
-// toutes les commandes pour chaque produits
+// Toutes les commandes pour chaque produits
 $isOrderedManager = new IsOrderedManager($conn);
 
 foreach ($cart as $id=>$quantity) {
@@ -49,10 +45,8 @@ foreach ($cart as $id=>$quantity) {
     'id_product' => $id,
     'quantity' => $quantity['quantity']
   );
-
   $isOrderedManager->add(new IsOrdered($isOrderedConfig));
 }
 
 die();
-
 ?>

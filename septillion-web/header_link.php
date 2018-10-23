@@ -1,11 +1,5 @@
 <?php require('console_log.php'); ?>
 
-<?php if (basename($_SERVER['PHP_SELF'])=='index.php'):?><title>Septillion / Accueil</title><?php ; endif?>
-<?php if (basename($_SERVER['PHP_SELF'])=='about.php'):?><title>Septillion / Notre histoire</title><?php ; endif?>
-<?php if (basename($_SERVER['PHP_SELF'])=='product.php'):?><title>Septillion / Nos produits</title><?php ; endif?>
-<?php if (basename($_SERVER['PHP_SELF'])=='contact.php'):?><title>Septillion / Nous contacter</title><?php ; endif?>
-<?php if (basename($_SERVER['PHP_SELF'])=='login.php'):?><title>Septillion / Espace client</title><?php ; endif?>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<title>Septillion / Nos produits</title>
 	<?php include('header_link.php'); ?>
@@ -14,20 +15,20 @@
 
 	<!-- BDD AND GET -->
 	<?php
-	// récupération des infos get
+	// get data GET
 	if(isset($_GET['category'])): $getCategory = $_GET['category']; else: $getCategory = null; endif;
 	if(isset($_GET['order'])): $getOrder = $_GET['order']; else: $getOrder = null; endif;
 
 	// bdd
 	$conn = Connect::connexion();
 
-	// récupération de la liste des catégories
+	// get category list
 	$categoryManager = new CategoryManager($conn);
 	$categoryList = $categoryManager->getList();
 
-	// récupération de la liste des produits
+	// get poducts list
 	$productManager = new ProductManager($conn);
-	// ordre de la liste des produits
+	// organize products list
 	if ($getOrder != null && $getCategory != null) {
 		$method = 'getCategoryOrderBy'.ucfirst($getOrder);
 		$productList = $productManager->$method($getCategory);
@@ -101,7 +102,7 @@
 						<!-- Choix du tri-->
 						<div class="flex-w">
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-								<select class="selection-2" name="sorting" onchange="location = this.value;">
+								<select class="selection-1" name="sorting" onchange="location = this.value;">
 									<option value="product.php?<?php if ($getCategory != null): echo 'category='.$getCategory; endif;?>">Tri par défaut</option>
 									<option value="product.php?<?php if ($getCategory != null): echo 'category='.$getCategory.'&'; endif;?>order=name" <?php if ($getOrder == 'name'):?>selected="selected"<?php ; endif;?>>Tri par nom</option>
 									<option value="product.php?<?php if ($getCategory != null): echo 'category='.$getCategory.'&'; endif;?>order=price" <?php if ($getOrder == 'price'):?>selected="selected"<?php ; endif;?>>Tri par prix</option>
@@ -148,12 +149,10 @@
 		</div>
 	</section>
 
-
 	<!-- Footer -->
 	<footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
 		<?php include('footer_navbar.php');?>
 	</footer>
-
 
 	<!-- Back to top -->
 	<div class="btn-back-to-top bg0-hov" id="myBtn">
@@ -164,9 +163,6 @@
 
 	<!-- Container Selection -->
 	<div id="dropDownSelect1"></div>
-	<div id="dropDownSelect2"></div>
-
-
 
 	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -178,14 +174,10 @@
 	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
 	<script type="text/javascript">
+	// Ordre de trie
 	$(".selection-1").select2({
 		minimumResultsForSearch: 20,
 		dropdownParent: $('#dropDownSelect1')
-	});
-
-	$(".selection-2").select2({
-		minimumResultsForSearch: 20,
-		dropdownParent: $('#dropDownSelect2')
 	});
 	</script>
 <!--===============================================================================================-->
@@ -197,21 +189,8 @@
 <!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript">
-	$('.btn-addcart-product-detail').each(function(){
-		var arf = new XMLHttpRequest();
-		var quantityProduct = "1";
-		var rowProduct = $(this).parent().parent().parent();
-		var idProduct = rowProduct.children('.product-detail').children('.product-detail-id').text();
-		var nameProduct = rowProduct.children('.product-detail').children('.product-detail-name').text();
-		$(this).on('click', function(){
-			arf.open("GET","add_to_cart.php?id="+idProduct+"&quantity="+quantityProduct,false);
-			arf.send(null);
-			swal(nameProduct, "a été ajouté à votre panier !", "success");
-		});
-	});
-	</script>
-<!--===============================================================================================-->
-	<script>
+
+	// on load (research)
 	$(document).ready(function() {
 		var jobCount = $('#list .in').length;
 		$('.list-count').text(jobCount + ' produit(s) trouvé(s)');
@@ -246,6 +225,20 @@
 			else {
 				$('#list').removeClass('empty');
 			}
+		});
+	});
+
+	// add on the cart
+	$('.btn-addcart-product-detail').each(function(){
+		var arf = new XMLHttpRequest();
+		var quantityProduct = "1";
+		var rowProduct = $(this).parent().parent().parent();
+		var idProduct = rowProduct.children('.product-detail').children('.product-detail-id').text();
+		var nameProduct = rowProduct.children('.product-detail').children('.product-detail-name').text();
+		$(this).on('click', function(){
+			arf.open("GET","script_add_to_cart.php?id="+idProduct+"&quantity="+quantityProduct,false);
+			arf.send(null);
+			swal(nameProduct, "a été ajouté à votre panier !", "success");
 		});
 	});
 	</script>
