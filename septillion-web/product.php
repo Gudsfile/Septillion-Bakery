@@ -4,11 +4,8 @@
 <head>
 	<title>Septillion / Nos produits</title>
 	<?php include('header_link.php'); ?>
-	<?php require('BDD/ProductManager.php'); ?>
-	<?php require('BDD/Product.php'); ?>
 	<?php require('BDD/CategoryManager.php'); ?>
 	<?php require('BDD/Category.php'); ?>
-	<?php require('connexion.php')?>
 </head>
 
 <body class="animsition">

@@ -1,5 +1,21 @@
 <?php session_start (); ?>
 
+<!-- BDD -->
+
+<?php
+// get data in cookie
+$cookie2 = isset($_COOKIE['cart_items_cookie']) ? $_COOKIE['cart_items_cookie'] : "";
+$cookie2 = stripslashes($cookie2);
+$cart2 = json_decode($cookie2, true);
+
+// bdd
+$conn2 = Connect::connexion();
+
+// get products list
+$productManager2 = new ProductManager($conn2);
+$productManager2->getList();
+?>
+
 <!-- Header desktop -->
 <div class="container-menu-header">
 
@@ -75,29 +91,29 @@
     <?php endif?>
 
       <span class="linedivide1"></span>
-
       <div class="header-wrapicon2">
-        <img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-        <span class="header-icons-noti">0</span>
-
+        <img href="product.php" src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+        <!--<span class="header-icons-noti">0</span>--><!-- nbr d'elements dans le panier-->
         <!-- Header cart noti -->
         <div class="header-cart header-dropdown">
+          <?php if (isset($cart2)){ ?>
           <ul class="header-cart-wrapitem">
+          <?php foreach ($cart2 as $key=>$value) { ?>
+            <?php $product = $productManager2->get($key);?>
             <li class="header-cart-item">
               <div class="header-cart-item-img">
-                <img src="images/item-cart-id_article.jpg" alt="IMG">
+                <img src="images/products/<?php echo $product->image();?>" alt="IMG">
               </div>
 
               <div class="header-cart-item-txt">
-                <a href="#" class="header-cart-item-name">
-                  nom_article
-                </a>
+                <a href="#" class="header-cart-item-name"><?php echo $product->name();?></a>
 
                 <span class="header-cart-item-info">
-                  quantité x prix
+                  <?php echo $cart2[$key]['quantity'];?> x <?php echo $product->price();?>
                 </span>
               </div>
             </li>
+          <?php } ?>
           </ul>
 
           <div class="header-cart-total">
@@ -114,11 +130,20 @@
 
             <div class="header-cart-wrapbtn">
               <!-- Button -->
-              <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+              <?php if (isset($_SESSION['mail'])): ?>
+              <a href="cart.php" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                 Payer
               </a>
+              <?php else:?>
+                <a href="login.php" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                  Se connecter
+                </a>
+              <?php endif ?>
             </div>
           </div>
+        <?php } else { ?>
+          <p> Panier vide </p>
+        <?php } ?>
         </div>
       </div>
     </div>

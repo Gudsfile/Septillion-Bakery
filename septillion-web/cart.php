@@ -4,9 +4,9 @@
 <head>
 	<title>Septillion / Mon panier</title>
 	<?php include('header_link.php'); ?>
-	<?php require('BDD/ProductManager.php'); ?>
-	<?php require('BDD/Product.php'); ?>
-	<?php require('connexion.php')?>
+	<?php //require('BDD/ProductManager.php'); ?>
+	<?php //require('BDD/Product.php'); ?>
+	<?php //require('connexion.php')?>
 </head>
 <body class="animsition">
 

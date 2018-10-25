@@ -5,7 +5,6 @@
 	<?php include('header_link.php'); ?>
 	<?php require('BDD/EmployeeManager.php'); ?>
 	<?php require('BDD/Employee.php'); ?>
-	<?php require('connexion.php')?>
 	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js"></script>
 	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css" rel="stylesheet">
 </head>
