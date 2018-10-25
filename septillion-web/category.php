@@ -1,7 +1,5 @@
-<?php function console_log( $data ){ echo '<script>'; echo 'console.log('. json_encode( $data ) .')'; echo '</script>'; }?> 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<title>Administration / Categorie</title>
 	<?php include('header_link_admin.php'); ?>
@@ -10,6 +8,17 @@
 
 </head>
 <body class="animsition">
+
+
+	<!-- BDD -->
+
+	<p>TEST</p>
+
+	<?php $error = 100; ?>
+	<?php if (isset($_GET["erreur"])) ?>
+	<?php     $error = $_GET["erreur"]; ?>
+	<?php $categoryList = $categoryManager->getList(); ?>
+
 
 	<!-- Header -->
 	<header class="header1">
@@ -28,7 +37,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 p-b-30">
-					<form class="leave-comment" action="category_script.php" method="post">
+					<form class="leave-comment" method="post">
 						<h4 class="m-text26 p-b-36 p-t-15">
 							Catégorie
 						</h4>
@@ -49,12 +58,12 @@
 									<?php foreach ($categoryList as $row) { ?>
 
 									<td><?php echo strval($row->id()); ?></td>
-									<td><?php echo $row->name(); ?></td>
+									<td><?php echo strval($row->name()); ?></td>
 									<td><?php echo strval($row->description()); ?></td>
 									<td><?php echo strval($row->icon()); ?></td>
 									<td><?php echo strval($row->created_by()); ?></td>
 
-									<?php console_log($row->name()); ?>
+									
 
 								</tr>
 							</thead>
@@ -71,7 +80,7 @@
 						
 						<div class="w-size25">
 							<!-- Button -->
-							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4">
+							<button class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4"  action="category_script.php>
 								Creer une catégorie
 							</button>
 						</div>
