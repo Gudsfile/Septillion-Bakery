@@ -11,8 +11,8 @@ class MessageManager
   public function add(Message $message)
 	{
 		$query = $this->_db->prepare("INSERT INTO MESSAGE(OBJECT, BODY, ID_SENDER, ID_RECEIVER) VALUES (:object, :body, :id_sender, :id_receiver)");
-		$query->bindValue(':object', $message->object(), PDO::PARAM_STR);
-		$query->bindValue(':body', $message->body(), PDO::PARAM_INT);
+		$query->bindValue(':object', $message->message_object(), PDO::PARAM_STR);
+		$query->bindValue(':body', $message->body(), PDO::PARAM_STR);
 		$query->bindValue(':id_sender', $message->id_sender(), PDO::PARAM_INT);
 		$query->bindValue(':id_receiver', $message->id_receiver(), PDO::PARAM_INT);
 		$query->execute();
@@ -32,7 +32,6 @@ class MessageManager
     $id = (int) $id;
     $query = $this->_db->query("SELECT * FROM MESSAGE WHERE ID_MESSAGE = ".$id);
     $donnees = $query->fetch(PDO::FETCH_ASSOC);
-    print_r($donnees);
     return new Message($donnees);
   }
 
@@ -61,6 +60,7 @@ class MessageManager
     $message = [];
     $query = $this->_db->query("SELECT * FROM MESSAGE ORDER BY ID_MESSAGE");
     while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			print_r($donnees);
       $message[] = new Message($donnees);
     }
     return $message;
