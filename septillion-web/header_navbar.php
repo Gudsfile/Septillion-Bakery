@@ -208,17 +208,13 @@ function updateWidgetQuantity(quantityInput, instruction){
     }
   });
 
-  console.log(productHeader);
-  console.log(productHeader.children('.header-cart-item-txt').children('.header-cart-item-price'));
-  console.log(productHeader.children('.header-cart-item-txt').children('.header-cart-item-quantity'));
-
   if (quantity != "0" && quantity != null && quantity != "" && quantity != " "){
     // Update line price display and recalc cart totals
-    productHeader.children('.header-cart-item-price').text(price.toFixed(2));
-    productHeader.children('.header-cart-item-quantity').text(quantity.toFixed(2));
+    productHeader.children('.header-cart-item-txt').children('.header-cart-item-info').children('.header-cart-item-price').text(price.toFixed(2));
+    productHeader.children('.header-cart-item-txt').children('.header-cart-item-info').children('.header-cart-item-quantity').text(quantity);
     recalculateWidgetCart();
   } else {
-    removeWidgetItem(productRow);
+    removeWidgetItem(productHeader);
   }
 }
 
@@ -226,9 +222,7 @@ function updateWidgetQuantity(quantityInput, instruction){
 function removeWidgetItem(removeObject)
 {
   var productRow = $(removeObject);
-  productRow.slideUp(fadeTime, function(){
-    productRow.remove();
-    recalculateCart();
-  });
+  productRow.remove();
+  recalculateWidgetCart();
 }
 </script>
