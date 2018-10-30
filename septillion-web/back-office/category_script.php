@@ -28,11 +28,4 @@ foreach ($_POST as $key => $value) {
         $_SESSION['description'] = $_POST['description'];
         header("Location: category.php");
     }
-
-
-
-
-
-
-
 ?>

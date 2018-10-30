@@ -2,9 +2,9 @@
 class Message
 {
 	private $_id_message;
-	private $_object;
+	private $_message_object;
 	private $_body;
-  private $_sent_date
+  private $_sent_date;
 	private $_id_sender;
 	private $_id_receiver;
 
@@ -26,7 +26,7 @@ class Message
 
 	public function id() { return $this->_id_message; }
 
-	public function object() { return $this->_object; }
+	public function message_object() { return $this->_message_object; }
 
 	public function body() { return $this->_body; }
 
@@ -44,16 +44,16 @@ class Message
 		}
 	}
 
-  public function setObject($object)
+  public function setMessage_object($message_object)
 	{
-		if (is_string($object)) {
-			$this->$_object = $object;
+		if (is_string($message_object)) {
+			$this->_message_object = $message_object;
 		}
 	}
 
   public function setBody($body)
 	{
-		if (is_string(v)) {
+		if (is_string($body)) {
 			$this->_body = $body;
 		}
 	}
