@@ -149,7 +149,6 @@ $productManager2->getList();
     </div>
   </div>
 </div>
-<?php include("header_mobile.php"); ?>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 <script>
