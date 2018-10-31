@@ -106,10 +106,10 @@ $productManager2->getList();
               </div>
 
               <div class="header-cart-item-txt">
-                <a href="#" class="header-cart-item-name"><?php echo $product->name();?></a>
+                <a href="product-detail.php?id=<?php echo $product->id();?>" class="header-cart-item-name"><?php echo $product->name();?></a>
 
                 <span class="header-cart-item-info">
-                  <?php echo $cart2[$key]['quantity'];?> x <?php echo $product->price();?>
+                  <a class="header-cart-item-quantity"><?php echo $cart2[$key]['quantity'];?></a> x <a class="header-cart-item-price"><?php echo $product->price();?></a>
                 </span>
               </div>
             </li>
@@ -117,7 +117,7 @@ $productManager2->getList();
           </ul>
 
           <div class="header-cart-total">
-            Total: prix
+            Total: <a class="widget-cart-total"></a>
           </div>
 
           <div class="header-cart-buttons">
@@ -149,4 +149,79 @@ $productManager2->getList();
     </div>
   </div>
 </div>
-<?php include("header_mobile.php"); ?>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script>
+var fadeTime = 300;
+
+$(document).ready(function(){
+  recalculateWidgetCart();
+});
+
+// recalculate price of the cart
+function recalculateWidgetCart(){
+  var total = 0;
+
+  // rows sum
+  $('.header-cart-item').each(function (){
+    var tmp = ($(this).children().children().children('.header-cart-item-price').text()*$(this).children().children().children('.header-cart-item-quantity').text());
+    total += parseFloat(tmp);
+  });
+
+  // recalculate total price
+  $('.header-cart-total').fadeOut(fadeTime, function() {
+    $('.widget-cart-total').html(total.toFixed(2));
+    if(total == 0){
+      $('.checkout').fadeOut(fadeTime);
+    }else{
+      $('.checkout').fadeIn(fadeTime);
+    }
+    $('.header-cart-total').fadeIn(fadeTime);
+  });
+}
+
+// recalculate row price
+function updateWidgetQuantity(quantityInput, instruction){
+
+  var productRow = $(quantityInput).parent().parent().parent();
+  var price = parseFloat(productRow.children('.product-price').text());
+  var name = productRow.children('.product-name').text();
+
+  if (instruction == "P") {
+    var jsp = ($(quantityInput).parent().children('.product-quantity')).val()
+    var quantity = (parseFloat(jsp)+1).toString();
+  } else if (instruction == "M") {
+    var jsp = ($(quantityInput).parent().children('.product-quantity')).val()
+    var quantity = (parseFloat(jsp)-1).toString();
+  } else {
+    var quantity = $(quantityInput).val();
+  }
+
+  var productHeader = null;
+  var indexHeader = "";
+  $('.header-cart-item').each(function (index){
+    var tmp = $(this).children().children('.header-cart-item-name').text();
+    if(tmp == name){
+      indexHeader = index;
+      productHeader = $(this);
+    }
+  });
+
+  if (quantity != "0" && quantity != null && quantity != "" && quantity != " "){
+    // Update line price display and recalc cart totals
+    productHeader.children('.header-cart-item-txt').children('.header-cart-item-info').children('.header-cart-item-price').text(price.toFixed(2));
+    productHeader.children('.header-cart-item-txt').children('.header-cart-item-info').children('.header-cart-item-quantity').text(quantity);
+    recalculateWidgetCart();
+  } else {
+    removeWidgetItem(productHeader);
+  }
+}
+
+// delete product
+function removeWidgetItem(removeObject)
+{
+  var productRow = $(removeObject);
+  productRow.remove();
+  recalculateWidgetCart();
+}
+</script>
