@@ -48,8 +48,8 @@
 			</div>
 			<div class="divider"></div>
 			<ul class="nav menu">
-				<li class="active"><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
-				<li><a href="orders.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
+				<li><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
+				<li class="active"><a href="orders.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
 				<li><a href="mails.php"><em class="fa fa-envelope-o">&nbsp;</em> Messages</a></li>
 				<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 					<em class="fa fa-tags">&nbsp;</em> Produits <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -98,98 +98,62 @@
 			<li><a href="index.php">
 				<em class="fa fa-home"></em>
 			</a></li>
-			<li class="active">Tableau de bord</li>
+			<li class="active">Commandes</li>
 		</ol>
 	</div><!--/.row-->
 
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					Messages
-					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-					<div class="panel-body">
-						<div class="canvas-wrapper">
-							<div class="panel panel-default">
-								<div class="panel-body btn-margins">
-									<div class="col-md-12">
-										<?php
-										$messageManager = new MessageManager($conn);
-										$employeeManager = new EmployeeManager($conn);
-										$messageList = $messageManager->getByReceiver(1004);	//REPLACE BY SESSION ID
-										?>
-										<table class="table table-hover">
-											<?php
-											foreach ($messageList as $value) {
-												echo "<tr>";
-												echo "<td>".$employeeManager->get($value->id_sender())->first_name()." ".$employeeManager->get($value->id_sender())->last_name()."</td>";
-												echo "<td>".$value->message_object()."</td>";
-												echo "<td>".$value->sent_date()."</td>";
-												echo "</tr>";
-											}
-											?>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/.row-->
-
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						Commandes en cours
-						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-						<div class="panel-body">
-							<div class="canvas-wrapper">
-								<div class="panel panel-default">
-									<div class="panel-body btn-margins">
-										<div class="col-md-12">
-											<?php
-											$orderManager = new OrderManager($conn);
-											$orderList = $orderManager->getByEmployee(1004);	//REPLACE BY SESSION ID
-											$clientManager = new ClientManager($conn);
-											?>
-											<table class="table table-hover">
-												<tr>
-													<th>N°</th>
-													<th>Date</th>
-													<th>Description</th>
-													<th>Validée</th>
-													<th>Prête</th>
-													<th>Collectée</th>
-													<th>Client</th>
-												</tr>
-												<?php
-												foreach ($orderList as $value) {
-													$client = $clientManager->get($value->client());
-													if ($value->validated() == 0) $validated = "non"; else $validated = "oui";
-													if ($value->ready() == 0) $ready = "non"; else $ready = "oui";
-													if ($value->collected() == 0) $collected = "non"; else $collected = "oui";
-													echo "<tr>";
-													echo "<td>".$value->id()."</td>";
-													echo "<td>".$value->order_date()."</td>";
-													echo "<td>".$value->description()."</td>";
-													echo "<td>".$validated."</td>";
-													echo "<td>".$ready."</td>";
-													echo "<td>".$collected."</td>";
-													echo "<td>".$client->first_name()." ".$client->last_name()."</td>";
-													echo "</tr>";
-												}
-												?>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!--/.row-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Commandes en cours
+          <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+          <div class="panel-body">
+            <div class="canvas-wrapper">
+              <div class="panel panel-default">
+                <div class="panel-body btn-margins">
+                  <div class="col-md-12">
+                    <?php
+                    $orderManager = new OrderManager($conn);
+                    $orderList = $orderManager->getByEmployee(1004);	//REPLACE BY SESSION ID
+                    $clientManager = new ClientManager($conn);
+                    ?>
+                    <table class="table table-hover">
+                      <tr>
+                        <th>N°</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Validée</th>
+                        <th>Prête</th>
+                        <th>Collectée</th>
+                        <th>Client</th>
+                      </tr>
+                      <?php
+                      foreach ($orderList as $value) {
+                        $client = $clientManager->get($value->client());
+                        if ($value->validated() == 0) $validated = "non"; else $validated = "oui";
+                        if ($value->ready() == 0) $ready = "non"; else $ready = "oui";
+                        if ($value->collected() == 0) $collected = "non"; else $collected = "oui";
+                        echo "<tr>";
+                        echo "<td>".$value->id()."</td>";
+                        echo "<td>".$value->order_date()."</td>";
+                        echo "<td>".$value->description()."</td>";
+                        echo "<td>".$validated."</td>";
+                        echo "<td>".$ready."</td>";
+                        echo "<td>".$collected."</td>";
+                        echo "<td>".$client->first_name()." ".$client->last_name()."</td>";
+                        echo "</tr>";
+                      }
+                      ?>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.row-->
 
 		</div>	<!--/.main-->
 

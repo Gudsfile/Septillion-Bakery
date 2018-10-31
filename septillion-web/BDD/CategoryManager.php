@@ -10,11 +10,11 @@ class CategoryManager
 
 	public function add(Category $category)
 	{
-		$query = $this->_db->prepare("INSERT INTO CATEGORY(NAME, DESCRIPTION, ICON, CREATED_BY) VALUES (:name, :description, :icon, :created_by)");
+		$query = $this->_db->prepare("INSERT INTO CATEGORY(NAME, DESCRIPTION, ID_IMG, CREATED_BY) VALUES (:name, :description, :icon, :created_by)");
 
 		$query->bindValue(':name', $category->name());
 		$query->bindValue(':description', $category->description(), PDO::PARAM_STR);
-		$query->bindValue(':icon', $category->icon(), PDO::PARAM_STR);
+		$query->bindValue(':icon', $category->id_img(), PDO::PARAM_INT);
 		$query->bindValue(':created_by', $category->created_by(), PDO::PARAM_STR);
 		$query->execute();
 		return $this->_db->lastInsertId();
@@ -32,6 +32,13 @@ class CategoryManager
 	{
 		$id = (int) $id;
 		$query = $this->_db->query("SELECT * FROM CATEGORY WHERE ID_CATEGORY =".$id);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		return new Category($donnees);
+	}
+
+	public function getByName($name)
+	{
+		$query = $this->_db->query("SELECT * FROM CATEGORY WHERE NAME =".$name);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		return new Category($donnees);
 	}
@@ -59,11 +66,11 @@ class CategoryManager
 
 	public function update($id, Category $newCategory)
 	{
-    $query = $this->_db->prepare("UPDATE CATEGORY SET NAME=:name,DESCRIPTION=:description,ICON=:icon,CREATED_BY=:created_by WHERE ID_CATEGORY = :id");
+    $query = $this->_db->prepare("UPDATE CATEGORY SET NAME=:name,DESCRIPTION=:description,ID_IMG=:icon,CREATED_BY=:created_by WHERE ID_CATEGORY = :id");
     $query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->bindValue(':name', $newCategory->name());
 		$query->bindValue(':description', $newCategory->description(), PDO::PARAM_STR);
-		$query->bindValue(':icon', $newCategory->icon(), PDO::PARAM_STR);
+		$query->bindValue(':icon', $newCategory->id_img(), PDO::PARAM_INT);
 		$query->bindValue(':created_by', $newCategory->created_by(), PDO::PARAM_STR);
 
 		$query->execute();

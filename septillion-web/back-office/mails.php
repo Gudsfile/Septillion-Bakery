@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Septillion Bakery - Dashboard</title>
+	<title>Septillion Bakery - Message</title>
 	<?php
 	require('../BDD/Message.php');
 	require('../BDD/MessageManager.php');
@@ -14,6 +14,9 @@
 	require('../BDD/Client.php');
 	require('../BDD/ClientManager.php');
 	$conn = new PDO("mysql:host=localhost;dbname=Septillion", "root");
+  $erreur = 100;
+  if (isset($_GET['erreur']))
+      $erreur = $_GET['erreur'];
 	?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -35,22 +38,22 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span></button>
-					<a class="navbar-brand" href="#"><span>Septillion Bakery</span>Admin</a>
+					<a class="navbar-brand" href="index.php"><span>Septillion Bakery</span>Admin</a>
 				</div>
 			</div><!-- /.container-fluid -->
 		</nav>
 		<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 			<div class="profile-sidebar">
 				<div class="profile-usertitle">
-					<div class="profile-usertitle-name">Username</div>
+					<div class="profile-usertitle-name">Username</div> <!-- Replace By SESSION NAME -->
 				</div>
 				<div class="clear"></div>
 			</div>
 			<div class="divider"></div>
 			<ul class="nav menu">
-				<li class="active"><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
+				<li><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
 				<li><a href="orders.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
-				<li><a href="mails.php"><em class="fa fa-envelope-o">&nbsp;</em> Messages</a></li>
+				<li class="active"><a href="mails.php"><em class="fa fa-envelope-o">&nbsp;</em> Messages</a></li>
 				<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 					<em class="fa fa-tags">&nbsp;</em> Produits <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
@@ -98,16 +101,16 @@
 			<li><a href="index.php">
 				<em class="fa fa-home"></em>
 			</a></li>
-			<li class="active">Tableau de bord</li>
+			<li class="active">Messages</li>
 		</ol>
 	</div><!--/.row-->
 
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					Messages
-					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+          <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
 						<div class="canvas-wrapper">
 							<div class="panel panel-default">
@@ -118,16 +121,38 @@
 										$employeeManager = new EmployeeManager($conn);
 										$messageList = $messageManager->getByReceiver(1004);	//REPLACE BY SESSION ID
 										?>
-										<table class="table table-hover">
+										<table class="table table-hover" id="messageTable">
 											<?php
 											foreach ($messageList as $value) {
 												echo "<tr>";
+                        echo "<td>".$value->id()."</td>";
 												echo "<td>".$employeeManager->get($value->id_sender())->first_name()." ".$employeeManager->get($value->id_sender())->last_name()."</td>";
 												echo "<td>".$value->message_object()."</td>";
-												echo "<td>".$value->sent_date()."</td>";
+                        echo "<td>".$value->sent_date()."</td>";
 												echo "</tr>";
 											}
 											?>
+                      <script>
+                      function addRowHandlers() {
+                        var table = document.getElementById("messageTable");
+                        var rows = table.getElementsByTagName("tr");
+                        for (i = 0; i < rows.length; i++) {
+                          var currentRow = table.rows[i];
+                          var createClickHandler =
+                          function(row)
+                          {
+                            return function() {
+                              var cell = row.getElementsByTagName("td")[0];
+                              var id = cell.innerHTML;
+															var data = <?php echo json_encode($value->body(), JSON_HEX_TAG); ?>;
+                              alert("Message : \n" + data);
+                            };
+                          };
+                          currentRow.onclick = createClickHandler(currentRow);
+                        }
+                      }
+                      window.onload = addRowHandlers();
+                      </script>
 										</table>
 									</div>
 								</div>
@@ -138,59 +163,45 @@
 			</div>
 		</div><!--/.row-->
 
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						Commandes en cours
-						<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-						<div class="panel-body">
-							<div class="canvas-wrapper">
-								<div class="panel panel-default">
-									<div class="panel-body btn-margins">
-										<div class="col-md-12">
-											<?php
-											$orderManager = new OrderManager($conn);
-											$orderList = $orderManager->getByEmployee(1004);	//REPLACE BY SESSION ID
-											$clientManager = new ClientManager($conn);
-											?>
-											<table class="table table-hover">
-												<tr>
-													<th>N°</th>
-													<th>Date</th>
-													<th>Description</th>
-													<th>Validée</th>
-													<th>Prête</th>
-													<th>Collectée</th>
-													<th>Client</th>
-												</tr>
-												<?php
-												foreach ($orderList as $value) {
-													$client = $clientManager->get($value->client());
-													if ($value->validated() == 0) $validated = "non"; else $validated = "oui";
-													if ($value->ready() == 0) $ready = "non"; else $ready = "oui";
-													if ($value->collected() == 0) $collected = "non"; else $collected = "oui";
-													echo "<tr>";
-													echo "<td>".$value->id()."</td>";
-													echo "<td>".$value->order_date()."</td>";
-													echo "<td>".$value->description()."</td>";
-													echo "<td>".$validated."</td>";
-													echo "<td>".$ready."</td>";
-													echo "<td>".$collected."</td>";
-													echo "<td>".$client->first_name()." ".$client->last_name()."</td>";
-													echo "</tr>";
-												}
-												?>
-											</table>
-										</div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading clearfix">Ecrire un message</div>
+          <div class="panel-body">
+            <form class="form-horizontal row-border" action="script_send_mail.php" method="post">
+              <div class="form-group">
+                <div class="col-md-12">
+                  <div class="input-group"><span class="input-group-addon">@</span>
+										<input type="text" name="mail" class="form-control" placeholder="mail">
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!--/.row-->
-
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <input type="text" name="object" class="form-control" placeholder="Objet">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <textarea name="body" class="form-control" cols="40" rows="8"></textarea>
+                </div>
+              </div>
+              <button class="btn btn-default margin" type="submit"><span class="fa fa-envelope-o"></span> &nbsp;Envoyer</button>
+            </form>
+            <br>
+            <?php if ($erreur == '1'): ?>
+              <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Mail introuvable </div>
+            <?php ; endif ?>
+            <?php if ($erreur == '2'): ?>
+              <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur BDD </div>
+            <?php ; endif ?>
+            <?php if ($erreur == '3'): ?>
+              <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Mail envoyé !</div>
+            <?php ; endif ?>
+          </div>
+        </div>
+      </div>
+    </div>
 		</div>	<!--/.main-->
 
 		<script src="js/jquery-1.11.1.min.js"></script>
