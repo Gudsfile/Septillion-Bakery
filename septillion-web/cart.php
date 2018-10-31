@@ -4,9 +4,6 @@
 <head>
 	<title>Septillion / Mon panier</title>
 	<?php include('header_link.php'); ?>
-	<?php //require('BDD/ProductManager.php'); ?>
-	<?php //require('BDD/Product.php'); ?>
-	<?php //require('connexion.php')?>
 </head>
 <body class="animsition">
 
@@ -62,7 +59,7 @@
 									</div>
 								</td>
 								<td class="product-id" hidden><?php echo $product->id();?></td>
-								<td class="column-2"><?php echo $product->name();?></td>
+								<td class="column-2 product-name"><?php echo $product->name();?></td>
 								<td class="column-3 product-price"><?php echo $product->price();?></td>
 								<td class="column-4 product-quantity-control">
 									<div class="flex-w bo5 of-hidden w-size17">
@@ -151,16 +148,19 @@
 	// get change with keys
 	$('.product-quantity').change( function(){
 		updateQuantity(this, "O");
+		updateWidgetQuantity(this,"O");
 	});
 
 	// get change with +
 	$('.product-add').click( function(){
 		updateQuantity(this, "P");
+		updateWidgetQuantity(this,"P");
 	});
 
 	// get change with -
 	$('.product-remove').click( function(){
 		updateQuantity(this, "M");
+		updateWidgetQuantity(this,"M");
 	});
 
 	// connect button
@@ -238,7 +238,7 @@
 
 		if (quantity != "0" && quantity != null && quantity != "" && quantity != " "){
 			var linePrice = price * quantity;
-			/* Update line price display and recalc cart totals */
+			// Update line price display and recalc cart totals
 			productRow.children('.product-line-price').each(function (){
 				$(this).fadeOut(fadeTime, function() {
 					$(this).text(linePrice.toFixed(2));
