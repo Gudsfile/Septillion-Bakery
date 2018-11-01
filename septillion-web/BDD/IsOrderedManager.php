@@ -44,7 +44,7 @@ class IsOrderedManager
 		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$isOrder[] = new IsOrdered($donnees);
 		}
-    return $isOrder;
+    		return $isOrder;
 	}
 
 	public function getByProduct($id)
