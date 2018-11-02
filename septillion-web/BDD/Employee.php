@@ -6,8 +6,6 @@ class Employee
 	private $_password;
 	private $_first_name;
 	private $_last_name;
-	private $_address;
-	private $_phone_number;
 	private $_role;
 
 	public function __construct($value = array())
@@ -35,10 +33,6 @@ class Employee
 	public function first_name() { return $this->_first_name; }
 
 	public function last_name() { return $this->_last_name; }
-
-	public function address() { return $this->_address; }
-
-	public function phone_number() { return $this->_phone_number; }
 
 	public function role() { return $this->_role; }
 
@@ -75,20 +69,6 @@ class Employee
 	{
 		if (is_string($last_name)) {
 			$this->_last_name = $last_name;
-		}
-	}
-
-	public function setAddress($address)
-	{
-		if (is_string($address)) {
-			$this->_address = $address;
-		}
-	}
-
-	public function setPhone_number($phone_number)
-	{
-		if (is_string($phone_number) && is_numeric($phone_number)) {
-			$this->_phone_number = $phone_number;
 		}
 	}
 

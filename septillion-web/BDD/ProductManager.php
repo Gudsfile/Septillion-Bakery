@@ -15,7 +15,7 @@ class ProductManager
 		$query->bindValue(':stock', $product->stock(), PDO::PARAM_INT);
 		$query->bindValue(':description', $product->description(), PDO::PARAM_STR);
 		$query->bindValue(':price', $product->price(), PDO::PARAM_STR);
-		$query->bindValue(':image', $product->image(), PDO::PARAM_STR);
+		$query->bindValue(':image', $product->image(), PDO::PARAM_INT);
 		$query->bindValue(':created_by', $product->created_by(), PDO::PARAM_INT);
 		$query->bindValue(':last_updated_by', $product->last_updated_by(), PDO::PARAM_INT);
 		$query->bindValue(':id_category', $product->id_category(), PDO::PARAM_INT);

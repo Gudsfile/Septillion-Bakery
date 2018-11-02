@@ -34,7 +34,6 @@ class OrderManager
 		$id = (int) $id;
 		$query = $this->_db->query("SELECT * FROM CLIENT_ORDER WHERE ID_ORDER = ".$id);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		print_r($donnees);
 		return new Order($donnees);
 	}
 
