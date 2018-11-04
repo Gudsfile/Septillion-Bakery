@@ -7,7 +7,7 @@
   <?php
 	require('../BDD/Employee.php');
 	require('../BDD/EmployeeManager.php');
-  $pdo = new PDO("mysql:host=localhost;dbname=Septillion","root");
+  $pdo = new PDO("mysql:host=localhost;dbname=Septillion","root", "root");
   $erreur = 100;
   if (isset($_GET['erreur']))
       $erreur = $_GET['erreur'];

@@ -1,7 +1,7 @@
 <?php
 require('../BDD/Employee.php');
 require('../BDD/EmployeeManager.php');
-$conn = new PDO("mysql:host=localhost;dbname=Septillion", "root");
+$conn = new PDO("mysql:host=localhost;dbname=Septillion", "root", "root");
 $employeeManager = new EmployeeManager($conn);
 
 if ($employeeManager->getByMail($_POST['mail'])->id() != 0) {

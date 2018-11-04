@@ -9,8 +9,6 @@
 	<?php
 	require('../BDD/Employee.php');
 	require('../BDD/EmployeeManager.php');
-	require('../BDD/Product.php');
-	require('../BDD/ProductManager.php');
 	require('../BDD/Category.php');
 	require('../BDD/CategoryManager.php');
 	require('../BDD/Image.php');
@@ -121,13 +119,12 @@
 					<?php
 						$imageManager = new ImageManager($conn);
 						$categoryManager = new CategoryManager($conn);
-						$productManager = new ProductManager($conn);
 						$employeeManager = new EmployeeManager($conn);
-						$productList = $productManager->getList();
-						foreach($productList as $product) { //Get the image from database
-							$image = $imageManager->get($product->image())->image();
-							$created_by = $employeeManager->get($product->created_by());
-							$last_updated_by = $employeeManager->get($product->last_updated_by());
+						$categoryList = $categoryManager->getList();
+						foreach($categoryList as $category) { //Get the image from database
+							$image = $imageManager->get($category->id_img())->image();
+							$created_by = $employeeManager->get($category->created_by());
+							
 							echo '
 							<div class="search-result-item col-md-12">
 								<div class="col-sm-2">
@@ -136,16 +133,13 @@
 								<div class="search-result-item-body col-sm-10">
 									<div class="row">
 										<div class="col-sm-9">
-											<h3 class="search-result-title">'.$product->name().'</a></h3>
-											<p class="text-muted">'.$categoryManager->get($product->id_category())->name().'</p>
-											<p>'.$product->description().'</p>
-											
+											<h3 class="search-result-title">'.$category->name().'</a></h3>
+											<p>'.$category->description().'</p>
 											<p>Créé par : '.$created_by->first_name()." ".$created_by->last_name().'</p>
-											<p>Dernière mise à jour par : '.$last_updated_by->first_name()." ".$last_updated_by->last_name().'</p>
+											
 										</div>
 										<div class="col-sm-3 text-center">
-											<h3>'.$product->price().'€</h3>
-											<a class="btn btn-primary btn-info btn-md" href="product.php?#"'.$product->id().'>Afficher détails</a>
+											<a class="btn btn-primary btn-info btn-md" href="category.php?#"'.$category->id().'>Editer </a>
 										</div>
 									</div>
 								</div>
