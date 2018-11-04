@@ -3,19 +3,45 @@
 <head>
 	<title>Septillion| Mes commandes</title>
 	<link href="css/track.css" rel="stylesheet" type="text/css"/>
+	<!-- BDD includes -->
 	<?php include('header_link.php'); ?>
-
-	<?php require('BDD/OrderManager.php'); ?>
-	<?php require('BDD/Order.php'); ?>
-	<?php require('BDD/IsOrderedManager.php'); ?>
-	<?php require('BDD/IsOrdered.php'); ?>
+	<?php require('../BDD/OrderManager.php'); ?>
+	<?php require('../BDD/Order.php'); ?>
+	<?php require('../BDD/IsOrderedManager.php'); ?>
+	<?php require('../BDD/IsOrdered.php'); ?>
+	<!-- Session manager --> 
 	<?php session_start() ?>
 	<?php if(!isset($_SESSION['mail']) && !isset($_SESSION['password'])){
 		header("Location: index.php");
 		exit();
 	}
 	?>
-</head>
+
+	<!-- Carousel manager -->
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <style>
+  /* Make the image fully responsive */
+  .carousel-inner img {
+      width: 100%;
+      height: 100%;
+  }
+  </style>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </head>
 <body class="animsition">
@@ -48,7 +74,8 @@
 
 </div></section>
 
-
+<!-- **************************************************** -->
+<div id="demo" class="carousel slide" data-ride="carousel">
 	<div class="pricing-container">
 		<div class="pricing-switcher">
 			<p class="fieldset">
@@ -74,8 +101,10 @@
 				<?php } ?>
 			</p>
 		</div>
+	<div class="carousel-inner">
 		<ul class="pricing-list bounce-invert">
 					<?php $order=array_reverse($order);
+							$carrou=0;
 							foreach ($order as $key=>$value) { ?>
 							<?php //test etat :
 								$Etat; $color;
@@ -96,13 +125,23 @@
 									$color="#ffe945";
 								}
 								if ($toutes=="false" && $Etat=="Collectée") {
+
 									continue;
 								}
 
 							 ?>
-								<li class="exclusive">
+							 	<?php 
+								$carrou ++;
+							 	$help="";
+							 	if ($carrou ==1 ) {
+							 		$help = "active";
+							 	} 
+							 		 
+							 	?>
+							 	<div class="carousel-item <?php echo $help ?>">
+							 	<li class="exclusive">
 									<ul class="pricing-wrapper">
-										<li data-type="monthly" class="is-visible">
+										<li data-type="monthly" class="is-visible" >
 											<header class="pricing-header">
 												<?php 
 													$date = strtotime($value->order_date());
@@ -143,10 +182,20 @@
 										
 									</ul>
 								</li>
-									<?php } ?>
+							 	</div>
 
+									<?php } ?>
 		</ul>
+		  <!-- Left and right controls -->
+  <a style="background: grey;" class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a style="background: grey;" class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
 	</div>
+	</div>
+</div>
 </body>
 </html>
 
