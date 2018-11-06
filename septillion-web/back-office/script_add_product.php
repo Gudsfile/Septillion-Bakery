@@ -1,12 +1,14 @@
 <?php
+session_start();
 require('../BDD/Image.php');
 require('../BDD/ImageManager.php');
 require('../BDD/Product.php');
 require('../BDD/ProductManager.php');
 require('../BDD/Category.php');
 require('../BDD/CategoryManager.php');
+require('connexion.php');
 
-$pdo = new PDO("mysql:host=localhost;dbname=Septillion","root");
+$pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
 $productManager = new ProductManager($pdo);
 
@@ -23,7 +25,7 @@ function transfert() {
   $type   = '';
   $name    = '';
   $max_size = 250000;
-  $ret        = is_uploaded_file($_FILES['product_img']['tmp_name']);
+  $ret = is_uploaded_file($_FILES['product_img']['tmp_name']);
 
   if (!$ret) {
     return 0;
@@ -46,7 +48,7 @@ function transfert() {
     "size" => $size,
     "image" => $blob,
   );
-  $pdo = new PDO("mysql:host=localhost;dbname=Septillion","root");
+  $pdo = Connect::connexion();
   $imageManager = new ImageManager($pdo);
   $newImage = new Image($imageData);
   $imageId = $imageManager->add($newImage);
@@ -59,8 +61,8 @@ $productData = array(
   "description" => $_POST['description'],
   "price" => $_POST['price'],
   "image" => transfert(),
-  "created_by" => 1003,       //Replace By session id
-  "last_updated_by" => 1003,  //Replace By session id
+  "created_by" => $_SESSION['id_client'],       //Replace By session id
+  "last_updated_by" => $_SESSION['id_client'],  //Replace By session id
   "id_category" => $_POST['category'],
 );
 $newProduct = new Product($productData);

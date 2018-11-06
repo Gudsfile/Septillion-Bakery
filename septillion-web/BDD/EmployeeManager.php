@@ -50,6 +50,9 @@ class EmployeeManager
 		$passwd = "'".$passwd."'";
 		$query = $this->_db->query("SELECT * FROM EMPLOYEE WHERE MAIL =".$mail." AND PASSWORD =".$passwd);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		if ($donnees == null) {
+			return 0;
+		}
 		return new Employee($donnees);
 	}
 

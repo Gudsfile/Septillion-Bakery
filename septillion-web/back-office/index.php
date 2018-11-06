@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,8 @@
 	require('../BDD/EmployeeManager.php');
 	require('../BDD/Client.php');
 	require('../BDD/ClientManager.php');
-	$conn = new PDO("mysql:host=localhost;dbname=Septillion", "root");
+	require('connexion.php');
+	$conn = Connect::connexion();
 	?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -42,7 +45,7 @@
 		<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 			<div class="profile-sidebar">
 				<div class="profile-usertitle">
-					<div class="profile-usertitle-name">Username</div>
+					<div class="profile-usertitle-name"><?php echo $_SESSION['name']?></div>
 				</div>
 				<div class="clear"></div>
 			</div>

@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,8 @@
   require('../BDD/EmployeeManager.php');
   require('../BDD/Category.php');
   require('../BDD/CategoryManager.php');
-  $pdo = new PDO("mysql:host=localhost;dbname=Septillion","root","root");
+  require('connexion.php');
+  $conn = Connect::connexion();
   $erreur = 100;
   if (isset($_GET['erreur']))
       $erreur = $_GET['erreur'];
@@ -41,7 +44,7 @@
     <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
       <div class="profile-sidebar">
         <div class="profile-usertitle">
-          <div class="profile-usertitle-name">Username</div>
+          <div class="profile-usertitle-name"><?php echo $_SESSION['name']?></div>
         </div>
         <div class="clear"></div>
       </div>

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+	<?php
+    // verification s'il y a des erreur !
+    $erreur = 100;
+    if (isset($_GET['erreur']))
+        $erreur = $_GET['erreur'];
+    session_start();
+    if(!isset($_SESSION['data']))
+        $_SESSION['data']=null;
+    ?>
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Lumino - Login</title>
@@ -21,13 +32,14 @@
 					<form role="form" action="script_login_admin.php" method="post">
 						<fieldset>
 							<div class="form-group">
-								<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
+								<input class="form-control" placeholder="E-mail" name="mail" type="mail" autofocus="">
 							</div>
 							<div class="form-group">
 								<input class="form-control" placeholder="Password" name="password" type="password" value="">
 							</div>
 							<button type="submit" class="col-xs-12 btn btn-primary">Login</button>
 					</form>
+					<?php if ($erreur == '0'): ?><p class="m-b-20" style="color : #F08080"> Erreur </p><?php ; endif ?>
 				</div>
 			</div>
 		</div><!-- /.col-->

@@ -1,24 +1,32 @@
 <?php
 require('../BDD/Employee.php');
 require('../BDD/EmployeeManager.php');
-$pdo = new PDO("mysql:host=localhost;dbname=septillion","root");
-$employeeManager= new EmployeeManager($pdo);
-$res = $employeeManager->getByMailAndPassword($_POST['mail'], $_POST['password']);
+require('connexion.php');
+$conn = Connect::connexion();
+$employeeManager = new EmployeeManager($conn);
 
-// Comparaison du pass envoyé via le formulaire avec la base
-$isPasswordCorrect = password_verify($_POST['pass'], $resultat['pass']);
 
-if (!$resultat) {
-    echo 'Mauvais identifiant ou mot de passe !';
+if (empty($_POST['mail']) || empty($_POST['password'])) {
+    header("Location: login.php?erreur=0");
 } else {
-    if ($isPasswordCorrect) {
-        session_start();
-        $_SESSION['id'] = $resultat['id'];
-        $_SESSION['pseudo'] = $pseudo;
-        echo 'Vous êtes connecté !';
-    }
+
+    $Mail = htmlentities($_POST['mail'], ENT_QUOTES, "ISO-8859-1"); // le htmlentities() limite les injections sql (passe les guillemets en entité html)
+    $MotDePasse = md5(htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1")); // le md5 permet de chiffrer (trop) simplement
+    $verif = $employeeManager->getByMailAndPassword($Mail, $MotDePasse);
+    if ($verif==0)
+        header("Location: login.php?erreur=0");
     else {
-        echo 'Mauvais identifiant ou mot de passe !';
+        session_start();
+        // variables de session
+        $_SESSION['mail'] = $_POST['mail'];
+        $_SESSION['password'] = $_POST['password'];
+        $_SESSION['id_client'] = $verif->id();
+        $_SESSION['name'] = $verif->first_name()." ".$verif->last_name();
+        header("Location: index.php");
+        
+        
     }
 }
+
+
 ?>

@@ -1,10 +1,14 @@
 <?php
+session_start();
+
+
 require('../BDD/Image.php');
 require('../BDD/ImageManager.php');
 require('../BDD/Category.php');
 require('../BDD/CategoryManager.php');
+require('connexion.php');
 
-$pdo = new PDO("mysql:host=localhost;dbname=Septillion","root","root");
+$pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
 
 if ($_POST['name'] == null) {
@@ -14,14 +18,16 @@ if ($_POST['name'] == null) {
 }
 
 function transfert() {
+  $imageId = 0;
+  if(isset($_FILES['image'])){
   $ret        = false;
   $blob   = '';
   $size = 0;
   $type   = '';
   $name    = '';
   $max_size = 250000;
-  $ret        = is_uploaded_file($_FILES['category_img']['tmp_name']);
-
+  $ret = is_uploaded_file($_FILES['category_img']['tmp_name']);
+  
   if (!$ret) {
     return 0;
   } else {
@@ -29,6 +35,7 @@ function transfert() {
 
     if ($size > $max_size) {
       header('Location: add_category.php?erreur=2');
+
       exit();
     }
 
@@ -43,24 +50,28 @@ function transfert() {
     "size" => $size,
     "image" => $blob,
   );
-  $pdo = new PDO("mysql:host=localhost;dbname=Septillion","root");
+  $pdo = Connect::connexion();
   $imageManager = new ImageManager($pdo);
   $newImage = new Image($imageData);
   $imageId = $imageManager->add($newImage);
-  return $imageId;
+  
+ }
+ return $imageId;
 }
 
 $categoryData = array(
   "name" => $_POST['name'],
   "description" => $_POST['description'],
   "icon" => transfert(),
-  "created_by" => 1003,       //Replace By session id
+  "created_by" => $_SESSION['id_client'],       //Replace By session id
 );
 $newCategory = new Category($categoryData);
 $idCategory = $categoryManager->add($newCategory);
+
 if ($idCategory == 0){
   $erreur = 2;
-  header('Location: add_category.php?erreur=2');
+  echo $categoryData['name'];
+  //header('Location: add_category.php?erreur=2');
   exit();
 } else {
   $erreur = 3;
