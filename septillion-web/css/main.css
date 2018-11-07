@@ -961,11 +961,6 @@ li.sale-noti > a {
   opacity: 0;
 }
 
-.header-cart-item-img:hover:after {
-  cursor: pointer;
-  opacity: 1;
-}
-
 /* ------------------------------------ */
 .header-cart-item-txt {
   width: calc(100% - 100px);
