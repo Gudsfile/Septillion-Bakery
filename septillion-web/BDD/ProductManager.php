@@ -18,7 +18,7 @@ class ProductManager
 		$query->bindValue(':created_by', $product->created_by(), PDO::PARAM_INT);
 		$query->bindValue(':last_updated_by', $product->last_updated_by(), PDO::PARAM_INT);
 		$query->bindValue(':id_category', $product->id_category(), PDO::PARAM_INT);
-		$query->bindValue(':id_img', $product->image(), PDO::PARAM_INT);
+		$query->bindValue(':id_img', $product->id_img(), PDO::PARAM_INT);
 		$query->execute();
 		return $this->_db->lastInsertId();
 	}
