@@ -5,7 +5,7 @@ class Category
 	private $_id_category;
 	private $_name;
 	private $_description;
-	private $_icon;
+	private $_id_img;
 	private $_created_by;
 
 	 public function __construct($value = array())
@@ -30,7 +30,7 @@ class Category
 
 	public function description() { return $this->_description; }
 
-	public function icon() { return $this->_icon; }
+	public function id_img() { return $this->_id_img; }
 
 	public function created_by() { return $this->_created_by; }
 
@@ -56,10 +56,10 @@ class Category
 		}
 	}
 
-	public function setIcon($icon)
+	public function setId_img($icon)
 	{
 		if (is_string($icon)) {
-			$this->_icon= $icon;
+			$this->_id_img= $icon;
 		}
 	}
 

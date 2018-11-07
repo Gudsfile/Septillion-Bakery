@@ -84,7 +84,7 @@ class Product
 
 	public function setImage($image)
 	{
-		if (is_string($image)) {
+		if (is_numeric($image)) {
 			$this->_image = $image;
 		}
 	}

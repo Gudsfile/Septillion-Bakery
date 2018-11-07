@@ -10,7 +10,7 @@ class MessageManager
 
   public function add(Message $message)
 	{
-		$query = $this->_db->prepare("INSERT INTO MESSAGE(OBJECT, BODY, ID_SENDER, ID_RECEIVER) VALUES (:object, :body, :id_sender, :id_receiver)");
+		$query = $this->_db->prepare("INSERT INTO MESSAGE(MESSAGE_OBJECT, BODY, ID_SENDER, ID_RECEIVER) VALUES (:object, :body, :id_sender, :id_receiver)");
 		$query->bindValue(':object', $message->message_object(), PDO::PARAM_STR);
 		$query->bindValue(':body', $message->body(), PDO::PARAM_STR);
 		$query->bindValue(':id_sender', $message->id_sender(), PDO::PARAM_INT);
