@@ -9,9 +9,9 @@
 	<?php
 	require('connexion.php');
 	$conn = Connect::connexion();
-  $erreur = 100;
-  if (isset($_GET['erreur']))
-      $erreur = $_GET['erreur'];
+	$erreur = 100;
+	if (isset($_GET['erreur']))
+		$erreur = $_GET['erreur'];
 	?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 	<!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
-	<![endif]-->
+<![endif]-->
 </head>
 <body>
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -85,8 +85,8 @@
 			</a></li>
 		</ul>
 	</li>
-			<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
-	</ul>
+	<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+</ul>
 </div>
 <!--/.sidebar-->
 
@@ -114,20 +114,83 @@
 										<?php
 										$messageManager = new MessageManager($conn);
 										$employeeManager = new EmployeeManager($conn);
-										$messageList = $messageManager->getByReceiver($_SESSION['id_client']);	//REPLACE BY SESSION ID
+										$messageList = $messageManager->getByReceiver(intval($_SESSION['id_client']));	//REPLACE BY SESSION ID
+										?>
+										
+
+										<?php
 										if (!empty($messageList)) {
-											echo '<table class="table table-hover" id="messageTable">';
+											echo '<table class="table" id="messageTable">';
+											?>
+
+											<tr>
+												<th scope="col">De :</th>
+												<th scope="col">Objet :</th>
+												<th scope="col">Date :</th>
+												<th scope="col"></th>
+												<th scope="col"></th>
+
+											</tr>
+
+											<?php
 											foreach ($messageList as $value) {
+
+
+
 												echo "<tr>";
-												echo "<td>".$value->id()."</td>";
+												//echo "<td>".$value->id()."</td>";
 												echo "<td>".$employeeManager->get($value->id_sender())->first_name()." ".$employeeManager->get($value->id_sender())->last_name()."</td>";
 												echo "<td>".$value->message_object()."</td>";
 												echo "<td>".$value->sent_date()."</td>";
-												echo "<td>".$value->sent_date()."</td>";
+												
+
+												?>
+												<td>
+
+													<a class="btn btn-primary" data-toggle="collapse" href="<?php echo "#afficher".$value->id() ?>" role="button" aria-expanded="false" aria-controls="<?php echo "afficher".$value->id() ?>">
+														Afficher le message
+													</a>
+
+												</td>
+
+
+												<td>
+													<form action="script_del_mail.php" method="post">
+														<button class="btn btn-primary" type="submit" name="id" value="<?php echo $value->id() ?>">
+															Supprimer le message
+														</button>
+													</form>
+												</td>
+
+
+												
+												<?php
+
+
+
 												echo "</tr>";
+												?>
+												<tr><td colspan="5">
+													<div class="collapse" id="<?php echo "afficher".$value->id() ?>">
+														<div class="card card-body" >
+
+															<?php echo(nl2br($value->body())); ?>
+
+														</div>
+													</div>
+												</td></tr>
+
+												<?php
+												
 
 											}
 											echo "</table>";
+											?>
+											
+											
+
+
+											<?php
 										} else {
 											echo '<h3>Aucun message</h3>';
 										}
@@ -141,54 +204,54 @@
 			</div>
 		</div><!--/.row-->
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-primary">
-          <div class="panel-heading clearfix">Ecrire un message</div>
-          <div class="panel-body">
-            <form class="form-horizontal row-border" action="script_send_mail.php" method="post">
-              <div class="form-group">
-                <div class="col-md-12">
-                  <div class="input-group"><span class="input-group-addon">@</span>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading clearfix">Ecrire un message</div>
+					<div class="panel-body">
+						<form class="form-horizontal row-border" action="script_send_mail.php" method="post">
+							<div class="form-group">
+								<div class="col-md-12">
+									<div class="input-group"><span class="input-group-addon">@</span>
 										<input type="text" name="mail" class="form-control" placeholder="mail">
 									</div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-md-12">
-                  <input type="text" name="object" class="form-control" placeholder="Objet">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-md-12">
-                  <textarea name="body" class="form-control" cols="40" rows="8"></textarea>
-                </div>
-              </div>
-              <button class="btn btn-default margin" type="submit"><span class="fa fa-envelope-o"></span> &nbsp;Envoyer</button>
-            </form>
-            <br>
-            <?php if ($erreur == '1'): ?>
-              <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Mail introuvable </div>
-            <?php ; endif ?>
-            <?php if ($erreur == '2'): ?>
-              <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur BDD </div>
-            <?php ; endif ?>
-            <?php if ($erreur == '3'): ?>
-              <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Mail envoyé !</div>
-            <?php ; endif ?>
-          </div>
-        </div>
-      </div>
-    </div>
-		</div>	<!--/.main-->
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<input type="text" name="object" class="form-control" placeholder="Objet">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<textarea name="body" class="form-control" cols="40" rows="8"></textarea>
+								</div>
+							</div>
+							<button class="btn btn-default margin" type="submit"><span class="fa fa-envelope-o"></span> &nbsp;Envoyer</button>
+						</form>
+						<br>
+						<?php if ($erreur == '1'): ?>
+							<div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Mail introuvable </div>
+							<?php ; endif ?>
+							<?php if ($erreur == '2'): ?>
+								<div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur BDD </div>
+								<?php ; endif ?>
+								<?php if ($erreur == '3'): ?>
+									<div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Mail envoyé !</div>
+									<?php ; endif ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	<!--/.main-->
 
-		<script src="js/jquery-1.11.1.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/chart.min.js"></script>
-		<script src="js/chart-data.js"></script>
-		<script src="js/easypiechart.js"></script>
-		<script src="js/easypiechart-data.js"></script>
-		<script src="js/bootstrap-datepicker.js"></script>
-		<script src="js/custom.js"></script>
-	</body>
-	</html>
+				<script src="js/jquery-1.11.1.min.js"></script>
+				<script src="js/bootstrap.min.js"></script>
+				<script src="js/chart.min.js"></script>
+				<script src="js/chart-data.js"></script>
+				<script src="js/easypiechart.js"></script>
+				<script src="js/easypiechart-data.js"></script>
+				<script src="js/bootstrap-datepicker.js"></script>
+				<script src="js/custom.js"></script>
+			</body>
+			</html>
