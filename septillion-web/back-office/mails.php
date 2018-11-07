@@ -123,6 +123,7 @@
 												echo "<td>".$employeeManager->get($value->id_sender())->first_name()." ".$employeeManager->get($value->id_sender())->last_name()."</td>";
 												echo "<td>".$value->message_object()."</td>";
 												echo "<td>".$value->sent_date()."</td>";
+												echo "<td>".$value->sent_date()."</td>";
 												echo "</tr>";
 
 											}

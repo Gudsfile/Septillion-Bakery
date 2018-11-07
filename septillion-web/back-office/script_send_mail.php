@@ -3,6 +3,7 @@ session_start();
 require('connexion.php');
 $conn = Connect::connexion();
 $messageManager = new MessageManager($conn);
+$employeeManager = new EmployeeManager($conn);
 
 if ($employeeManager->getByMail($_POST['mail'])->id() == 0) {
   $erreur = 1;
