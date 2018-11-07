@@ -53,10 +53,10 @@ $productData = array(
   "stock" => $_POST['stock'],
   "description" => $_POST['description'],
   "price" => $_POST['price'],
-  "image" => transfert(),
   "created_by" => intval($_SESSION['id_client']),       //Replace By session id
   "last_updated_by" => intval($_SESSION['id_client']),  //Replace By session id
   "id_category" => $_POST['category'],
+  "id_img" => transfert(),
 );
 $newProduct = new Product($productData);
 $idProduct = $productManager->add($newProduct);

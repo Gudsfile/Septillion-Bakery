@@ -46,7 +46,7 @@
 			<div class="divider"></div>
 			<ul class="nav menu">
 				<li><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
-				<li><a href="orders.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
+				<li><a href="list_order.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
 				<li><a href="mails.php"><em class="fa fa-envelope-o">&nbsp;</em> Messages</a></li>
 				<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 					<em class="fa fa-tags">&nbsp;</em> Produits <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -139,7 +139,7 @@
 											<p>Dernière mise à jour par : '.$last_updated_by->first_name()." ".$last_updated_by->last_name().'</p>
 										</div>
 										<div class="col-sm-3 text-center">
-											<h3>'.$product->price().'€</h3>
+											<h3>'.$product->price().' €</h3>
 											<a class="btn btn-primary btn-info btn-md" href="product.php?id='.$product->id().'">Afficher détails</a>
 										</div>
 									</div>

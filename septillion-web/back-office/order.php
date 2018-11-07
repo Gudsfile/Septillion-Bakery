@@ -4,11 +4,20 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<title>Septillion Bakery - Dashboard</title>
 	<?php
 	require('connexion.php');
 	$conn = Connect::connexion();
+  $productManager = new ProductManager($conn);
+  $imageManager = new ImageManager($conn);
+  $categoryManager = new CategoryManager($conn);
+  $employeeManager = new EmployeeManager($conn);
+  $oderManager = new OrderManager($conn);
+	$isOrderedManager = new IsOrderedManager($conn);
+  $order = $oderManager->get($_GET['id']);
 	?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -44,7 +53,7 @@
 			<div class="divider"></div>
 			<ul class="nav menu">
 				<li><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
-				<li class="active"><a href="orders.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
+				<li><a href="list_order.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
 				<li><a href="mails.php"><em class="fa fa-envelope-o">&nbsp;</em> Messages</a></li>
 				<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 					<em class="fa fa-tags">&nbsp;</em> Produits <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -82,83 +91,95 @@
 			</a></li>
 		</ul>
 	</li>
-			<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
-	</ul>
+	<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+</ul>
 </div>
 <!--/.sidebar-->
 
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<div class="row">
 		<ol class="breadcrumb">
-			<li><a href="index.php">
-				<em class="fa fa-home"></em>
-			</a></li>
-			<li class="active">Commandes</li>
+			<li><a href="index.php"><em class="fa fa-home"></em></a></li>
+      <li><a href="list_product.php">Liste commandes</a></li>
+      <li class="active">Commande N° <?php echo $order->id() ?></li>
 		</ol>
-	</div><!--/.row-->
-
+	</div>
   <div class="row">
+    <div class="col-lg-12">
+      <h2>Commande N° <?php echo $order->id() ?> - <?php echo date("l j F H:i", strtotime($order->order_date())) ?></h2>
+    </div>
     <div class="col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading">
-          Commandes en cours
-          <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
-          <div class="panel-body">
-            <div class="canvas-wrapper">
-              <div class="panel panel-default">
-                <div class="panel-body btn-margins">
-                  <div class="col-md-12">
-                    <?php
-                    $orderManager = new OrderManager($conn);
-                    $orderList = $orderManager->getByEmployee(1004);	//REPLACE BY SESSION ID
-                    $clientManager = new ClientManager($conn);
-                    ?>
-                    <table class="table table-hover">
-                      <tr>
-                        <th>N°</th>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Validée</th>
-                        <th>Prête</th>
-                        <th>Collectée</th>
-                        <th>Client</th>
-                      </tr>
-                      <?php
-                      foreach ($orderList as $value) {
-                        $client = $clientManager->get($value->client());
-                        if ($value->validated() == 0) $validated = "non"; else $validated = "oui";
-                        if ($value->ready() == 0) $ready = "non"; else $ready = "oui";
-                        if ($value->collected() == 0) $collected = "non"; else $collected = "oui";
-                        echo "<tr>";
-                        echo "<td>".$value->id()."</td>";
-                        echo "<td>".$value->order_date()."</td>";
-                        echo "<td>".$value->description()."</td>";
-                        echo "<td>".$validated."</td>";
-                        echo "<td>".$ready."</td>";
-                        echo "<td>".$collected."</td>";
-                        echo "<td>".$client->first_name()." ".$client->last_name()."</td>";
-                        echo "</tr>";
-                      }
-                      ?>
-                    </table>
-                  </div>
-                </div>
-              </div>
+        <div class="panel-body tabs">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="https://medialoot.com/preview/lumino/panels.html#tab1" data-toggle="tab">Articles</a></li>
+            <li><a href="https://medialoot.com/preview/lumino/panels.html#tab2" data-toggle="tab">Options</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="tab1">
+							<table class="table table-hover" id="orderTable">
+								<tr>
+									<th>N° Article</th>
+									<th>Nom</th>
+									<th>Quantité</th>
+									<th>Prix unitaire</th>
+									<th>Prix total</th>
+								</tr>
+								<?php
+								$isOrderedList = $isOrderedManager->getByOrder($order->id());
+								$totalPrice = 0;
+								foreach ($isOrderedList as $value) {
+										$product = $productManager->get($value->id_product());
+										echo "<tr>";
+										echo "<td>".$product->id()."</td>";
+										echo "<td>".$product->name()."</td>";
+										echo "<td>".$value->quantity()."</td>";
+										echo "<td>".$product->price()."</td>";
+										echo "<td>".$value->quantity()*$product->price()."</td>";
+										echo "</tr>";
+										$totalPrice += $value->quantity()*$product->price();
+									}
+								?>
+							</table>
+							<h3>Prix total : <?php echo $totalPrice ?> </>
+            </div>
+            <div class="tab-pane fade" id="tab2">
+							<h3>Validée : </h3>
+							<label class="radio-inline">
+								<input type="radio" name="validatedRadio" id="validatedOption1" value="1">Oui
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="validatedRadio" id="validatedOption2" value="0">Non
+							</label>
+							<h3>Prête : </h3>
+							<label class="radio-inline">
+								<input type="radio" name="readyRadio" id="ReadyOption1" value="1">Oui
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="readyRadio" id="ReadyOption2" value="0">Non
+							</label>
+							<h3>Collectée : </h3>
+							<label class="radio-inline">
+								<input type="radio" name="collectedRadio" id="CollectedRadio1" value="1">Oui
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="collectedRadio" id="CollectedRadio2" value="0">Non
+							</label>
             </div>
           </div>
         </div>
-      </div>
-    </div><!--/.row-->
+      </div><!--/.panel-->
+    </div><!--/.col-->
 
-		</div>	<!--/.main-->
+</div>	<!--/.main-->
 
-		<script src="js/jquery-1.11.1.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/chart.min.js"></script>
-		<script src="js/chart-data.js"></script>
-		<script src="js/easypiechart.js"></script>
-		<script src="js/easypiechart-data.js"></script>
-		<script src="js/bootstrap-datepicker.js"></script>
-		<script src="js/custom.js"></script>
-	</body>
-	</html>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/chart.min.js"></script>
+<script src="js/chart-data.js"></script>
+<script src="js/easypiechart.js"></script>
+<script src="js/easypiechart-data.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
