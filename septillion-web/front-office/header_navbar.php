@@ -1,5 +1,5 @@
-<?php session_start (); ?>
-
+<?php session_start(); ?>
+<?php console_log($_SESSION); ?>
 <!-- BDD -->
 <?php
 // get data in cookie
@@ -73,7 +73,7 @@ $productManager2->getList();
     </div>
     <!-- Header Icon -->
     <div class="header-icons">
-      <?php if (isset($_SESSION['mail']) && isset($_SESSION['password'])):?>
+      <?php if (isset($_SESSION['mail']) && isset($_SESSION['id_client'])):?>
         <ul class="main_menu">
           <li>
             <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">

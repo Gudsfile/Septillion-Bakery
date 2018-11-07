@@ -4,6 +4,9 @@ session_start();
 require('connexion.php');
 $conn = Connect::connexion();
 
+require('console_log.php');
+console_log('totootototototoototototo');
+
 // read cart cookie
 $cookie = isset($_COOKIE['cart_items_cookie']) ? $_COOKIE['cart_items_cookie'] : "";
 $cookie = stripslashes($cookie);
@@ -11,7 +14,7 @@ $cart = json_decode($cookie, true);
 
 // get clientID
 $clientManager = new ClientManager($conn);
-$clientId = ($clientManager->getByMailAndPassword($_SESSION['mail'], $_SESSION['password']))->id();
+$clientId = $_SESSION['id_client'];
 
 // create order
 $orderConfig = array(

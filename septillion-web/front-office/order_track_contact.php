@@ -5,12 +5,14 @@
   <link href="css/track.css" rel="stylesheet" type="text/css"/>
   <?php include('header_link.php'); ?>
   <?php session_start() ?>
-  <?php if(!isset($_SESSION['mail']) && !isset($_SESSION['password'])){
+  <?php
+  if(!isset($_SESSION['mail']) && !isset($_SESSION['password'])){
     header("Location: index.php");
     exit();
   }
   ?>
-  <?php if (!isset($_GET['id'])) {
+  <?php
+  if (!isset($_GET['id'])) {
     header("Location: order_track.php");
     exit();
   }
@@ -30,9 +32,7 @@
     </h2>
   </section>
 
-
   <?php
-
   $conn = Connect::connexion();
   $orderManager =  new OrderManager($conn);
   $employeeManager = new EmployeeManager($conn);
@@ -42,10 +42,6 @@
   $order = $orderManager->get($_GET['id']);
   $employee=$employeeManager->get($order->employee());
   $client=$clientManager->get($order->client());
-
-
-
-
   ?>
 
   <!-- Content page -->
@@ -54,16 +50,13 @@
   if ($order->collected()){
     $Etat="Collectée";
     $color="red";
-  }
-
-  elseif ($order->ready()) {
+  } elseif ($order->ready()) {
     $Etat="Prête";
     $color="green";
-  }elseif ($order->validated()) {
+  } elseif ($order->validated()) {
     $Etat="Validée";
     $color="#45c4ff";
-
-  }else{
+  } else{
     $Etat="En cours de traitement";
     $color="#ffe945";
   }
@@ -133,13 +126,10 @@
               <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="objet" placeholder="Objet" required>
             </div>
 
-
             <textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message" required></textarea>
 
             <div class="w-size25">
-              <!-- Button -->
               <input type="submit" class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" name="Envoyer" value="Envoyer" >
-
             </div>
           </form>
         </div>
@@ -147,14 +137,11 @@
     </div>
   </section>
 
-
-
 </body>
 <!-- Footer -->
 <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
   <?php include('footer_navbar.php'); ?>
 </footer>
-
 
 <!-- Back to top -->
 <div class="btn-back-to-top bg0-hov" id="myBtn">
@@ -168,19 +155,12 @@
 <div id="dropDownSelect2"></div>
 
 <!--================================================================================================-->
-
 <script type="text/javascript">
 var fields = {};
 $("#theForm").find(":input").each(function() {
-  // The selector will match buttons; if you want to filter
-  // them out, check `this.tagName` and `this.type`; see
-  // below
   fields[this.name] = $(this).val();
 });
-var obj = {fields: fields}; // You said you wanted an object with a `fields` property, so
-
-
-
+var obj = {fields: fields};
 </script>
 <!--===============================================================================================-->
 <script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
