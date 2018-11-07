@@ -22,14 +22,6 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
         $_SESSION['name'] = $verif->first_name()." ".$verif->last_name();
         $_SESSION['connect'] = 1;
         header("Location: index.php");
-<<<<<<< HEAD
-
-
-=======
-        
->>>>>>> 3ed325ca0f920eb1abf5fe923471b59b3b55c90f
     }
 }
-
-
 ?>
