@@ -1,5 +1,4 @@
 <?php session_start(); ?>
-<?php console_log($_SESSION); ?>
 <!-- BDD -->
 <?php
 // get data in cookie

@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto|Rammetto+One|Lato">
+<link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Rammetto+One|Roboto" rel="stylesheet">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="fonts/themify/themify-icons.css">
 <!--===============================================================================================-->
