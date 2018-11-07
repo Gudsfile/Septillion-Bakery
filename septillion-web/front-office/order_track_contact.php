@@ -119,7 +119,7 @@
                     </div>
                 </div>               
                 <div class="col-md-6 p-b-30">
-                    <form class="leave-comment" action="track_contact_script.php" method="post">
+                    <form class="leave-comment" action="script_track_contact.php" method="post">
                         <br><br><br>
                         <h4 class="m-text26 p-b-36 p-t-15">
                             Contactez-nous

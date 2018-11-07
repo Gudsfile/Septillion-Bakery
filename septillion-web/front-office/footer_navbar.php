@@ -1,5 +1,5 @@
 <div class="flex-w p-b-90">
-  
+
   <div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
     <h4 class="s-text12 p-b-30">
       Suivez nous
@@ -95,7 +95,7 @@
       Newsletter
     </h4>
 
-    <form method="post" action="newsletter_script.php">
+    <form method="post" action="script_newsletter.php">
       <div class="effect1 w-size9">
         <input class="s-text7 bg6 w-full p-b-5" type="text" name="email" placeholder="email@example.com">
         <span class="effect1-line"></span>
