@@ -16,6 +16,7 @@
 
 	// bdd
 	$conn = Connect::connexion();
+	$imageManager = new ImageManager($conn);
 
 	// get products list
 	$productManager = new ProductManager($conn);
@@ -55,7 +56,7 @@
 							<tr class="table-row product">
 								<td class="column-1">
 									<div class="cart-img-product b-rad-4 o-f-hidden">
-										<img src="images/products/<?php echo $product->image();?>" alt="IMG-PRODUCT">
+										<img src="data:image/jpeg;base64,<?php echo (base64_encode($imageManager->get($product->id_img())->image())); ?>" alt="IMG-PRODUCT">
 									</div>
 								</td>
 								<td class="product-id" hidden><?php echo $product->id();?></td>

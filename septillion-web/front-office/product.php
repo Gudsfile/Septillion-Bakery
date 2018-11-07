@@ -19,6 +19,7 @@
 
 	// get category list
 	$categoryManager = new CategoryManager($conn);
+	$imageManager = new ImageManager($conn);
 	$categoryList = $categoryManager->getList();
 
 	// get poducts list
@@ -116,7 +117,7 @@
 								<!-- Block2 -->
 								<div class="block2">
 									<div class="block2-img wrap-pic-w of-hidden pos-relative <?php if ($e->stock() < 1): ?> block2-labelsale <?php ; elseif ($e->stock() < 6): ?> block2-labellast <?php ; else: ?> block2-labelstock <?php ; endif ;?> ">
-										<img src="images/products/<?php echo $e->image(); ?>" alt="IMG-PRODUCT">
+										<img src="data:image/jpeg;base64,<?php echo (base64_encode($imageManager->get($e->id_img())->image())); ?>" alt="IMG-PRODUCT">
 										<div class="block2-overlay trans-0-4">
 											<div class="block2-btn-addcart w-size1 trans-0-4 btn-addcart-product-detail">
 												<!-- Button -->
@@ -175,13 +176,13 @@
 		dropdownParent: $('#dropDownSelect1')
 	});
 	</script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/daterangepicker/moment.min.js"></script>
 	<script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/slick/slick.min.js"></script>
 	<script type="text/javascript" src="js/slick-custom.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript">
 
@@ -237,7 +238,7 @@
 		});
 	});
 	</script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
 </body>

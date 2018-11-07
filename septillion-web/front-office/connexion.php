@@ -13,6 +13,8 @@ require('../BDD/ProductManager.php');
 require('../BDD/Product.php');
 require('../BDD/Newsletter.php');
 require('../BDD/NewsletterManager.php');
+require('../BDD/Image.php');
+require('../BDD/ImageManager.php');
 
 class Connect
 {

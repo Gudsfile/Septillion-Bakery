@@ -21,7 +21,6 @@
 	$orderManager =  new OrderManager($conn);
 	$isOrderedManager =  new IsOrderedManager($conn);
 	$productManager= new ProductManager($conn);
-	console_log($_SESSION);
 	$order = $orderManager->getByClient($_SESSION['id_client']);
 	?>
 
@@ -62,7 +61,7 @@
 										foreach ($isOrdered as $key => $valuep) {
 											$product=$productManager->get($valuep->id_product());
 											?>
-											<li><em><?php echo $valuep->quantity(); ?> </em> <?php echo $product->name()." - ".$product->price()." € ";?></li>
+											<li><?php echo $valuep->quantity().' x '; echo $product->name()." - ".$product->price()." € ";?></li>
 										<?php } ?>
 									</ul>
 								</td>

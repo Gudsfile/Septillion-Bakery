@@ -9,6 +9,7 @@ $cart2 = json_decode($cookie2, true);
 
 // bdd
 $conn2 = Connect::connexion();
+$imageManager2 = new ImageManager($conn2);
 
 // get products list
 $productManager2 = new ProductManager($conn2);
@@ -101,7 +102,7 @@ $productManager2->getList();
                 <?php $product = $productManager2->get($key);?>
                 <li class="header-cart-item">
                   <div class="header-cart-item-img">
-                    <img src="images/products/<?php echo $product->image();?>" alt="IMG">
+                    <img src="data:image/jpeg;base64,<?php echo (base64_encode($imageManager->get($product->id_img())->image())); ?>" alt="IMG">
                   </div>
 
                   <div class="header-cart-item-txt">

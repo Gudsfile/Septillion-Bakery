@@ -14,6 +14,7 @@
 
 		// bdd
 		$conn = Connect::connexion();
+		$imageManager = new ImageManager($conn);
 
 		// get product
 		$productManager = new ProductManager($conn);
@@ -60,7 +61,7 @@
 					<div class="slick3">
 						<div class="item-slick3" data-thumb="images/thumb-item-01.jpg">
 							<div class="wrap-pic-w">
-								<img src="images/products/<?php echo $product->image(); ?>" alt="IMG-PRODUCT">
+								<img src="data:image/jpeg;base64,<?php echo (base64_encode($imageManager->get($product->id_img())->image())); ?>" alt="IMG-PRODUCT">
 							</div>
 						</div>
 					</div>
