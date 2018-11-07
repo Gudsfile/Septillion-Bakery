@@ -7,14 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Septillion Bakery - Message</title>
 	<?php
-	require('../BDD/Message.php');
-	require('../BDD/MessageManager.php');
-	require('../BDD/Order.php');
-	require('../BDD/OrderManager.php');
-	require('../BDD/Employee.php');
-	require('../BDD/EmployeeManager.php');
-	require('../BDD/Client.php');
-	require('../BDD/ClientManager.php');
 	require('connexion.php');
 	$conn = Connect::connexion();
   $erreur = 100;

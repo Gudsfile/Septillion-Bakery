@@ -7,10 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Septillion Bakery - Dashboard</title>
   <?php
-  require('../BDD/Employee.php');
-  require('../BDD/EmployeeManager.php');
-  require('../BDD/Category.php');
-  require('../BDD/CategoryManager.php');
   require('connexion.php');
   $conn = Connect::connexion();
   $erreur = 100;

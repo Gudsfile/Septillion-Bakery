@@ -9,14 +9,6 @@
 
 	<title>Septillion Bakery - Dashboard</title>
 	<?php
-	require('../BDD/Employee.php');
-	require('../BDD/EmployeeManager.php');
-	require('../BDD/Product.php');
-	require('../BDD/ProductManager.php');
-	require('../BDD/Category.php');
-	require('../BDD/CategoryManager.php');
-	require('../BDD/Image.php');
-	require('../BDD/ImageManager.php');
 	require('connexion.php');
 	$conn = Connect::connexion();
 	?>
@@ -47,7 +39,7 @@
 		<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 			<div class="profile-sidebar">
 				<div class="profile-usertitle">
-					<div class="profile-usertitle-name"><?php echo $_SESSION['name']?></div>
+					<div class="profile-usertitle-name">Username</div>
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -128,7 +120,7 @@
 						$employeeManager = new EmployeeManager($conn);
 						$productList = $productManager->getList();
 						foreach($productList as $product) { //Get the image from database
-							$image = $imageManager->get($product->image())->image();
+							$image = $imageManager->get($product->id_img())->image();
 							$created_by = $employeeManager->get($product->created_by());
 							$last_updated_by = $employeeManager->get($product->last_updated_by());
 							echo '
@@ -148,7 +140,7 @@
 										</div>
 										<div class="col-sm-3 text-center">
 											<h3>'.$product->price().'€</h3>
-											<a class="btn btn-primary btn-info btn-md" href="product.php?#"'.$product->id().'>Afficher détails</a>
+											<a class="btn btn-primary btn-info btn-md" href="product.php?id='.$product->id().'">Afficher détails</a>
 										</div>
 									</div>
 								</div>

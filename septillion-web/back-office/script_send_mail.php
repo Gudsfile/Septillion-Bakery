@@ -1,12 +1,8 @@
 <?php
 session_start();
-require('../BDD/Employee.php');
-require('../BDD/EmployeeManager.php');
-require('../BDD/Message.php');
-require('../BDD/MessageManager.php');
-$pdo = Connect::connexion();
-$employeeManager = new EmployeeManager($pdo);
-$messageManager = new MessageManager($pdo);
+require('connexion.php');
+$conn = Connect::connexion();
+$messageManager = new MessageManager($conn);
 
 if ($employeeManager->getByMail($_POST['mail'])->id() == 0) {
   $erreur = 1;

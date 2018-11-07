@@ -9,8 +9,6 @@
 
 	<title>Septillion Bakery - Dashboard</title>
 	<?php
-	require('../BDD/Employee.php');
-	require('../BDD/EmployeeManager.php');
 	require('connexion.php');
 	$conn = Connect::connexion();
 	?>
@@ -119,9 +117,9 @@
 						$employeeManager = new EmployeeManager($conn);
 						$employeeList = $employeeManager->getList();
 						foreach($employeeList as $employe) {
-							
-							
-							
+
+
+
 							echo '
 							<div class="search-result-item col-md-12">
 								<div class="col-sm-2">
@@ -132,8 +130,8 @@
 										<div class="col-sm-9">
 											<h3 class="search-result-title">'.$employe->last_name().'</a></h3>
 											<p>'.$employe->first_name().'</p>
-											
-											
+
+
 										</div>
 										<div class="col-sm-3 text-center">
 											<a class="btn btn-primary btn-info btn-md" href="employe.php?#"'.$employe->id().'>Editer </a>

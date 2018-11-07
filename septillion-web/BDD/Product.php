@@ -6,10 +6,10 @@ class Product
 	private $_stock;
 	private $_description;
 	private $_price;
-	private $_image;
 	private $_created_by;
 	private $_last_updated_by;
 	private $_id_category;
+	private $_id_img;
 
 	public function __construct($value = array())
   {
@@ -37,14 +37,13 @@ class Product
 
 	public function price() { return $this->_price; }
 
-	public function image() { return $this->_image; }
-
 	public function created_by() { return $this->_created_by; }
 
 	public function last_updated_by() { return $this->_last_updated_by; }
 
 	public function id_category() { return $this->_id_category; }
 
+	public function id_img() { return $this->_id_img; }
 
 	public function setId_product($id)
 	{
@@ -82,13 +81,6 @@ class Product
 		}
 	}
 
-	public function setImage($image)
-	{
-		if (is_numeric($image)) {
-			$this->_image = $image;
-		}
-	}
-
 	public function setCreated_by($created_by)
 	{
 		if (is_numeric($created_by)) {
@@ -107,6 +99,13 @@ class Product
 	{
 		if (is_numeric($id_category)) {
 			$this->_id_category = $id_category;
+		}
+	}
+
+	public function setId_img($image)
+	{
+		if (is_numeric($image)) {
+			$this->_id_img = $image;
 		}
 	}
 }

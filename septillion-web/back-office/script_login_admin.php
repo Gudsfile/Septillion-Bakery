@@ -1,6 +1,4 @@
 <?php
-require('../BDD/Employee.php');
-require('../BDD/EmployeeManager.php');
 require('connexion.php');
 $conn = Connect::connexion();
 $employeeManager = new EmployeeManager($conn);
@@ -23,8 +21,8 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
         $_SESSION['id_client'] = $verif->id();
         $_SESSION['name'] = $verif->first_name()." ".$verif->last_name();
         header("Location: index.php");
-        
-        
+
+
     }
 }
 

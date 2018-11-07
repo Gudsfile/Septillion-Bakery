@@ -1,8 +1,5 @@
 <?php
 session_start();
-require('../BDD/Category.php');
-require('../BDD/CategoryManager.php');
-require('connexion.php');
 $pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
 

@@ -1,9 +1,6 @@
 <?php
 session_start();
-require('../BDD/Employee.php');
-require('../BDD/EmployeeManager.php');
 require('connexion.php');
-
 $conn = Connect::connexion();
 $employeeManager = new EmployeeManager($conn);
 
