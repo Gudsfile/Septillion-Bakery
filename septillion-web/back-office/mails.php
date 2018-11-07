@@ -40,7 +40,7 @@
 		<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 			<div class="profile-sidebar">
 				<div class="profile-usertitle">
-					<div class="profile-usertitle-name"><?php echo $_SESSION['name']?></div> <!-- Replace By SESSION NAME -->
+					<div class="profile-usertitle-name"><?php echo $_SESSION['name']?></div>
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -85,7 +85,7 @@
 			</a></li>
 		</ul>
 	</li>
-			<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 	</ul>
 </div>
 <!--/.sidebar-->
