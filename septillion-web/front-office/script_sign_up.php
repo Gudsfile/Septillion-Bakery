@@ -1,6 +1,4 @@
 <?php
-require('BDD/Client.php');
-require('BDD/ClientManager.php');
 require('connexion.php');
 $conn = Connect::connexion();
 $clientManager = new ClientManager($conn);

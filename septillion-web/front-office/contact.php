@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<title>Septillion / Nous contacter</title>
 	<?php include('header_link.php'); ?>
-	<?php require('BDD/EmployeeManager.php'); ?>
-	<?php require('BDD/Employee.php'); ?>
 	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js"></script>
 	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css" rel="stylesheet">
 </head>
@@ -12,16 +10,18 @@
 
 	<!-- BDD -->
 	<?php
-		// récupération des infos get
-		if(isset($_SESSION['mail'])): $sessionMail = $_SESSION['mail']; else: $sessionMail = null; endif;
-		if(isset($_SESSION['password'])): $sessionPass = $_SESSION['pass']; else: $sessionPass = null; endif;
+	session_start();
+	// récupération des infos get
+	if(isset($_SESSION['mail'])): $sessionMail = $_SESSION['mail']; else: $sessionMail = null; endif;
+	if(isset($_GET['o'])): $objetCmd = $_GET['o']; endif;
+	if(isset($_GET['e'])): $employeeCmd = $_GET['e']; endif;
 
-		// bdd
-		$conn = Connect::connexion();
+	// bdd
+	$conn = Connect::connexion();
 
-		// récupération de la liste des employées
-		$employeeManager = new EmployeeManager($conn);
-		$employeeList = $employeeManager->getList();
+	// récupération de la liste des employées
+	$employeeManager = new EmployeeManager($conn);
+	$employeeList = $employeeManager->getList();
 	?>
 
 	<!-- Header -->
@@ -47,7 +47,7 @@
 				</div>
 
 				<div class="col-md-6 p-b-30">
-					<form class="leave-comment"	action="contact_script.php" method="post">
+					<form class="leave-comment"	action="script_contact.php" method="post">
 						<h4 class="m-text26 p-b-36 p-t-15">
 							Envoyez nous un message
 						</h4>
@@ -62,14 +62,18 @@
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="objet" placeholder="Objet">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="objet" placeholder="Objet"
+							<?php if (isset($objetCmd)):?>
+								value="<?php echo $objetCmd ?>" disabled
+							<?php endif?>
+							>
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
 							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Mail"
-								<?php if (isset($sessionMail) && isset($sessionMail)):?>
-									value="<?php echo $sessionMail ?>" disabled
-								<?php endif?>
+							<?php if (isset($sessionMail)):?>
+								value="<?php echo $sessionMail ?>" disabled
+							<?php endif?>
 							>
 						</div>
 
@@ -108,63 +112,63 @@
 
 
 
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/bootstrap/js/popper.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/select2/select2.min.js"></script>
 	<script type="text/javascript">
-		$(".selection-1").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect1')
-		});
+	$(".selection-1").select2({
+		minimumResultsForSearch: 20,
+		dropdownParent: $('#dropDownSelect1')
+	});
 
-		$(".selection-2").select2({
-			minimumResultsForSearch: 20,
-			dropdownParent: $('#dropDownSelect2')
-		});
+	$(".selection-2").select2({
+		minimumResultsForSearch: 20,
+		dropdownParent: $('#dropDownSelect2')
+	});
 	</script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
 	<script src="js/map-custom.js"></script>-->
 	<script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoidG90b2xhbWFsaWNlIiwiYSI6ImNqZnIyZ295ZjE4MDMyeXBtYjBrOXlvMGsifQ.5xS1FTpt6zqcgZRvEg1MgA';
 	var map = new mapboxgl.Map({
-	  container: "map",
-	  style: "mapbox://styles/mapbox/streets-v10",
-	  zoom:14.0,
-	  center: [-2.74839,47.64467]
+		container: "map",
+		style: "mapbox://styles/mapbox/streets-v10",
+		zoom:14.0,
+		center: [-2.74839,47.64467]
 	});
 
 	map.on("load", function () {
-	  /* Image: An image is loaded and added to the map. */
-	  map.loadImage("https://i.imgur.com/MK4NUzI.png", function(error, image) {
-	      if (error) throw error;
-	      map.addImage("custom-marker", image);
-	      /* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
-	      map.addLayer({
-	        id: "markers",
-	        type: "symbol",
-	        /* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
-	        source: {
-	          type: "geojson",
-	          data: {
-	            type: "FeatureCollection",
-	            features:[{"type":"Feature","geometry":{"type":"Point","coordinates":[-2.7483885418424734,47.644671337627614]}}]}
-	        },
-	        layout: {
-	          "icon-image": "custom-marker",
-	        }
-	      });
-	    });
-	});
-	</script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
+		/* Image: An image is loaded and added to the map. */
+		map.loadImage("https://i.imgur.com/MK4NUzI.png", function(error, image) {
+			if (error) throw error;
+			map.addImage("custom-marker", image);
+			/* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
+			map.addLayer({
+				id: "markers",
+				type: "symbol",
+				/* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
+				source: {
+					type: "geojson",
+					data: {
+						type: "FeatureCollection",
+						features:[{"type":"Feature","geometry":{"type":"Point","coordinates":[-2.7483885418424734,47.644671337627614]}}]}
+					},
+					layout: {
+						"icon-image": "custom-marker",
+					}
+				});
+			});
+		});
+		</script>
+		<!--===============================================================================================-->
+		<script src="js/main.js"></script>
 
-</body>
-</html>
+	</body>
+	</html>
