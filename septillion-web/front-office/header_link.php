@@ -1,6 +1,4 @@
 <?php require('console_log.php'); ?>
-<?php require('BDD/ProductManager.php'); ?>
-<?php require('BDD/Product.php'); ?>
 <?php require('connexion.php');?>
 
 <meta charset="UTF-8">

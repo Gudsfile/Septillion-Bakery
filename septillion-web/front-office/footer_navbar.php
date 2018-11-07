@@ -9,7 +9,7 @@
       <p class="s-text7 w-size27">
         Venez nous retrouver Rue Yves Mainguy sur le Campus de Tohannic à Vannes.
       </p>
-
+      
       <div class="flex-m p-t-30">
         <a href="#" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
         <a href="#" class="fs-18 color1 p-r-20 fa fa-instagram"></a>

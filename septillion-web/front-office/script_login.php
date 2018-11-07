@@ -1,10 +1,7 @@
 <?php
-require('BDD/Client.php');
-require('BDD/ClientManager.php');
 require('connexion.php');
 $conn = Connect::connexion();
 $clientManager = new ClientManager($conn);
-
 
 if (empty($_POST['mail']) || empty($_POST['password'])) {
     header("Location: login.php?erreur=0");
@@ -24,6 +21,4 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
         header("Location: index.php");
     }
 }
-
-
 ?>

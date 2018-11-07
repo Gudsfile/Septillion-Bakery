@@ -3,8 +3,6 @@
 
 <head>
 	<?php include('header_link.php'); ?>
-	<?php require('BDD/CategoryManager.php'); ?>
-	<?php require('BDD/Category.php'); ?>
 </head>
 
 <body class="animsition">

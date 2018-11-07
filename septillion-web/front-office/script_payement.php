@@ -1,15 +1,6 @@
 <?php
 session_start();
 
-require('BDD/IsOrdered.php');
-require('BDD/IsOrderedManager.php');
-require('BDD/Order.php');
-require('BDD/OrderManager.php');
-require('BDD/Product.php');
-require('BDD/ProductManager.php');
-require('BDD/Client.php');
-require('BDD/ClientManager.php');
-
 require('connexion.php');
 $conn = Connect::connexion();
 
@@ -24,12 +15,12 @@ $clientId = ($clientManager->getByMailAndPassword($_SESSION['mail'], $_SESSION['
 
 // create order
 $orderConfig = array(
-    'description' => "commande en ligne",
-    'validated'  => 0,
-    'ready'  => 0,
-    'collected'  => 0,
-    'id_client'  => $clientId,
-    'id_employee' => 1001
+  'description' => "commande en ligne",
+  'validated'  => 0,
+  'ready'  => 0,
+  'collected'  => 0,
+  'id_client'  => $clientId,
+  'id_employee' => 1001
 );
 
 $order = new Order($orderConfig);

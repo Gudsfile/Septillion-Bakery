@@ -5,11 +5,7 @@
 	<link href="css/track.css" rel="stylesheet" type="text/css"/>
 	<!-- BDD includes -->
 	<?php include('header_link.php'); ?>
-	<?php require('../BDD/OrderManager.php'); ?>
-	<?php require('../BDD/Order.php'); ?>
-	<?php require('../BDD/IsOrderedManager.php'); ?>
-	<?php require('../BDD/IsOrdered.php'); ?>
-	<!-- Session manager --> 
+	<!-- Session manager -->
 	<?php session_start() ?>
 	<?php if(!isset($_SESSION['mail']) && !isset($_SESSION['password'])){
 		header("Location: index.php");
@@ -62,7 +58,7 @@
 <section class="bgwhite p-t-66 p-b-60">
     <div class="container">
     	<!-- BDD -->
-    	<?php 
+    	<?php
     		$conn = Connect::connexion();
     		$orderManager =  new OrderManager($conn);
     		$isOrderedManager =  new IsOrderedManager($conn);
@@ -79,7 +75,7 @@
 	<div class="pricing-container">
 		<div class="pricing-switcher">
 			<p class="fieldset">
-				<?php 
+				<?php
 				// gestion du trie !
 				$toutes='true';
 				if (isset($_GET['toutes'])) {
@@ -112,14 +108,14 @@
 									$Etat="Collectée";
 									$color="red";
 								}
-									
+
 								elseif ($value->ready()) {
 									$Etat="Prête";
 									$color="green";
 								}elseif ($value->validated()) {
 									$Etat="Validée";
 									$color="#45c4ff";
-									
+
 								}else{
 									$Etat="En cours de traitement";
 									$color="#ffe945";
@@ -130,20 +126,20 @@
 								}
 
 							 ?>
-							 	<?php 
+							 	<?php
 								$carrou ++;
 							 	$help="";
 							 	if ($carrou ==1 ) {
 							 		$help = "active";
-							 	} 
-							 		 
+							 	}
+
 							 	?>
 							 	<div class="carousel-item <?php echo $help ?>">
 							 	<li class="exclusive">
 									<ul class="pricing-wrapper">
 										<li data-type="monthly" class="is-visible" >
 											<header class="pricing-header">
-												<?php 
+												<?php
 													$date = strtotime($value->order_date());
 												?>
 												<h2><?php echo date( 'l d F Y',$date);?></h2>
@@ -179,7 +175,7 @@
 												<a style="color:#ff5f45;" href="order_track_contact.php?id=<?php echo $value->id(); ?>">Contactez-nous</a>
 											</footer>
 										</li>
-										
+
 									</ul>
 								</li>
 							 	</div>
