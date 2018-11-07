@@ -4,9 +4,6 @@ session_start();
 require('connexion.php');
 $conn = Connect::connexion();
 
-require('console_log.php');
-console_log('totootototototoototototo');
-
 // read cart cookie
 $cookie = isset($_COOKIE['cart_items_cookie']) ? $_COOKIE['cart_items_cookie'] : "";
 $cookie = stripslashes($cookie);
