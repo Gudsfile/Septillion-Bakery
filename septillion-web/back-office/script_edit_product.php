@@ -1,17 +1,26 @@
 <?php
 session_start();
 require('connexion.php');
+
+if (!isset($_GET['id'])) {
+  header('Location: list_product.php');
+}
+
 $pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
 $productManager = new ProductManager($pdo);
+$product = $productManager->get($_GET['id']);
 
-if ($_POST['name'] == null) {
-  $erreur = 1;
-  header('Location: add_product.php?erreur=1');
-  exit();
-}
+
 
 function transfert() {
+  $pdo = Connect::connexion();
+  if (empty(is_uploaded_file($_FILES['product_img']['tmp_name']))){
+        $productManager = new ProductManager($pdo);
+        $product = $productManager->get($_GET['id']);
+        $image = $product->id_img();
+        return $image;
+  }
   $ret        = false;
   $blob   = '';
   $size = 0;
@@ -41,7 +50,6 @@ function transfert() {
     "size" => $size,
     "image" => $blob,
   );
-  $pdo = Connect::connexion();
   $imageManager = new ImageManager($pdo);
   $newImage = new Image($imageData);
   $imageId = $imageManager->add($newImage);
@@ -59,30 +67,7 @@ $productData = array(
   "id_category" => $_POST['category'],
 );
 $newProduct = new Product($productData);
-$idProduct = $productManager->add($newProduct);
-if ($idProduct == 0){
-  $erreur = 2;
-  echo $newProduct->name();
-  echo "\n";
-  echo $newProduct->stock();
-  echo "\n";
-  echo $newProduct->description();
-  echo "\n";
-  echo $newProduct->price();
-  echo "\n";
-  echo $newProduct->image();
-  echo "\n";
-  echo $newProduct->created_by();
-  echo "\n";
-  echo $newProduct->last_updated_by();
-  echo "\n";
-  echo $newProduct->id_category();
-  echo "\n";
-  //header('Location: add_product.php?erreur=2');
-  exit();
-} else {
-  $erreur = 3;
-  header('Location: add_product.php?erreur=3');
-  exit();
-}
+$productManager-> update($_GET['id'],$newProduct);
+
+header('Location: edit_product.php?erreur=3');
 ?>
