@@ -19,11 +19,16 @@ require('../BDD/Order.php');
 require('../BDD/OrderManager.php');
 class Connect {
     public static function connexion() {
+        
         try {
+<<<<<<< HEAD
           return new PDO("mysql:host=localhost;dbname=Septillion","root");
+=======
+            return new PDO("mysql:host=localhost;dbname=septillion","root","root");
+>>>>>>> 3ed325ca0f920eb1abf5fe923471b59b3b55c90f
         }
         catch(PDOException $e) {
-            die('<h3>Erreur!</h3>');
+            die('<h3>Erreur! voir back-office\connexion.php </h3>');
         }
         return $bdd;
     }

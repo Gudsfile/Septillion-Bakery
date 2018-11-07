@@ -1,5 +1,7 @@
 <?php session_start(); ?>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +9,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Septillion Bakery - Dashboard</title>
 	<?php
+<<<<<<< HEAD
+=======
+	require('verif_connexion.php');
+	require('../BDD/Message.php');
+	require('../BDD/MessageManager.php');
+	require('../BDD/Order.php');
+	require('../BDD/OrderManager.php');
+	require('../BDD/Employee.php');
+	require('../BDD/EmployeeManager.php');
+	require('../BDD/Client.php');
+	require('../BDD/ClientManager.php');
+>>>>>>> 3ed325ca0f920eb1abf5fe923471b59b3b55c90f
 	require('connexion.php');
 	$conn = Connect::connexion();
 	?>
@@ -82,7 +96,11 @@
 			</a></li>
 		</ul>
 	</li>
+<<<<<<< HEAD
 			<li><a href="login.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+=======
+			<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+>>>>>>> 3ed325ca0f920eb1abf5fe923471b59b3b55c90f
 	</ul>
 </div>
 <!--/.sidebar-->
