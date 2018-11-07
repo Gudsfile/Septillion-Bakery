@@ -11,6 +11,13 @@
 	<?php
 	require('connexion.php');
 	$conn = Connect::connexion();
+  $productManager = new ProductManager($conn);
+  $imageManager = new ImageManager($conn);
+  $categoryManager = new CategoryManager($conn);
+  $employeeManager = new EmployeeManager($conn);
+  $oderManager = new OrderManager($conn);
+	$isOrderedManager = new IsOrderedManager($conn);
+  $order = $oderManager->get($_GET['id']);
 	?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -92,62 +99,94 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<div class="row">
 		<ol class="breadcrumb">
-			<li><a href="index.php">
-				<em class="fa fa-home"></em>
-			</a></li>
-			<li class="active">Employés</li>
+			<li><a href="index.php"><em class="fa fa-home"></em></a></li>
+      <li><a href="list_product.php">Liste commandes</a></li>
+      <li class="active">Commande N° <?php echo $order->id() ?></li>
 		</ol>
 	</div>
-	<br>
-	<div class="row">
-		<div class="col-md-12">
-			<form>
-				<div class="input-group input-group-lg">
-					<input type="text" placeholder="Rechercher un employé" class="form-control">
-					<div class="input-group-btn">
-						<button type="button" class="btn btn-default" tabindex="-1"><i class="fa fa-search"></i></button>
-					</div>
-				</div>
-			</form>
-			<br>
-			<div class="panel panel-default">
-				<div class="panel-heading">Liste des employés</div>
-				<div class="panel-body">
-					<?php
-						$employeeManager = new EmployeeManager($conn);
-						$employeeList = $employeeManager->getList();
-						foreach($employeeList as $employe) {
-
-
-
-							echo '
-							<div class="search-result-item col-md-12">
-								<div class="col-sm-2">
-									<p>'.$employe->role().'</p>
-								</div>
-								<div class="search-result-item-body col-sm-10">
-									<div class="row">
-										<div class="col-sm-9">
-											<h3 class="search-result-title">'.$employe->last_name().'</a></h3>
-											<p>'.$employe->first_name().'</p>
-
-
-										</div>
-										<div class="col-sm-3 text-center">
-											<a class="btn btn-primary btn-info btn-md" href="employe.php?#"'.$employe->id().'>Editer </a>
-										</div>
-									</div>
-								</div>
-							</div>
-							';
-						}
-					?>
-
-				</div>
-				</div>
-			</div>
-		</div>
-	</div><!--/.row-->
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Commande N° <?php echo $order->id() ?> - <?php echo date("l j F H:i", strtotime($order->order_date())) ?></h2>
+    </div>
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body tabs">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="https://medialoot.com/preview/lumino/panels.html#tab1" data-toggle="tab">Articles</a></li>
+            <li><a href="https://medialoot.com/preview/lumino/panels.html#tab2" data-toggle="tab">Options</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="tab1">
+							<table class="table table-hover" id="orderTable">
+								<tr>
+									<th>N° Article</th>
+									<th>Nom</th>
+									<th>Quantité</th>
+									<th>Prix unitaire</th>
+									<th>Prix total</th>
+								</tr>
+								<?php
+								$isOrderedList = $isOrderedManager->getByOrder($order->id());
+								$totalPrice = 0;
+								foreach ($isOrderedList as $value) {
+										$product = $productManager->get($value->id_product());
+										echo "<tr>";
+										echo "<td>".$product->id()."</td>";
+										echo "<td>".$product->name()."</td>";
+										echo "<td>".$value->quantity()."</td>";
+										echo "<td>".$product->price()."</td>";
+										echo "<td>".$value->quantity()*$product->price()."</td>";
+										echo "</tr>";
+										$totalPrice += $value->quantity()*$product->price();
+									}
+								?>
+							</table>
+							<h3>Prix total : <?php echo $totalPrice ?> </>
+            </div>
+            <div class="tab-pane fade" id="tab2">
+							<h3>Validée : </h3>
+							<label class="radio-inline">
+								<input type="radio" name="validatedRadio" id="validatedOption1" value="1">Oui
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="validatedRadio" id="validatedOption2" value="0">Non
+							</label>
+							<h3>Prête : </h3>
+							<label class="radio-inline">
+								<input type="radio" name="readyRadio" id="ReadyOption1" value="1">Oui
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="readyRadio" id="ReadyOption2" value="0">Non
+							</label>
+							<h3>Collectée : </h3>
+							<label class="radio-inline">
+								<input type="radio" name="collectedRadio" id="CollectedRadio1" value="1">Oui
+							</label>
+							<label class="radio-inline">
+								<input type="radio" name="collectedRadio" id="CollectedRadio2" value="0">Non
+							</label>
+							<br>
+							<h3>Employé : </h3>
+							<?php
+								$res = $employeeManager->getList();
+							?>
+							<select class="col-lg-4 form-control" name="category">
+								<?php
+								foreach($res as $employee) {
+									echo '<option value="'.$employee->id().'">'.$employee->first_name().' '.$employee->last_name().'</option>';
+								}
+								?>
+							</select>
+							<br>
+							<br>
+							<br>
+							<button class="btn btn-default" onclick="location.href='script_update_order.php?id=<?php echo($order->id())  ?>'"><span class="fa fa-check"></span> &nbsp;Valider les modifications</button>
+							<button class="btn btn-default margin pull-right" onclick="location.href='script_delete_order.php?id=<?php echo($order->id())  ?>'"><span class="fa fa-trash"></span> &nbsp;Delete</button>
+						</div>
+          </div>
+        </div>
+      </div><!--/.panel-->
+    </div><!--/.col-->
 
 </div>	<!--/.main-->
 

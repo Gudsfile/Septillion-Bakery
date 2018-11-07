@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Septillion Bakery - Dashboard</title>
 	<?php
-	
+
 	require('connexion.php');
 	$conn = Connect::connexion();
 	?>
@@ -45,7 +45,7 @@
 			<div class="divider"></div>
 			<ul class="nav menu">
 				<li class="active"><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
-				<li><a href="orders.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
+				<li><a href="list_order.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
 				<li><a href="mails.php"><em class="fa fa-envelope-o">&nbsp;</em> Messages</a></li>
 				<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 					<em class="fa fa-tags">&nbsp;</em> Produits <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -141,7 +141,7 @@
 										<?php
 										$messageManager = new MessageManager($conn);
 										$employeeManager = new EmployeeManager($conn);
-										$messageList = $messageManager->getByReceiver($_SESSION['id_client']);	//REPLACE BY SESSION ID
+										$messageList = $messageManager->getByReceiver($_SESSION['id_client']);
 										?>
 										<table class="table table-hover">
 											<?php
@@ -176,7 +176,7 @@
 										<div class="col-md-12">
 											<?php
 											$orderManager = new OrderManager($conn);
-											$orderList = $orderManager->getByEmployee(1004);	//REPLACE BY SESSION ID
+											$orderList = $orderManager->getByEmployee($_SESSION['id_client']);
 											$clientManager = new ClientManager($conn);
 											?>
 											<table class="table table-hover">

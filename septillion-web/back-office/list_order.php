@@ -44,7 +44,7 @@
 			<div class="divider"></div>
 			<ul class="nav menu">
 				<li><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
-				<li class="active"><a href="orders.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
+					<li class="active"><a href="list_order.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
 				<li><a href="mails.php"><em class="fa fa-envelope-o">&nbsp;</em> Messages</a></li>
 				<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 					<em class="fa fa-tags">&nbsp;</em> Produits <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -110,10 +110,10 @@
                   <div class="col-md-12">
                     <?php
                     $orderManager = new OrderManager($conn);
-                    $orderList = $orderManager->getByEmployee(1004);	//REPLACE BY SESSION ID
+                    $orderList = $orderManager->getByEmployee($_SESSION['id_client']);	//REPLACE BY SESSION ID
                     $clientManager = new ClientManager($conn);
                     ?>
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="orderTable">
                       <tr>
                         <th>N°</th>
                         <th>Date</th>
@@ -121,7 +121,7 @@
                         <th>Validée</th>
                         <th>Prête</th>
                         <th>Collectée</th>
-                        <th>Client</th>
+												<th>Client</th>
                       </tr>
                       <?php
                       foreach ($orderList as $value) {
@@ -140,6 +140,26 @@
                         echo "</tr>";
                       }
                       ?>
+											<script>
+                      function addRowHandlers() {
+                        var table = document.getElementById("orderTable");
+                        var rows = table.getElementsByTagName("tr");
+												for (i = 0; i < rows.length; i++) {
+													var currentRow = table.rows[i];
+													var createClickHandler =
+                          function(row)
+                          {
+														return function() {
+															var cell = row.getElementsByTagName("td")[0];
+                              var id = cell.innerHTML;
+															window.open("order.php?id="+id,"_self");
+                            };
+                          };
+                          currentRow.onclick = createClickHandler(currentRow);
+                        }
+                      }
+                      window.onload = addRowHandlers();
+                      </script>
                     </table>
                   </div>
                 </div>

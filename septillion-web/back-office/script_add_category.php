@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('connexion.php');
 $pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
 

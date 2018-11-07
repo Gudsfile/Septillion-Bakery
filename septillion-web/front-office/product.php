@@ -131,7 +131,7 @@
 											<?php echo $e->name(); ?>
 										</a>
 										<span class="block2-price m-text6 p-r-5">
-											<?php echo $e->price(); ?>
+											<?php echo $e->price(); ?> €
 										</span>
 									</div>
 								</div>
@@ -185,7 +185,6 @@
 	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript">
-
 	// on load (research)
 	$(document).ready(function() {
 		var jobCount = $('#list .in').length;

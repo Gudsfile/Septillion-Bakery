@@ -21,7 +21,7 @@ require('verif_connexion.php');
 class Connect {
     public static function connexion() {
         try {
-          return new PDO("mysql:host=localhost;dbname=Septillion","root","root");
+          return new PDO("mysql:host=localhost;dbname=Septillion","root","123456");
         }
         catch(PDOException $e) {
             die('<h3>Erreur! voir back-office\connexion.php </h3>');
