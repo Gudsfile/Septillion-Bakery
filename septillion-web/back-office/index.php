@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Septillion Bakery - Dashboard</title>
 	<?php
-	require('verif_connexion.php');
+	
 	require('connexion.php');
 	$conn = Connect::connexion();
 	?>

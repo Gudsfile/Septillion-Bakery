@@ -17,6 +17,7 @@ require('../BDD/IsOrdered.php');
 require('../BDD/IsOrderedManager.php');
 require('../BDD/Order.php');
 require('../BDD/OrderManager.php');
+require('verif_connexion.php');
 class Connect {
     public static function connexion() {
         try {
