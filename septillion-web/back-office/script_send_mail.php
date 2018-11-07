@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('../BDD/Employee.php');
 require('../BDD/EmployeeManager.php');
 require('../BDD/Message.php');
@@ -16,10 +17,9 @@ if ($employeeManager->getByMail($_POST['mail'])->id() == 0) {
 $messageData = array(
   "message_object" => $_POST['object'],
   "body" => $_POST['body'],
-  "id_sender" => 1003,
+  "id_sender" => intval($_SESSION['id_client']),
   "id_receiver" => $employeeManager->getByMail($_POST['mail'])->id(),
 );
-
 $newMessage = new Message($messageData);
 $idMessage = $messageManager->add($newMessage);
 if ($idMessage == 0){
