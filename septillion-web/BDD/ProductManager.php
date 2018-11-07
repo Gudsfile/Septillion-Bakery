@@ -122,7 +122,7 @@ class ProductManager
 		return $product;
 	}
 
-	public function update($id, Product $newProduct)
+	public function update($id, Product $product)
 	{
     $query = $this->_db->prepare("UPDATE PRODUCT SET NAME=:name, STOCK=:stock, DESCRIPTION=:description, PRICE=:price, CREATED_BY=:created_by, LAST_UPDATED_BY=:last_updated_by, ID_CATEGORY=:id_category, ID_IMG=:id_img WHERE ID_PRODUCT=:id");
     $query->bindValue(':id',$id , PDO::PARAM_INT);
@@ -133,7 +133,7 @@ class ProductManager
 		$query->bindValue(':created_by', $product->created_by(), PDO::PARAM_INT);
 		$query->bindValue(':last_updated_by', $product->last_updated_by(), PDO::PARAM_INT);
 		$query->bindValue(':id_category', $product->id_category(), PDO::PARAM_INT);
-		$query->bindValue(':id_img', $product->image(), PDO::PARAM_INT);
+		$query->bindValue(':id_img', $product->id_img(), PDO::PARAM_INT);
 		$query->execute();
 	}
 

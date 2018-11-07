@@ -12,6 +12,9 @@
   $erreur = 100;
   if (isset($_GET['erreur']))
       $erreur = $_GET['erreur'];
+  if (!isset($_GET['id'])) {
+    header('Location: list_product.php');
+  }
 	?>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -99,38 +102,50 @@
       <li class="active">Ajouter un produit</li>
     </ol>
   </div><!--/.row-->
+<!-- Récuperation data -->
+<?php
+  $id= $_GET['id'];
+  $productManager = new ProductManager($conn);
+  $product =$productManager->get($id);
 
+  //Récuperation d'imagear
+  $imageManager = new ImageManager($conn);
+  $id_image = $product->id_img();
+  $image = $imageManager->get($id_image);
+  $imageB = $image->image();
+ ?>
   <div class="row">
     <div class="panel-body">
-      <form class="form-horizontal row-border" enctype="multipart/form-data" action="script_add_product.php" method="post">
+      <form class="form-horizontal row-border" enctype="multipart/form-data" action="script_edit_product.php?id=<?php echo $product->id(); ?>" method="post">
         <div class="form-group">
           <label class="col-md-2 control-label">Nom du produit</label>
           <div class="col-md-10">
-            <input type="text" name="name" class="form-control">
+            <input type="text" name="name" class="form-control" value="<?php echo $product->name(); ?>" required>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-2 control-label">Description</label>
           <div class="col-md-10">
-            <textarea name="description" class="form-control" cols="40" rows="5"></textarea>
+            <textarea name="description" class="form-control" cols="40" rows="5" required> <?php echo $product->description(); ?> </textarea>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-2 control-label">Stock</label>
           <div class="col-md-10">
-            <input type="number" name="stock" class="form-control" min="0.00" max="10000.00" step="1">
+            <input type="number" name="stock" class="form-control" min="0.00" max="10000.00" step="1" value="<?php echo $product->stock();?>" required>
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-2 control-label">Prix</label>
           <div class="col-md-10">
-            <input type="number" name="price" class="form-control" min="0.00" max="10000.00" step="0.01" />
+            <input type="number" name="price" class="form-control" min="0.00" max="10000.00" step="0.01" value="<?php echo $product->price(); ?>" required />
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-2 control-label">Image</label>
           <div class="col-md-10">
-            <input type="file" name="product_img"/>
+            <img style="width:100px; height:100px" src="data:image/jpeg;base64,<?php echo(base64_encode($imageB)) ?>" /><br><br>
+            <input type="file" name="product_img" />
           </div>
         </div>
         <div class="form-group">
@@ -142,10 +157,15 @@
                   $categoryManager = new CategoryManager($conn);
                   $res = $categoryManager->getList();
                 ?>
-                <select class="col-md-5 form-control" name="category">
+                <select class="col-md-5 form-control" name="category" >
                   <?php
+                  $select = 'selected="selected"';
                   foreach($res as $category) {
-                    echo '<option value="'.$category->id().'">'.$category->name().'</option>';
+                    if ($product->id_category() == $category->id()) {
+                      $setSelect=$select;
+                    }
+                    echo '<option value="'.$category->id().'" '.$setSelect.'>'.$category->name().'</option>';
+                    $setSelect="";
                   }
                   ?>
                 </select>
@@ -153,7 +173,7 @@
             </div>
           </div>
         </div>
-        <button class="col-xs-12 btn btn-lg btn-primary" type="submit"><span class="fa fa-plus"></span> &nbsp;Ajouter</button>
+        <button class="col-xs-12 btn btn-lg btn-primary" type="submit"><span class="fa fa-plus"></span> &nbsp;Appliquer les changements</button>
       </form>
       <br>
       <br>
@@ -166,7 +186,7 @@
         <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur BDD </div>
       <?php ; endif ?>
       <?php if ($erreur == '3'): ?>
-        <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Produit ajouté !</div>
+        <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Produit modifié !</div>
       <?php ; endif ?>
     </div>
   </div>
