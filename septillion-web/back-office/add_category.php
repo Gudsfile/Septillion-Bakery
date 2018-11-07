@@ -119,12 +119,6 @@
             <textarea name="description" class="form-control" cols="40" rows="5"></textarea>
           </div>
         </div>
-        <div class="form-group">
-          <label class="col-md-2 control-label">Image</label>
-          <div class="col-md-10">
-            <input type="file" name="product_img"/>
-          </div>
-        </div>
         <button class="col-xs-12 btn btn-lg btn-primary" type="submit"><span class="fa fa-plus"></span> &nbsp;Ajouter</button>
       </form>
       <br>

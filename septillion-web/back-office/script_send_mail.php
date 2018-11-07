@@ -4,9 +4,9 @@ require('../BDD/Employee.php');
 require('../BDD/EmployeeManager.php');
 require('../BDD/Message.php');
 require('../BDD/MessageManager.php');
-$conn = new PDO("mysql:host=localhost;dbname=Septillion", "root");
-$employeeManager = new EmployeeManager($conn);
-$messageManager = new MessageManager($conn);
+$pdo = Connect::connexion();
+$employeeManager = new EmployeeManager($pdo);
+$messageManager = new MessageManager($pdo);
 
 if ($employeeManager->getByMail($_POST['mail'])->id() == 0) {
   $erreur = 1;
