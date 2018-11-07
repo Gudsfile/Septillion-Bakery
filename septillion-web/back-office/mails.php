@@ -7,14 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Septillion Bakery - Message</title>
 	<?php
-	require('../BDD/Message.php');
-	require('../BDD/MessageManager.php');
-	require('../BDD/Order.php');
-	require('../BDD/OrderManager.php');
-	require('../BDD/Employee.php');
-	require('../BDD/EmployeeManager.php');
-	require('../BDD/Client.php');
-	require('../BDD/ClientManager.php');
 	require('connexion.php');
 	$conn = Connect::connexion();
   $erreur = 100;
@@ -48,7 +40,7 @@
 		<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 			<div class="profile-sidebar">
 				<div class="profile-usertitle">
-					<div class="profile-usertitle-name"><?php echo $_SESSION['name']?></div> <!-- Replace By SESSION NAME -->
+					<div class="profile-usertitle-name"><?php echo $_SESSION['name']?></div>
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -93,7 +85,7 @@
 			</a></li>
 		</ul>
 	</li>
-			<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 	</ul>
 </div>
 <!--/.sidebar-->
@@ -113,7 +105,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					Messages
-          <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
 						<div class="canvas-wrapper">
 							<div class="panel panel-default">
@@ -122,41 +114,24 @@
 										<?php
 										$messageManager = new MessageManager($conn);
 										$employeeManager = new EmployeeManager($conn);
-										$messageList = $messageManager->getByReceiver(1004);	//REPLACE BY SESSION ID
-										?>
-										<table class="table table-hover" id="messageTable">
-											<?php
+										$messageList = $messageManager->getByReceiver($_SESSION['id_client']);	//REPLACE BY SESSION ID
+										if (!empty($messageList)) {
+											echo '<table class="table table-hover" id="messageTable">';
 											foreach ($messageList as $value) {
 												echo "<tr>";
-                        echo "<td>".$value->id()."</td>";
+												echo "<td>".$value->id()."</td>";
 												echo "<td>".$employeeManager->get($value->id_sender())->first_name()." ".$employeeManager->get($value->id_sender())->last_name()."</td>";
 												echo "<td>".$value->message_object()."</td>";
-                        echo "<td>".$value->sent_date()."</td>";
+												echo "<td>".$value->sent_date()."</td>";
+												echo "<td>".$value->sent_date()."</td>";
 												echo "</tr>";
+
 											}
-											?>
-                      <script>
-                      function addRowHandlers() {
-                        var table = document.getElementById("messageTable");
-                        var rows = table.getElementsByTagName("tr");
-                        for (i = 0; i < rows.length; i++) {
-                          var currentRow = table.rows[i];
-                          var createClickHandler =
-                          function(row)
-                          {
-                            return function() {
-                              var cell = row.getElementsByTagName("td")[0];
-                              var id = cell.innerHTML;
-															var data = <?php echo json_encode($value->body(), JSON_HEX_TAG); ?>;
-                              alert("Message : \n" + data);
-                            };
-                          };
-                          currentRow.onclick = createClickHandler(currentRow);
-                        }
-                      }
-                      window.onload = addRowHandlers();
-                      </script>
-										</table>
+											echo "</table>";
+										} else {
+											echo '<h3>Aucun message</h3>';
+										}
+										?>
 									</div>
 								</div>
 							</div>

@@ -5,7 +5,6 @@ class Category
 	private $_id_category;
 	private $_name;
 	private $_description;
-	private $_id_img;
 	private $_created_by;
 
 	 public function __construct($value = array())
@@ -29,8 +28,6 @@ class Category
 	public function name() { return $this->_name; }
 
 	public function description() { return $this->_description; }
-
-	public function id_img() { return $this->_id_img; }
 
 	public function created_by() { return $this->_created_by; }
 
@@ -56,16 +53,9 @@ class Category
 		}
 	}
 
-	public function setId_img($icon)
-	{
-		if (is_string($icon)) {
-			$this->_id_img= $icon;
-		}
-	}
-
 	public function SetCreated_by($created_by)
 	{
-		if (is_string($created_by)) {
+		if (is_numeric($created_by)) {
 			$this->_created_by = $created_by;
 		}
 	}

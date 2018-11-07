@@ -9,12 +9,6 @@
 
 	<title>Septillion Bakery - Dashboard</title>
 	<?php
-	require('../BDD/Employee.php');
-	require('../BDD/EmployeeManager.php');
-	require('../BDD/Category.php');
-	require('../BDD/CategoryManager.php');
-	require('../BDD/Image.php');
-	require('../BDD/ImageManager.php');
 	require('connexion.php');
 	$conn = Connect::connexion();
 	?>
@@ -90,7 +84,7 @@
 			</a></li>
 		</ul>
 	</li>
-	<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+	<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 </ul>
 </div>
 <!--/.sidebar-->
@@ -120,26 +114,21 @@
 				<div class="panel-heading">Liste des catégories</div>
 				<div class="panel-body">
 					<?php
-						$imageManager = new ImageManager($conn);
 						$categoryManager = new CategoryManager($conn);
 						$employeeManager = new EmployeeManager($conn);
 						$categoryList = $categoryManager->getList();
 						foreach($categoryList as $category) { //Get the image from database
-							$image = $imageManager->get($category->id_img())->image();
 							$created_by = $employeeManager->get($category->created_by());
-							
+
 							echo '
-							<div class="search-result-item col-md-12">
-								<div class="col-sm-2">
-									<img class="search-result-image img-responsive" src="data:image/jpeg;base64,'.base64_encode($image).'"/>
-								</div>
+							<div class="search-result-item col-md-12">							
 								<div class="search-result-item-body col-sm-10">
 									<div class="row">
 										<div class="col-sm-9">
 											<h3 class="search-result-title">'.$category->name().'</a></h3>
 											<p>'.$category->description().'</p>
 											<p>Créé par : '.$created_by->first_name()." ".$created_by->last_name().'</p>
-											
+
 										</div>
 										<div class="col-sm-3 text-center">
 											<a class="btn btn-primary btn-info btn-md" href="category.php?#"'.$category->id().'>Editer </a>

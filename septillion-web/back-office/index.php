@@ -7,14 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Septillion Bakery - Dashboard</title>
 	<?php
-	require('../BDD/Message.php');
-	require('../BDD/MessageManager.php');
-	require('../BDD/Order.php');
-	require('../BDD/OrderManager.php');
-	require('../BDD/Employee.php');
-	require('../BDD/EmployeeManager.php');
-	require('../BDD/Client.php');
-	require('../BDD/ClientManager.php');
+	
 	require('connexion.php');
 	$conn = Connect::connexion();
 	?>
@@ -90,7 +83,7 @@
 			</a></li>
 		</ul>
 	</li>
-			<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 	</ul>
 </div>
 <!--/.sidebar-->
@@ -104,6 +97,35 @@
 			<li class="active">Tableau de bord</li>
 		</ol>
 	</div><!--/.row-->
+
+	<div class="panel panel-container">
+		<div class="row">
+			<div class="col-xs-6 col-md-4 col-lg-4 no-padding">
+				<div class="panel panel-teal panel-widget border-right">
+					<div class="row no-padding"><em class="fa fa-xl fa-shopping-cart color-blue"></em>
+						<div class="large">120</div>
+						<div class="text-muted">Nouvelles commandes</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-md-4 col-lg-4 no-padding">
+				<div class="panel panel-blue panel-widget border-right">
+					<div class="row no-padding"><em class="fa fa-xl fa-comments color-orange"></em>
+						<div class="large">52</div>
+						<div class="text-muted">Comments</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6 col-md-4 col-lg-4 no-padding">
+				<div class="panel panel-orange panel-widget border-right">
+					<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
+						<div class="large">24</div>
+						<div class="text-muted">New Users</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
+	</div>
 
 	<div class="row">
 		<div class="col-md-12">
@@ -119,7 +141,7 @@
 										<?php
 										$messageManager = new MessageManager($conn);
 										$employeeManager = new EmployeeManager($conn);
-										$messageList = $messageManager->getByReceiver(1004);	//REPLACE BY SESSION ID
+										$messageList = $messageManager->getByReceiver($_SESSION['id_client']);	//REPLACE BY SESSION ID
 										?>
 										<table class="table table-hover">
 											<?php

@@ -32,7 +32,7 @@ class ImageManager
 	{
 		$id = (int) $id;
 		$query = $this->_db->query("SELECT * FROM IMAGE WHERE ID_IMG =".$id);
-		$donnees = $query;//->fetch(PDO::FETCH_ASSOC);
+		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		return new IMAGE($donnees);
 	}
 

@@ -7,10 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Septillion Bakery - Dashboard</title>
   <?php
-	require('../BDD/Employee.php');
-	require('../BDD/EmployeeManager.php');
-  require('../BDD/Category.php');
-  require('../BDD/CategoryManager.php');
   require('connexion.php');
   $conn = Connect::connexion();
   $erreur = 100;
@@ -89,7 +85,7 @@
 			</a></li>
 		</ul>
   </li>
-      <li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+      <li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
   </ul>
 </div>
 <!--/.sidebar-->

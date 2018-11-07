@@ -1,11 +1,9 @@
 <?php
-require('../BDD/Employee.php');
-require('../BDD/EmployeeManager.php');
-require('../BDD/Message.php');
-require('../BDD/MessageManager.php');
-$conn = new PDO("mysql:host=localhost;dbname=Septillion", "root");
-$employeeManager = new EmployeeManager($conn);
+session_start();
+require('connexion.php');
+$conn = Connect::connexion();
 $messageManager = new MessageManager($conn);
+$employeeManager = new EmployeeManager($conn);
 
 if ($employeeManager->getByMail($_POST['mail'])->id() == 0) {
   $erreur = 1;
@@ -16,10 +14,9 @@ if ($employeeManager->getByMail($_POST['mail'])->id() == 0) {
 $messageData = array(
   "message_object" => $_POST['object'],
   "body" => $_POST['body'],
-  "id_sender" => 1003,
+  "id_sender" => intval($_SESSION['id_client']),
   "id_receiver" => $employeeManager->getByMail($_POST['mail'])->id(),
 );
-
 $newMessage = new Message($messageData);
 $idMessage = $messageManager->add($newMessage);
 if ($idMessage == 0){

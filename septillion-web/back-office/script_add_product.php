@@ -1,13 +1,6 @@
 <?php
 session_start();
-require('../BDD/Image.php');
-require('../BDD/ImageManager.php');
-require('../BDD/Product.php');
-require('../BDD/ProductManager.php');
-require('../BDD/Category.php');
-require('../BDD/CategoryManager.php');
 require('connexion.php');
-
 $pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
 $productManager = new ProductManager($pdo);
@@ -61,15 +54,31 @@ $productData = array(
   "description" => $_POST['description'],
   "price" => $_POST['price'],
   "image" => transfert(),
-  "created_by" => $_SESSION['id_client'],       //Replace By session id
-  "last_updated_by" => $_SESSION['id_client'],  //Replace By session id
+  "created_by" => intval($_SESSION['id_client']),       //Replace By session id
+  "last_updated_by" => intval($_SESSION['id_client']),  //Replace By session id
   "id_category" => $_POST['category'],
 );
 $newProduct = new Product($productData);
 $idProduct = $productManager->add($newProduct);
 if ($idProduct == 0){
   $erreur = 2;
-  header('Location: add_product.php?erreur=2');
+  echo $newProduct->name();
+  echo "\n";
+  echo $newProduct->stock();
+  echo "\n";
+  echo $newProduct->description();
+  echo "\n";
+  echo $newProduct->price();
+  echo "\n";
+  echo $newProduct->image();
+  echo "\n";
+  echo $newProduct->created_by();
+  echo "\n";
+  echo $newProduct->last_updated_by();
+  echo "\n";
+  echo $newProduct->id_category();
+  echo "\n";
+  //header('Location: add_product.php?erreur=2');
   exit();
 } else {
   $erreur = 3;

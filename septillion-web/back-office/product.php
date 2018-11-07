@@ -11,6 +11,14 @@
 	<?php
 	require('connexion.php');
 	$conn = Connect::connexion();
+  $productManager = new ProductManager($conn);
+  $imageManager = new ImageManager($conn);
+  $categoryManager = new CategoryManager($conn);
+  $employeeManager = new EmployeeManager($conn);
+  $product = $productManager->get($_GET['id']);
+  $image = $imageManager->get($product->id_img())->image();
+  $created_by = $employeeManager->get($product->created_by());
+  $last_updated_by = $employeeManager->get($product->last_updated_by());
 	?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -92,69 +100,49 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<div class="row">
 		<ol class="breadcrumb">
-			<li><a href="index.php">
-				<em class="fa fa-home"></em>
-			</a></li>
-			<li class="active">Produits</li>
+			<li><a href="index.php"><em class="fa fa-home"></em></a></li>
+      <li><a href="list_product.php">Liste produits</a></li>
+      <li class="active"><?php echo $product->name() ?></li>
 		</ol>
 	</div>
-	<br>
-	<div class="row">
+  <div class="row">
 		<div class="col-md-12">
-			<form>
-				<div class="input-group input-group-lg">
-					<input type="text" placeholder="Rechercher un produit" class="form-control">
-					<div class="input-group-btn">
-						<button type="button" class="btn btn-default" tabindex="-1"><i class="fa fa-search"></i></button>
-					</div>
-				</div>
-			</form>
-			<br>
-			<div class="panel panel-default">
-				<div class="panel-heading">Liste des produits</div>
+      <div class="panel panel-default">
+        <div class="panel-heading"><?php echo $product->name() ?>
+          <button class="btn btn-default margin pull-right panel-button-tab-right" onclick="location.href='edit_product.php?id=<?php echo($product->id())  ?>'"><span class="fa fa-edit"></span> &nbsp;Edit</button>
+        </div>
 				<div class="panel-body">
-					<?php
-						$imageManager = new ImageManager($conn);
-						$categoryManager = new CategoryManager($conn);
-						$productManager = new ProductManager($conn);
-						$employeeManager = new EmployeeManager($conn);
-						$productList = $productManager->getList();
-						foreach($productList as $product) { //Get the image from database
-							$image = $imageManager->get($product->id_img())->image();
-							$created_by = $employeeManager->get($product->created_by());
-							$last_updated_by = $employeeManager->get($product->last_updated_by());
-							echo '
-							<div class="search-result-item col-md-12">
-								<div class="col-sm-2">
-									<img class="search-result-image img-responsive" src="data:image/jpeg;base64,'.base64_encode($image).'"/>
-								</div>
-								<div class="search-result-item-body col-sm-10">
-									<div class="row">
-										<div class="col-sm-9">
-											<h3 class="search-result-title">'.$product->name().'</a></h3>
-											<p class="text-muted">'.$categoryManager->get($product->id_category())->name().'</p>
-											<p>'.$product->description().'</p>
-											<p>Stock : '.$product->stock().'</p>
-											<p>Créé par : '.$created_by->first_name()." ".$created_by->last_name().'</p>
-											<p>Dernière mise à jour par : '.$last_updated_by->first_name()." ".$last_updated_by->last_name().'</p>
-										</div>
-										<div class="col-sm-3 text-center">
-											<h3>'.$product->price().'€</h3>
-											<a class="btn btn-primary btn-info btn-md" href="product.php?id='.$product->id().'">Afficher détails</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							';
-						}
-					?>
-
-				</div>
-				</div>
-			</div>
-		</div>
-	</div><!--/.row-->
-
+          <div class="search-result-item col-md-12">
+            <div class="col-sm-2">
+              <img class="search-result-image img-responsive" src="data:image/jpeg;base64,<?php echo(base64_encode($image)) ?>"/>
+            </div>
+            <div class="search-result-item-body col-sm-10">
+              <div class="row">
+                <div class="col-sm-9">
+                  <h3 class="search-result-title"><?php echo $categoryManager->get($product->id_category())->name() ?></a></h3>
+                  <p><?php echo $product->description() ?></p>
+                  <p><?php echo 'Stock : '.$product->stock() ?></p>
+                  <p><?php echo 'Créé par : '.$created_by->first_name()." ".$created_by->last_name() ?></p>
+                  <p><?php echo 'Dernière mise à jour par : '.$last_updated_by->first_name().' '.$last_updated_by->last_name() ?>'</p>
+                </div>
+                <div class="col-sm-3 text-center">
+                  <h3><?php echo $product->price().'€' ?></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Ventes sur l'année</div>
+    <div class="panel-body">
+      <div class="canvas-wrapper">
+        <canvas class="chart" id="bar-chart" height="509" width="1528" style="width: 1528px; height: 509px;"></canvas>
+      </div>
+    </div>
+  </div>
 </div>	<!--/.main-->
 
 <script src="js/jquery-1.11.1.min.js"></script>
@@ -165,5 +153,14 @@
 <script src="js/easypiechart-data.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/custom.js"></script>
+<script>
+  var chart2 = document.getElementById("bar-chart").getContext("2d");
+  window.myBar = new Chart(chart2).Bar(barChartData, {
+  responsive: true,
+  scaleLineColor: "rgba(0,0,0,.2)",
+  scaleGridLineColor: "rgba(0,0,0,.05)",
+  scaleFontColor: "#c5c7cc"
+  });
+</script>
 </body>
 </html>
