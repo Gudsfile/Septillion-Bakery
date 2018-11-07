@@ -114,87 +114,49 @@
 										<?php
 										$messageManager = new MessageManager($conn);
 										$employeeManager = new EmployeeManager($conn);
-										$messageList = $messageManager->getByReceiver(intval($_SESSION['id_client']));	//REPLACE BY SESSION ID
-										?>
-										
-
-										<?php
+										$messageList = $messageManager->getByReceiver(intval($_SESSION['id_client']));
 										if (!empty($messageList)) {
 											echo '<table class="table" id="messageTable">';
 											?>
-
 											<tr>
 												<th scope="col">De :</th>
 												<th scope="col">Objet :</th>
 												<th scope="col">Date :</th>
 												<th scope="col"></th>
 												<th scope="col"></th>
-
 											</tr>
-
 											<?php
 											foreach ($messageList as $value) {
-
-
-
 												echo "<tr>";
-												//echo "<td>".$value->id()."</td>";
 												echo "<td>".$employeeManager->get($value->id_sender())->first_name()." ".$employeeManager->get($value->id_sender())->last_name()."</td>";
 												echo "<td>".$value->message_object()."</td>";
 												echo "<td>".$value->sent_date()."</td>";
-												
-
-												?>
-												<td>
-
-													<a class="btn btn-primary" data-toggle="collapse" href="<?php echo "#afficher".$value->id() ?>" role="button" aria-expanded="false" aria-controls="<?php echo "afficher".$value->id() ?>">
-														Afficher le message
-													</a>
-
-												</td>
-
-
-												<td>
-													<form action="script_del_mail.php" method="post">
-														<button class="btn btn-primary" type="submit" name="id" value="<?php echo $value->id() ?>">
-															Supprimer le message
-														</button>
-													</form>
-												</td>
-
-
-												
-												<?php
-
-
-
-												echo "</tr>";
-												?>
-												<tr><td colspan="5">
-													<div class="collapse" id="<?php echo "afficher".$value->id() ?>">
-														<div class="card card-body" >
-
-															<?php echo(nl2br($value->body())); ?>
-
-														</div>
+											?>
+											<td>
+												<a class="btn btn-default margin" data-toggle="collapse" href="<?php echo "#afficher".$value->id() ?>" role="button" aria-expanded="false" aria-controls="<?php echo "afficher".$value->id() ?>"><span class="fa fa-envelope"></span></a>
+											</td>
+											<td>
+												<form action="script_del_mail.php" method="post">
+													<button class="btn btn-default margin" type="submit" name="id" value="<?php echo $value->id() ?>"><span class="fa fa-trash"></span></button>
+												</form>
+											</td>
+											<?php
+											echo "</tr>";
+											?>
+											<tr><td colspan="5">
+												<div class="collapse" id="<?php echo "afficher".$value->id() ?>">
+													<div class="card card-body" >
+														<?php echo(nl2br($value->body())); ?>
 													</div>
-												</td></tr>
-
-												<?php
-												
-
+												</div>
+											</td></tr>
+											<?php
 											}
 											echo "</table>";
+											} else {
+												echo '<h3>Aucun message</h3>';
+											}
 											?>
-											
-											
-
-
-											<?php
-										} else {
-											echo '<h3>Aucun message</h3>';
-										}
-										?>
 									</div>
 								</div>
 							</div>
