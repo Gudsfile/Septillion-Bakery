@@ -165,7 +165,24 @@
 							<label class="radio-inline">
 								<input type="radio" name="collectedRadio" id="CollectedRadio2" value="0">Non
 							</label>
-            </div>
+							<br>
+							<h3>Employé : </h3>
+							<?php
+								$res = $employeeManager->getList();
+							?>
+							<select class="col-lg-4 form-control" name="category">
+								<?php
+								foreach($res as $employee) {
+									echo '<option value="'.$employee->id().'">'.$employee->first_name().' '.$employee->last_name().'</option>';
+								}
+								?>
+							</select>
+							<br>
+							<br>
+							<br>
+							<button class="btn btn-default" onclick="location.href='script_update_order.php?id=<?php echo($order->id())  ?>'"><span class="fa fa-check"></span> &nbsp;Valider les modifications</button>
+							<button class="btn btn-default margin pull-right" onclick="location.href='script_delete_order.php?id=<?php echo($order->id())  ?>'"><span class="fa fa-trash"></span> &nbsp;Delete</button>
+						</div>
           </div>
         </div>
       </div><!--/.panel-->
