@@ -148,6 +148,7 @@
 							<h3>Prix total : <?php echo $totalPrice ?> </>
             </div>
             <div class="tab-pane fade" id="tab2">
+<<<<<<< refs/remotes/origin/master
 							<label class="checkbox-inline">
 								<input type="checkbox" id="validatedCheckBox" value="validatedOption" <?php if ($order->validated() == 1){ echo 'checked=""';} ?> ></>Validée
 							</label>
@@ -175,11 +176,46 @@
 								}
 								?>
 							</select>
+=======
+							<form action="script_update_order.php?id=<?php echo $order->id()?>" method="post">
+								<label class="checkbox-inline">
+                                <input type="checkbox" id="validatedCheckBox" name="validated" <?php if ($order->validated() == 1){ echo 'checked=""';} ?> ></>Validée
+                            </label>
+                            <br>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="readyCheckBox" name="ready" <?php if ($order->ready() == 1){ echo 'checked=""';} ?></>Prête
+                            </label>
+                            <br>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" id="collectedCheckBox" name="collected" <?php if ($order->collected() == 1){ echo 'checked=""';} ?></>Collectée
+                            </label>
+                            <br>
+                            <h3>Employé : </h3>
+                            <?php
+                            $res = $employeeManager->getList();
+                            ?>
+                            <select class="col-lg-4 form-control" name="category">
+                                <?php
+                                foreach($res as $employee) {
+                                    if ($order->employee() == $employee->id()) {
+                                        echo '<option value="'.$employee->id().'" selected="selected">'.$employee->first_name().' '.$employee->last_name().'</option>';
+                                    } else {
+                                        echo '<option value="'.$employee->id().'">'.$employee->first_name().' '.$employee->last_name().'</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <br>
+                            <br>
+                            <br>
+							<br>
+>>>>>>> update + delete script
 							<br>
 							<br>
-							<br>
-							<button class="btn btn-default" onclick="location.href='script_update_order.php?id=<?php echo($order->id())  ?>'"><span class="fa fa-check"></span> &nbsp;Valider les modifications</button>
-							<button class="btn btn-default margin pull-right" onclick="location.href='script_delete_order.php?id=<?php echo($order->id())  ?>'"><span class="fa fa-trash"></span> &nbsp;Delete</button>
+							<button type="submit" class="btn btn-default" name="valider"> <span class="fa fa-check"></span> &nbsp;Valider les modifications</button>
+							<button type="submit" class="btn btn-default margin pull-right" name="delete"><span class="fa fa-trash"></span> &nbsp;supprimer la commande</button>
+
+						</form>
 						</div>
           </div>
         </div>
