@@ -105,10 +105,30 @@ class OrderManager
 		return $orders;
 	}
 
+	public function getCollectedOrdersByEmployee($id)
+	{
+		$orders = [];
+		$query = $this->_db->query("SELECT * FROM CLIENT_ORDER WHERE COLLECTED = 1 and ID_EMPLOYEE = ".$id);
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$orders[] = new Order($donnees);
+		}
+		return $orders;
+	}
+
 	public function getNonCollectedOrders()
 	{
 		$orders = [];
 		$query = $this->_db->query("SELECT * FROM CLIENT_ORDER WHERE COLLECTED = 0");
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$orders[] = new Order($donnees);
+		}
+		return $orders;
+	}
+
+	public function getNonCollectedOrdersByEmployee($id)
+	{
+		$orders = [];
+		$query = $this->_db->query("SELECT * FROM CLIENT_ORDER WHERE COLLECTED = 0 and ID_EMPLOYEE = ".$id);
 		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$orders[] = new Order($donnees);
 		}

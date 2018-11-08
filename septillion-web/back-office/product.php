@@ -109,6 +109,7 @@
 		<div class="col-md-12">
       <div class="panel panel-default">
         <div class="panel-heading"><?php echo $product->name() ?>
+					<button class="btn btn-default margin pull-right panel-button-tab-right" onclick="location.href='script_delete_product.php?id=<?php echo($product->id())  ?>'"><span class="fa fa-trash"></span> &nbsp;Delete</button>
           <button class="btn btn-default margin pull-right panel-button-tab-right" onclick="location.href='edit_product.php?id=<?php echo($product->id())  ?>'"><span class="fa fa-edit"></span> &nbsp;Edit</button>
         </div>
 				<div class="panel-body">
@@ -123,7 +124,7 @@
                   <p><?php echo $product->description() ?></p>
                   <p><?php echo 'Stock : '.$product->stock() ?></p>
                   <p><?php echo 'Créé par : '.$created_by->first_name()." ".$created_by->last_name() ?></p>
-                  <p><?php echo 'Dernière mise à jour par : '.$last_updated_by->first_name().' '.$last_updated_by->last_name() ?>'</p>
+                  <p><?php echo 'Dernière mise à jour par : '.$last_updated_by->first_name().' '.$last_updated_by->last_name() ?></p>
                 </div>
                 <div class="col-sm-3 text-center">
                   <h3><?php echo $product->price().'€' ?></h3>

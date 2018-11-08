@@ -110,32 +110,33 @@
                   <div class="col-md-12">
                     <?php
                     $orderManager = new OrderManager($conn);
-                    $orderList = $orderManager->getByEmployee($_SESSION['id_admin']);	//REPLACE BY SESSION ID
+                    $orderList = $orderManager->getNonCollectedOrdersByEmployee($_SESSION['id_admin']);	//REPLACE BY SESSION ID
                     $clientManager = new ClientManager($conn);
                     ?>
-                    <table class="table table-hover" id="orderTable">
+                    <table class="table" id="orderTable">
                       <tr>
                         <th>N°</th>
                         <th>Date</th>
                         <th>Description</th>
                         <th>Validée</th>
                         <th>Prête</th>
-                        <th>Collectée</th>
 												<th>Client</th>
                       </tr>
                       <?php
                       foreach ($orderList as $value) {
                         $client = $clientManager->get($value->client());
-                        if ($value->validated() == 0) $validated = "non"; else $validated = "oui";
-                        if ($value->ready() == 0) $ready = "non"; else $ready = "oui";
-                        if ($value->collected() == 0) $collected = "non"; else $collected = "oui";
-                        echo "<tr>";
-                        echo "<td>".$value->id()."</td>";
+												$validated = ($value->validated() == 0)	? "non" : "oui";
+												$ready = ($value->ready() == 0)	? "non" : "oui";
+												if ($value->validated() == 0) $rowCollour = '<tr class="bg-danger">';
+												if ($value->validated() == 1) $rowCollour = '<tr class="bg-warning">';
+												if ($value->ready() == 1) $rowCollour = '<tr class="bg-info">';
+
+												echo $rowCollour;
+												echo "<td>".$value->id()."</td>";
                         echo "<td>".$value->order_date()."</td>";
                         echo "<td>".$value->description()."</td>";
                         echo "<td>".$validated."</td>";
                         echo "<td>".$ready."</td>";
-                        echo "<td>".$collected."</td>";
                         echo "<td>".$client->first_name()." ".$client->last_name()."</td>";
                         echo "</tr>";
                       }
@@ -169,6 +170,73 @@
         </div>
       </div>
     </div><!--/.row-->
+
+		<div class="row">
+	    <div class="col-md-12">
+	      <div class="panel panel-default">
+	        <div class="panel-heading">
+	          Commandes terminées
+	          <span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
+	          <div class="panel-body">
+	            <div class="canvas-wrapper">
+	              <div class="panel panel-default">
+	                <div class="panel-body btn-margins">
+	                  <div class="col-md-12">
+	                    <?php
+	                    $orderManager = new OrderManager($conn);
+	                    $orderList = $orderManager->getCollectedOrdersByEmployee($_SESSION['id_admin']);	//REPLACE BY SESSION ID
+	                    $clientManager = new ClientManager($conn);
+	                    ?>
+	                    <table class="table" id="allOrderTable">
+	                      <tr>
+	                        <th>N°</th>
+	                        <th>Date</th>
+	                        <th>Description</th>
+													<th>Client</th>
+	                      </tr>
+	                      <?php
+	                      foreach ($orderList as $value) {
+	                        $client = $clientManager->get($value->client());
+													if ($value->validated() == 0) $rowCollour = '<tr class="bg-danger">';
+													if ($value->validated() == 1) $rowCollour = '<tr class="bg-warning">';
+													if ($value->ready() == 1) $rowCollour = '<tr class="bg-info">';
+													if ($value->collected() == 1) $rowCollour = '<tr class="bg-success">';
+													echo $rowCollour;
+													echo "<td>".$value->id()."</td>";
+	                        echo "<td>".$value->order_date()."</td>";
+	                        echo "<td>".$value->description()."</td>";
+	                        echo "<td>".$client->first_name()." ".$client->last_name()."</td>";
+	                        echo "</tr>";
+	                      }
+	                      ?>
+												<script>
+	                      function addRowHandlers() {
+	                        var table = document.getElementById("allOrderTable");
+	                        var rows = table.getElementsByTagName("tr");
+													for (i = 0; i < rows.length; i++) {
+														var currentRow = table.rows[i];
+														var createClickHandler =
+	                          function(row) {
+															return function() {
+																var cell = row.getElementsByTagName("td")[0];
+	                              var id = cell.innerHTML;
+																window.open("order.php?id="+id,"_self");
+	                            };
+	                          };
+	                          currentRow.onclick = createClickHandler(currentRow);
+	                        }
+	                      }
+	                      window.onload = addRowHandlers();
+	                      </script>
+	                    </table>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div><!--/.row-->
 
 		</div>	<!--/.main-->
 
