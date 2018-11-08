@@ -105,10 +105,30 @@ class OrderManager
 		return $orders;
 	}
 
+	public function getCollectedOrdersByEmployee($id)
+	{
+		$orders = [];
+		$query = $this->_db->query("SELECT * FROM CLIENT_ORDER WHERE COLLECTED = 1 and ID_EMPLOYEE = ".$id);
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$orders[] = new Order($donnees);
+		}
+		return $orders;
+	}
+
 	public function getNonCollectedOrders()
 	{
 		$orders = [];
 		$query = $this->_db->query("SELECT * FROM CLIENT_ORDER WHERE COLLECTED = 0");
+		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
+			$orders[] = new Order($donnees);
+		}
+		return $orders;
+	}
+
+	public function getNonCollectedOrdersByEmployee($id)
+	{
+		$orders = [];
+		$query = $this->_db->query("SELECT * FROM CLIENT_ORDER WHERE COLLECTED = 0 and ID_EMPLOYEE = ".$id);
 		while ($donnees = $query->fetch(PDO::FETCH_ASSOC)) {
 			$orders[] = new Order($donnees);
 		}
@@ -127,8 +147,8 @@ class OrderManager
 
 	public function update($id, Order $order)
 	{
-		$query = $this->_db->prepare("UPDATE CLIENT_ORDER SET DESCRIPTION =:description, VALIDATED =:validated, READY =: ready, COLLECTED =:collected, ID_EMPLOYEE =: id_employee WHERE ID_ORDER = :id");
-		$query->bindValue(':id', $id());
+		$query = $this->_db->prepare("UPDATE CLIENT_ORDER SET DESCRIPTION =:description, VALIDATED =:validated, READY = :ready, COLLECTED = :collected, ID_CLIENT = :id_client ,ID_EMPLOYEE = :id_employee WHERE ID_ORDER = :id");
+		$query->bindValue(':id', $id , PDO::PARAM_INT);
 		$query->bindValue(':description', $order->description(), PDO::PARAM_STR);
 		$query->bindValue(':validated', $order->validated(), PDO::PARAM_INT);
 		$query->bindValue(':ready', $order->ready(), PDO::PARAM_INT);
