@@ -116,8 +116,8 @@
       <div class="panel panel-default">
         <div class="panel-body tabs">
           <ul class="nav nav-tabs">
-            <li class="active"><a href="https://medialoot.com/preview/lumino/panels.html#tab1" data-toggle="tab">Articles</a></li>
-            <li><a href="https://medialoot.com/preview/lumino/panels.html#tab2" data-toggle="tab">Options</a></li>
+						<li class="active"><a href="<?php echo "order.php?id=".$order->id()."#tab1"; ?>" data-toggle="tab">Articles</a></li>
+						<li><a href="<?php echo "order.php?id=".$order->id()."#tab2"; ?>" data-toggle="tab">Options</a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade in active" id="tab1">
@@ -148,27 +148,16 @@
 							<h3>Prix total : <?php echo $totalPrice ?> </>
             </div>
             <div class="tab-pane fade" id="tab2">
-							<h3>Validée : </h3>
-							<label class="radio-inline">
-								<input type="radio" name="validatedRadio" id="validatedOption1" value="1" <?php if ($order->validated() == 1){ echo 'checked=""';} ?>>Oui
+							<label class="checkbox-inline">
+								<input type="checkbox" id="validatedCheckBox" value="validatedOption" <?php if ($order->validated() == 1){ echo 'checked=""';} ?> ></>Validée
 							</label>
-							<label class="radio-inline">
-								<input type="radio" name="validatedRadio" id="validatedOption2" value="0" <?php if ($order->validated() == 0){ echo 'checked=""';} ?>>Non
+							<br>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="readyCheckBox" value="readyOption" <?php if ($order->ready() == 1){ echo 'checked=""';} ?></>Prête
 							</label>
-
-							<h3>Prête : </h3>
-							<label class="radio-inline">
-								<input type="radio" name="readyRadio" id="ReadyOption1" value="1" <?php if ($order->ready() == 1){ echo 'checked=""';} ?>>Oui
-							</label>
-							<label class="radio-inline">
-								<input type="radio" name="readyRadio" id="ReadyOption2" value="0" <?php if ($order->ready() == 0){ echo 'checked=""';} ?>>Non
-							</label>
-							<h3>Collectée : </h3>
-							<label class="radio-inline">
-								<input type="radio" name="collectedRadio" id="CollectedRadio1" value="1" <?php if ($order->collected() == 0){ echo 'checked=""';} ?>>Oui
-							</label>
-							<label class="radio-inline">
-								<input type="radio" name="collectedRadio" id="CollectedRadio2" value="0" <?php if ($order->collected() == 0){ echo 'checked=""';} ?>>Non
+							<br>
+							<label class="checkbox-inline">
+								<input type="checkbox" id="collectedCheckBox" value="collectedOption" <?php if ($order->collected() == 1){ echo 'checked=""';} ?></>Collectée
 							</label>
 							<br>
 							<h3>Employé : </h3>

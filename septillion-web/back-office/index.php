@@ -103,7 +103,7 @@
 			<div class="col-xs-6 col-md-4 col-lg-4 no-padding">
 				<div class="panel panel-teal panel-widget border-right">
 					<div class="row no-padding"><em class="fa fa-xl fa-shopping-cart color-blue"></em>
-						<div class="large">120</div>
+						<div class="large"><?php $orderManager = new OrderManager($conn); echo sizeof($orderManager->getNonCollectedOrders()) ?></div>
 						<div class="text-muted">Nouvelles commandes</div>
 					</div>
 				</div>
@@ -119,7 +119,7 @@
 			<div class="col-xs-6 col-md-4 col-lg-4 no-padding">
 				<div class="panel panel-orange panel-widget border-right">
 					<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
-						<div class="large">24</div>
+						<div class="large"><?php $clientManager = new ClientManager($conn); echo sizeof($clientManager->getList()) ?></div>
 						<div class="text-muted">New Users</div>
 					</div>
 				</div>
