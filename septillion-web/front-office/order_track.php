@@ -81,17 +81,17 @@
 								<?php
 								if ($value->collected()){
 									$Etat="Collectée";
-									$color="red";
+									$color="#E65540";
 								}
 								elseif ($value->ready()) {
 									$Etat="Prête";
-									$color="green";
+									$color="#0C9957";
 								}elseif ($value->validated()) {
 									$Etat="Validée";
-									$color="#45c4ff";
+									$color="#57B7F3";
 								}else{
 									$Etat="En cours de traitement";
-									$color="#ffe945";
+									$color="#FDB542";
 								}
 								?>
 								<td class="status" style="color:<?php echo $color; ?>">

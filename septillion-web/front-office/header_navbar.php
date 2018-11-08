@@ -129,7 +129,7 @@ $productManager2->getList();
 
               <div class="header-cart-wrapbtn">
                 <!-- Button -->
-                <?php if (isset($_SESSION['mail'])): ?>
+                <?php if (isset($_SESSION['mail']) && isset($_SESSION['id_client'])): ?>
                   <a href="cart.php" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                     Payer
                   </a>

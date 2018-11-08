@@ -17,7 +17,6 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
         session_start();
         // variables de session
         $_SESSION['mail'] = $_POST['mail'];
-        $_SESSION['password'] = $_POST['password'];
         $_SESSION['id_admin'] = $verif->id();
         $_SESSION['name'] = $verif->first_name()." ".$verif->last_name();
         $_SESSION['connect'] = 1;

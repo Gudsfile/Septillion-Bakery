@@ -30,11 +30,12 @@ elseif($_POST!=null) {
     "phone_number" => $_POST['phone_number']
   );
   $newClient = new Client($configClient);
-  if($clientManager->add($newClient)>0){
+  $verif = $clientManager->add($newClient);
+  if($verif>0){
     session_start();
     session_unset ();
     $_SESSION['mail'] = $_POST['mail'];
-    $_SESSION['password'] = md5($_POST['password']);
+    $_SESSION['id_client'] = $verif;
     header("Location: index.php");
   }
 }
