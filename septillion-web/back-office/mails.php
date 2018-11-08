@@ -116,6 +116,7 @@
 										$employeeManager = new EmployeeManager($conn);
 										$messageList = $messageManager->getByReceiver(intval($_SESSION['id_client']));
 										if (!empty($messageList)) {
+											echo '<div class="table-responsive-xl">';
 											echo '<table class="table" id="messageTable">';
 											?>
 											<tr>

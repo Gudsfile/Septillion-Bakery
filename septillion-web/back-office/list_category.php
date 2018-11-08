@@ -102,17 +102,14 @@
 	<div class="row">
 		<div class="col-md-12">
 			<form>
-				<div class="input-group input-group-lg">
-					<input type="text" placeholder="Rechercher une catégorie" class="form-control">
-					<div class="input-group-btn">
-						<button type="button" class="btn btn-default" tabindex="-1"><i class="fa fa-search"></i></button>
-					</div>
+				<div class="form-group form-group-lg">
+					<input type="text" placeholder="Rechercher une catégorie" class="form-control" id="search-text">
 				</div>
 			</form>
 			<br>
 			<div class="panel panel-default">
 				<div class="panel-heading">Liste des catégories</div>
-				<div class="panel-body">
+				<div class="panel-body" id="list">
 					<?php
 						$categoryManager = new CategoryManager($conn);
 						$employeeManager = new EmployeeManager($conn);
@@ -121,6 +118,7 @@
 							$created_by = $employeeManager->get($category->created_by());
 
 							echo '
+							<ressearch>
 							<div class="search-result-item col-md-12">							
 								<div class="search-result-item-body col-sm-10">
 									<div class="row">
@@ -136,6 +134,7 @@
 									</div>
 								</div>
 							</div>
+							</ressearch>
 							';
 						}
 					?>
@@ -148,6 +147,38 @@
 
 </div>	<!--/.main-->
 
+<!--===============================================================================================-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+// on load (research)
+$(document).ready(function() {
+	$("#search-text").keyup(function () {
+		var searchTerm = $("#search-text").val();
+		var listItem = $('#list').children('ressearch');
+		var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
+		$.extend($.expr[':'], {
+			'containsi': function(elem, i, match, array)
+			{
+				return (elem.textContent || elem.innerText || '').toLowerCase()
+				.indexOf((match[3] || "").toLowerCase()) >= 0;
+			}
+		});
+		$("#list ressearch").not(":containsi('" + searchSplit + "')").each(function(e)   {
+			$(this).addClass('hiding out').removeClass('in');
+			setTimeout(function() {
+				$('.out').addClass('hidden');
+			}, 300);
+		});
+		$("#list ressearch:containsi('" + searchSplit + "')").each(function(e) {
+			$(this).removeClass('hidden out').addClass('in');
+			setTimeout(function() {
+				$('.in').removeClass('hiding');
+			}, 1);
+		});
+	});
+});
+</script>
+<!--===============================================================================================-->
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/chart.min.js"></script>
