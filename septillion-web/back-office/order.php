@@ -149,13 +149,15 @@
             </div>
             <div class="tab-pane fade" id="tab2">
 							<label class="checkbox-inline">
-								<input type="checkbox" id="validatedCheckBox" value="validatedOption" <?php if ($order->validared() == 1){ echo 'checked=""';} ?>>Validée
+								<input type="checkbox" id="validatedCheckBox" value="validatedOption" <?php if ($order->validated() == 1){ echo 'checked=""';} ?> ></>Validée
 							</label>
+							<br>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="readyCheckBox" value="readyOption" <?php if ($order->ready() == 1){ echo 'checked=""';} ?>>Validée
+								<input type="checkbox" id="readyCheckBox" value="readyOption" <?php if ($order->ready() == 1){ echo 'checked=""';} ?></>Prête
 							</label>
+							<br>
 							<label class="checkbox-inline">
-								<input type="checkbox" id="collectedCheckBox" value="collectedOption" <?php if ($order->collected() == 1){ echo 'checked=""';} ?>>Validée
+								<input type="checkbox" id="collectedCheckBox" value="collectedOption" <?php if ($order->collected() == 1){ echo 'checked=""';} ?></>Collectée
 							</label>
 							<br>
 							<h3>Employé : </h3>
