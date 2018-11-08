@@ -16,7 +16,6 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
         session_start();
         // variables de session
         $_SESSION['mail'] = $_POST['mail'];
-        $_SESSION['password'] = md5($_POST['password']);
         $_SESSION['id_client'] = $verif->id();
         header("Location: index.php");
     }
