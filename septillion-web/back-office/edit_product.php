@@ -76,18 +76,23 @@
         </a></li>
       </ul>
     </li>
-    <li class="parent "><a data-toggle="collapse" href="#sub-item-3">
-      <em class="fa fa-user">&nbsp;</em> Employé <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
-    </a>
-    <ul class="children collapse" id="sub-item-3">
-      <li><a class="" href="list_employee.php">
-        <span class="fa fa-arrow-right">&nbsp;</span> Consulter
-      </a></li>
-      <li><a class="" href="add_employee.php">
-        <span class="fa fa-arrow-right">&nbsp;</span> Ajouter
-      </a></li>
-    </ul>
-  </li>
+    <?php 	//gestion du compte Admin
+		$employeeManager = new EmployeeManager($conn);
+		$employee = $employeeManager->get($_SESSION['id_admin']);
+		if ($employee->role() == "admin") {?>
+			<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
+				<em class="fa fa-user">&nbsp;</em> Employé <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
+			</a>
+					<ul class="children collapse" id="sub-item-3">
+						<li><a class="" href="list_employee.php">
+							<span class="fa fa-arrow-right">&nbsp;</span> Consulter
+						</a></li>
+						<li><a class="" href="add_employee.php">
+							<span class="fa fa-arrow-right">&nbsp;</span> Ajouter
+						</a></li>
+					</ul>
+				</li>
+		<?php } ?>
       <li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
   </ul>
 </div>
