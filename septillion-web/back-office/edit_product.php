@@ -15,7 +15,7 @@
   if (!isset($_GET['id'])) {
     header('Location: list_product.php');
   }
-	?>
+  ?>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/datepicker3.css" rel="stylesheet">
@@ -49,44 +49,44 @@
       </div>
       <div class="divider"></div>
       <ul class="nav menu">
-				<li><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
-				<li><a href="orders.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
-				<li><a href="mails.php"><em class="fa fa-envelope-o">&nbsp;</em> Messages</a></li>
-				<li class="parent"><a data-toggle="collapse" href="#sub-item-1">
-					<em class="fa fa-tags">&nbsp;</em> Produits <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-				</a>
-				<ul class="children collapse" id="sub-item-1">
-					<li><a class="" href="list_product.php">
-						<span class="fa fa-arrow-right">&nbsp;</span> Consulter
-					</a></li>
-					<li ><a class="" href="add_product.php">
-						<span class="fa fa-arrow-right">&nbsp;</span> Ajouter
-					</a></li>
-				</ul>
-			</li>
-			<li class="parent "><a data-toggle="collapse" href="#sub-item-2">
-				<em class="fa fa-bookmark">&nbsp;</em> Catégories <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
-			</a>
-			<ul class="children collapse" id="sub-item-2">
-				<li><a class="" href="list_category.php">
-					<span class="fa fa-arrow-right">&nbsp;</span> Consulter
-				</a></li>
-				<li><a class="" href="add_category.php">
-					<span class="fa fa-arrow-right">&nbsp;</span> Ajouter
-				</a></li>
-			</ul>
-		</li>
-		<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
-			<em class="fa fa-user">&nbsp;</em> Employé <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
-		</a>
-		<ul class="children collapse" id="sub-item-3">
-			<li><a class="" href="list_employee.php">
-				<span class="fa fa-arrow-right">&nbsp;</span> Consulter
-			</a></li>
-			<li><a class="" href="add_employee.php">
-				<span class="fa fa-arrow-right">&nbsp;</span> Ajouter
-			</a></li>
-		</ul>
+        <li><a href="index.php"><em class="fa fa-dashboard">&nbsp;</em> Tableau de bord</a></li>
+        <li><a href="orders.php"><em class="fa fa-calendar">&nbsp;</em> Commandes</a></li>
+        <li><a href="mails.php"><em class="fa fa-envelope-o">&nbsp;</em> Messages</a></li>
+        <li class="parent"><a data-toggle="collapse" href="#sub-item-1">
+          <em class="fa fa-tags">&nbsp;</em> Produits <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+        </a>
+        <ul class="children collapse" id="sub-item-1">
+          <li><a class="" href="list_product.php">
+            <span class="fa fa-arrow-right">&nbsp;</span> Consulter
+          </a></li>
+          <li ><a class="" href="add_product.php">
+            <span class="fa fa-arrow-right">&nbsp;</span> Ajouter
+          </a></li>
+        </ul>
+      </li>
+      <li class="parent "><a data-toggle="collapse" href="#sub-item-2">
+        <em class="fa fa-bookmark">&nbsp;</em> Catégories <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
+      </a>
+      <ul class="children collapse" id="sub-item-2">
+        <li><a class="" href="list_category.php">
+          <span class="fa fa-arrow-right">&nbsp;</span> Consulter
+        </a></li>
+        <li><a class="" href="add_category.php">
+          <span class="fa fa-arrow-right">&nbsp;</span> Ajouter
+        </a></li>
+      </ul>
+    </li>
+    <li class="parent "><a data-toggle="collapse" href="#sub-item-3">
+      <em class="fa fa-user">&nbsp;</em> Employé <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
+    </a>
+    <ul class="children collapse" id="sub-item-3">
+      <li><a class="" href="list_employee.php">
+        <span class="fa fa-arrow-right">&nbsp;</span> Consulter
+      </a></li>
+      <li><a class="" href="add_employee.php">
+        <span class="fa fa-arrow-right">&nbsp;</span> Ajouter
+      </a></li>
+    </ul>
   </li>
       <li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
   </ul>
@@ -99,7 +99,7 @@
       <li><a href="index.php">
         <em class="fa fa-home"></em>
       </a></li>
-      <li class="active">Ajouter un produit</li>
+      <li class="active">Editer un produit</li>
     </ol>
   </div><!--/.row-->
 <!-- Récuperation data -->
@@ -192,7 +192,7 @@
   </div>
 </div><!--/.row-->
 
-</div>	<!--/.main-->
+</div>  <!--/.main-->
 
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
