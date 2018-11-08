@@ -101,10 +101,10 @@
 				</div>
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
-					<?php if (isset($_SESSION['mail'])): ?>
-						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-paycart">
-							Payer
-						</button>
+					<?php if (isset($_SESSION['mail']) && isset($_SESSION['id_client'])): ?>
+					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-paycart">
+						Payer
+					</button>
 					<?php else:?>
 						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-connect">
 							Se connecter
@@ -139,7 +139,7 @@
 	<!--===============================================================================================-->
 	<script>
 
-	var fadeTime = 300;
+		var fadeTime = 300;
 
 	// On load
 	$(document).ready(function(){
@@ -176,11 +176,11 @@
 			text: "Voulez-vous valider et payer votre commande ?",
 			icon: 'warning',
 			buttons: {
-		    cancel: "Non",
-		    catch: {
-		      text: "Oui",
-		      value: "pay",
-		    }
+				cancel: "Non",
+				catch: {
+					text: "Oui",
+					value: "pay",
+				}
 			}
 		}).then((value) => {
 			if (value != "pay") {
@@ -193,7 +193,18 @@
 					arf.open("GET","script_payement.php",false);
 					arf.send(null);
 					document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-					swal("Acheté","Achat validé !", "success");
+					swal({
+						title: "Acheté",
+						text: "Achat validé !",
+						icon: 'success',
+						buttons: {
+							catch: {
+								text: "Ok",
+							}
+						}
+					}).then(() => {
+						location.reload();
+					});
 				}
 			}
 		});
@@ -272,13 +283,13 @@
 
 	// get cookie
 	function getCookie(cname){
-			var name = cname + "=";
-			var ca = document.cookie.split(';');
-			for(var i=0; i<ca.length; i++) {
-					var c = ca[i].trim();
-						 if (c.indexOf(name)==0) return c.substring(name.length,c.length);
-			}
-			return "";
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i].trim();
+			if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+		}
+		return "";
 	}
 
 	// save cart in cookie
@@ -295,7 +306,7 @@
 		arf.open("GET",url,false);
 		arf.send(null);
 	}
-	</script>
+</script>
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
 
