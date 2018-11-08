@@ -12,12 +12,12 @@
 	require('connexion.php');
 	$conn = Connect::connexion();
   $productManager = new ProductManager($conn);
-  $imageManager = new ImageManager($conn);
-  $categoryManager = new CategoryManager($conn);
+  $clientManager = new ClientManager($conn);
   $employeeManager = new EmployeeManager($conn);
   $oderManager = new OrderManager($conn);
 	$isOrderedManager = new IsOrderedManager($conn);
   $order = $oderManager->get($_GET['id']);
+	$client = $clientManager->get($order->client());
 	?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -100,13 +100,17 @@
 	<div class="row">
 		<ol class="breadcrumb">
 			<li><a href="index.php"><em class="fa fa-home"></em></a></li>
-      <li><a href="list_product.php">Liste commandes</a></li>
+      <li><a href="list_order.php">Liste commandes</a></li>
       <li class="active">Commande N° <?php echo $order->id() ?></li>
 		</ol>
 	</div>
   <div class="row">
     <div class="col-lg-12">
-      <h2>Commande N° <?php echo $order->id() ?> - <?php echo date("l j F H:i", strtotime($order->order_date())) ?></h2>
+      <h2>Commande N° <?php echo $order->id()." - ".date("l j F H:i", strtotime($order->order_date()))?></h2>
+			<h3>Client : <?php echo $client->first_name()." ".$client->last_name() ?></h3>
+			<p>Adresse : <?php echo $client->address() ?></p>
+			<p>E-Mail : <?php echo $client->mail() ?></p>
+			<p>Téléphone : <?php echo $client->phone_number() ?></p>
     </div>
     <div class="col-md-12">
       <div class="panel panel-default">
@@ -146,34 +150,39 @@
             <div class="tab-pane fade" id="tab2">
 							<h3>Validée : </h3>
 							<label class="radio-inline">
-								<input type="radio" name="validatedRadio" id="validatedOption1" value="1">Oui
+								<input type="radio" name="validatedRadio" id="validatedOption1" value="1" <?php if ($order->validated() == 1){ echo 'checked=""';} ?>>Oui
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="validatedRadio" id="validatedOption2" value="0">Non
+								<input type="radio" name="validatedRadio" id="validatedOption2" value="0" <?php if ($order->validated() == 0){ echo 'checked=""';} ?>>Non
 							</label>
+
 							<h3>Prête : </h3>
 							<label class="radio-inline">
-								<input type="radio" name="readyRadio" id="ReadyOption1" value="1">Oui
+								<input type="radio" name="readyRadio" id="ReadyOption1" value="1" <?php if ($order->ready() == 1){ echo 'checked=""';} ?>>Oui
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="readyRadio" id="ReadyOption2" value="0">Non
+								<input type="radio" name="readyRadio" id="ReadyOption2" value="0" <?php if ($order->ready() == 0){ echo 'checked=""';} ?>>Non
 							</label>
 							<h3>Collectée : </h3>
 							<label class="radio-inline">
-								<input type="radio" name="collectedRadio" id="CollectedRadio1" value="1">Oui
+								<input type="radio" name="collectedRadio" id="CollectedRadio1" value="1" <?php if ($order->collected() == 0){ echo 'checked=""';} ?>>Oui
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="collectedRadio" id="CollectedRadio2" value="0">Non
+								<input type="radio" name="collectedRadio" id="CollectedRadio2" value="0" <?php if ($order->collected() == 0){ echo 'checked=""';} ?>>Non
 							</label>
 							<br>
 							<h3>Employé : </h3>
 							<?php
-								$res = $employeeManager->getList();
+							$res = $employeeManager->getList();
 							?>
 							<select class="col-lg-4 form-control" name="category">
 								<?php
 								foreach($res as $employee) {
-									echo '<option value="'.$employee->id().'">'.$employee->first_name().' '.$employee->last_name().'</option>';
+									if ($order->employee() == $employee->id()) {
+										echo '<option value="'.$employee->id().'" selected="selected">'.$employee->first_name().' '.$employee->last_name().'</option>';
+									} else {
+										echo '<option value="'.$employee->id().'">'.$employee->first_name().' '.$employee->last_name().'</option>';
+									}
 								}
 								?>
 							</select>
