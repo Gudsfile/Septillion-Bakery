@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <title>Septillion / Connexion</title>
   <?php include('header_link.php'); ?>
   <?php
   // verification s'il y a des erreur !
   $erreur = 100;
   if (isset($_GET['erreur']))
   $erreur = $_GET['erreur'];
-  session_start();
+  //session_start();
   if(!isset($_SESSION['data']))
   $_SESSION['data']=null;
   ?>
@@ -74,7 +75,7 @@
         </h4>
 
         <div class="bo4 of-hidden size15 m-b-20">
-          <input class="sizefull s-text7 p-l-22 p-r-22" type="email" name="mail" placeholder="Email" value="<?php echo $_SESSION['data']['mail'] ?>" required>
+          <input class="sizefull s-text7 p-l-22 p-r-22" type="email" name="mail" placeholder="Email" value="<?php if(isset($_SESSION['data']['mail'])): echo $_SESSION['data']['mail']; endif; ?>" required>
         </div>
 
         <div class="bo4 of-hidden size15 m-b-20">
@@ -90,21 +91,21 @@
           <input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="password_conf" placeholder="Confirmer votre mot de passe" required>
         </div>
         <div class="bo4 of-hidden size15 m-b-20">
-          <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="first_name" value="<?php echo $_SESSION['data']['first_name'] ?>"
+          <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="first_name" value="<?php if(isset($_SESSION['data']['first_name'])): echo $_SESSION['data']['first_name']; endif; ?>"
           placeholder="Prénom" required>
         </div>
 
         <div class="bo4 of-hidden size15 m-b-20">
-          <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="last_name" placeholder="Nom" value="<?php echo $_SESSION['data']['last_name'] ?>" required>
+          <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="last_name" placeholder="Nom" value="<?php if(isset($_SESSION['data']['last_name'])): echo $_SESSION['data']['last_name']; endif; ?>" required>
         </div>
 
         <div class="bo4 of-hidden size15 m-b-20">
           <input class="sizefull s-text7 p-l-22 p-r-22" type="tel" name="phone_number"
-          placeholder="Numéro de téléphone"  value="<?php echo $_SESSION['data']['phone_number'] ?>"  required>
+          placeholder="Numéro de téléphone"  value="<?php if(isset($_SESSION['data']['phone_number'])): echo $_SESSION['data']['phone_number']; endif; ?>"  required>
         </div>
 
         <div class="bo4 of-hidden size15 m-b-20">
-          <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" placeholder="Address" value="<?php echo $_SESSION['data']['address'] ?>" >
+          <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" placeholder="Address" value="<?php if(isset($_SESSION['data']['address'])): echo $_SESSION['data']['address']; endif; ?>" >
         </div>
 
         <!--textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea-->

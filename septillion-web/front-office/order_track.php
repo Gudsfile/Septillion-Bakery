@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<title>Septillion| Mes commandes</title>
+	<title>Septillion / Mes commandes</title>
 	<link href="css/track.css" rel="stylesheet" type="text/css"/>
 	<!-- BDD includes -->
 	<?php include('header_link.php'); ?>
-	<!-- Session manager -->
-	<?php session_start() ?>
-	<?php if(!isset($_SESSION['mail']) && !isset($_SESSION['id_client'])){
-		header("Location: index.php");
-		exit();
-	}
-	?>
 </head>
 <body class="animsition">
+
+	<!-- Header -->
+	<header class="header1">
+		<?php include('header_navbar.php'); ?>
+		<?php	if(!isset($_SESSION['mail']) && !isset($_SESSION['id_client'])){
+			header("Location: index.php");
+			exit();
+		} ?>
+	</header>
 
 	<!-- BDD -->
 	<?php
@@ -23,11 +25,6 @@
 	$productManager= new ProductManager($conn);
 	$order = $orderManager->getByClient($_SESSION['id_client']);
 	?>
-
-	<!-- Header -->
-	<header class="header1">
-		<?php include('header_navbar.php'); ?>
-	</header>
 
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-06.jpg);">

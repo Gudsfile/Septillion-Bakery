@@ -10,7 +10,7 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
     $Mail = htmlentities($_POST['mail'], ENT_QUOTES, "ISO-8859-1"); // le htmlentities() limite les injections sql (passe les guillemets en entité html)
     $MotDePasse = md5(htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1")); // le md5 permet de chiffrer (trop) simplement
     $verif = $clientManager->getByMailAndPassword($Mail, $MotDePasse);
-    if (False)//$verif == 0)
+    if ($verif == 0)
         header("Location: login.php?erreur=0");
     else {
         session_start();

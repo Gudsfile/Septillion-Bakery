@@ -8,9 +8,13 @@
 </head>
 <body class="animsition">
 
+	<!-- Header -->
+	<header class="header1">
+		<?php include('header_navbar.php'); ?>
+	</header>
+
 	<!-- BDD -->
 	<?php
-	session_start();
 	// récupération des infos get
 	if(isset($_SESSION['mail'])): $sessionMail = $_SESSION['mail']; else: $sessionMail = null; endif;
 	if(isset($_GET['o'])): $objetCmd = $_GET['o']; endif;
@@ -23,11 +27,6 @@
 	$employeeManager = new EmployeeManager($conn);
 	$employeeList = $employeeManager->getList();
 	?>
-
-	<!-- Header -->
-	<header class="header1">
-		<?php include('header_navbar.php'); ?>
-	</header>
 
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-06.jpg);">
@@ -97,8 +96,6 @@
 		<?php include('footer_navbar.php');?>
 	</footer>
 
-
-
 	<!-- Back to top -->
 	<div class="btn-back-to-top bg0-hov" id="myBtn">
 		<span class="symbol-btn-back-to-top">
@@ -109,8 +106,6 @@
 	<!-- Container Selection -->
 	<div id="dropDownSelect1"></div>
 	<div id="dropDownSelect2"></div>
-
-
 
 	<!--===============================================================================================-->
 	<script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
