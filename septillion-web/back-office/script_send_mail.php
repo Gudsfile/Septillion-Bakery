@@ -14,7 +14,7 @@ if ($employeeManager->getByMail($_POST['mail'])->id() == 0) {
 $messageData = array(
   "message_object" => $_POST['object'],
   "body" => $_POST['body'],
-  "id_sender" => intval($_SESSION['id_client']),
+  "id_sender" => intval($_SESSION['id_admin']),
   "id_receiver" => $employeeManager->getByMail($_POST['mail'])->id(),
 );
 $newMessage = new Message($messageData);

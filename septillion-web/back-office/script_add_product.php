@@ -53,12 +53,9 @@ $productData = array(
   "stock" => $_POST['stock'],
   "description" => $_POST['description'],
   "price" => $_POST['price'],
-<<<<<<< HEAD
-  "Id_img" => transfert(),
-=======
->>>>>>> 63d97665242228c1667f1338b54f4409c72ca418
-  "created_by" => intval($_SESSION['id_client']),       //Replace By session id
-  "last_updated_by" => intval($_SESSION['id_client']),  //Replace By session id
+
+  "created_by" => intval($_SESSION['id_admin']),       //Replace By session id
+  "last_updated_by" => intval($_SESSION['id_admin']),  //Replace By session id
   "id_category" => $_POST['category'],
   "id_img" => transfert(),
 );

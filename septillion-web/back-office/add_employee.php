@@ -40,11 +40,7 @@
     <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
       <div class="profile-sidebar">
         <div class="profile-usertitle">
-<<<<<<< Updated upstream
           <div class="profile-usertitle-name"><?php echo $_SESSION['name']?></div>
-=======
-          <div class="profile-usertitle-name"><?php echo $_SESSION['name']?>
->>>>>>> Stashed changes
         </div>
         <div class="clear"></div>
       </div>

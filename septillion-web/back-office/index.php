@@ -141,7 +141,7 @@
 										<?php
 										$messageManager = new MessageManager($conn);
 										$employeeManager = new EmployeeManager($conn);
-										$messageList = $messageManager->getByReceiver($_SESSION['id_client']);
+										$messageList = $messageManager->getByReceiver($_SESSION['id_admin']);
 										?>
 										<table class="table table-hover">
 											<?php
@@ -176,7 +176,7 @@
 										<div class="col-md-12">
 											<?php
 											$orderManager = new OrderManager($conn);
-											$orderList = $orderManager->getByEmployee($_SESSION['id_client']);
+											$orderList = $orderManager->getByEmployee($_SESSION['id_admin']);
 											$clientManager = new ClientManager($conn);
 											?>
 											<table class="table table-hover">

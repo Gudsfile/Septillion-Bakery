@@ -110,7 +110,7 @@
                   <div class="col-md-12">
                     <?php
                     $orderManager = new OrderManager($conn);
-                    $orderList = $orderManager->getByEmployee($_SESSION['id_client']);	//REPLACE BY SESSION ID
+                    $orderList = $orderManager->getByEmployee($_SESSION['id_admin']);	//REPLACE BY SESSION ID
                     $clientManager = new ClientManager($conn);
                     ?>
                     <table class="table table-hover" id="orderTable">

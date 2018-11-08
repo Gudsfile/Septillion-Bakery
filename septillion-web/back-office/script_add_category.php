@@ -13,7 +13,7 @@ if ($_POST['name'] == null) {
 $categoryData = array(
   "name" => $_POST['name'],
   "description" => $_POST['description'],
-  "created_by" => intval($_SESSION['id_client']),
+  "created_by" => intval($_SESSION['id_admin']),
 );
 $newCategory = new Category($categoryData);
 $idCategory = $categoryManager->add($newCategory);

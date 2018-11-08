@@ -56,14 +56,16 @@ function transfert() {
   return $imageId;
 }
 
+$lastProduct = $productManager->get($_GET['id']);
+
 $productData = array(
   "name" => $_POST['name'],
   "stock" => $_POST['stock'],
   "description" => $_POST['description'],
   "price" => $_POST['price'],
   "Id_img" => transfert(),
-  "created_by" => intval($_SESSION['id_client']),       //Replace By session id
-  "last_updated_by" => intval($_SESSION['id_client']),  //Replace By session id
+  "created_by" => intval($productManager->get($_GET['id'])->created_by()),
+  "last_updated_by" => intval($_SESSION['id_admin']),  //Replace By session id
   "id_category" => $_POST['category'],
 );
 $newProduct = new Product($productData);
