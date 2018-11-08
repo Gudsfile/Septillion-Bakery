@@ -11,7 +11,12 @@
 	<?php
 	require('connexion.php');
 	$conn = Connect::connexion();
+	$erreur = 100;
+    if (isset($_GET['erreur']))
+      $erreur = $_GET['erreur'];
 	?>
+	?>
+
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/datepicker3.css" rel="stylesheet">
@@ -122,8 +127,12 @@
 
 							echo '
 							<div class="search-result-item col-md-12">
-								<div class="col-sm-2">
+							
+							<div class="col-sm-2">
+									<h3 class="search-result-title"></h3>
 									<p>'.$employe->role().'</p>
+								
+							
 								</div>
 								<div class="search-result-item-body col-sm-10">
 									<div class="row">
@@ -133,8 +142,13 @@
 
 
 										</div>
-										<div class="col-sm-3 text-center">
-											<a class="btn btn-primary btn-info btn-md" href="employe.php?#"'.$employe->id().'>Editer </a>
+										<div class="col-sm-3 text-center">'
+
+										?>
+										<h3 class="search-result-title"></h3>
+											<a class="btn btn-primary btn-info btn-md" onclick="location.href='edit_employee.php?id=<?php echo($employe->id())  ?>'">Editer </a>
+										<?php
+										echo '
 										</div>
 									</div>
 								</div>
@@ -147,6 +161,7 @@
 				</div>
 			</div>
 		</div>
+		<?php if ($erreur == '10'): ?><div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Employé edité !</div><?php ; endif ?>
 	</div><!--/.row-->
 
 </div>	<!--/.main-->

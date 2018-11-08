@@ -38,10 +38,14 @@ class EmployeeManager
 
 	public function getByMail($mail)
 	{
+		$res = 0;
 		$mail = "'".$mail."'";
 		$query = $this->_db->query("SELECT * FROM EMPLOYEE WHERE MAIL =".$mail);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		return new Employee($donnees);
+		$employee = new Employee($donnees);
+		if (!is_null($employee))
+			$res = $employee;
+		return $res;
 	}
 
 	public function getByMailAndPassword($mail, $passwd)
@@ -84,6 +88,7 @@ class EmployeeManager
 		$query->bindValue(':last_name', $employee->last_name(), PDO::PARAM_STR);
 		$query->bindValue(':role', $employee->role(), PDO::PARAM_STR);
 		$query->execute();
+		return 1;
 	}
 
 	public function setDb($db)
