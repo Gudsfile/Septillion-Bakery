@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Septillion Bakery - Message</title>
+	<title>Septillion Bakery - Dashboard</title>
 	<?php
 	require('connexion.php');
 	$conn = Connect::connexion();
