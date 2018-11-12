@@ -20,10 +20,11 @@ class Connect
 {
   public static function connexion() {
     try {
-      return new PDO("mysql:host=localhost;dbname=Septillion","root");
+      return new PDO("mysql:host=localhost;dbname=septillion","root","root");
     }
     catch(PDOException $e) {
-      die('<h3>Erreur!</h3>');
+      header('Location: error.php?e=BDD');
+      die();
     }
     return $bdd;
   }

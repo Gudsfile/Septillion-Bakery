@@ -98,17 +98,17 @@ $productManager2->getList();
           <?php if (isset($cart2)){ ?>
             <ul class="header-cart-wrapitem">
               <?php foreach ($cart2 as $key=>$value) { ?>
-                <?php $product = $productManager2->get($key);?>
+                <?php $product2 = $productManager2->get($key);?>
                 <li class="header-cart-item">
                   <div class="header-cart-item-img">
-                    <img src="data:image/jpeg;base64,<?php echo (base64_encode($imageManager->get($product->id_img())->image())); ?>" alt="IMG">
+                    <img src="data:image/jpeg;base64,<?php echo (base64_encode($imageManager2->get($product2->id_img())->image())); ?>" alt="IMG">
                   </div>
 
                   <div class="header-cart-item-txt">
-                    <a href="product-detail.php?product=<?php echo $product->id();?>" class="header-cart-item-name"><?php echo $product->name();?></a>
+                    <a href="product-detail.php?product=<?php echo $product2->id();?>" class="header-cart-item-name"><?php echo $product2->name();?></a>
 
                     <span class="header-cart-item-info">
-                      <a class="header-cart-item-quantity"><?php echo $cart2[$key]['quantity'];?></a> x <a class="header-cart-item-price"><?php echo $product->price();?></a>
+                      <a class="header-cart-item-quantity"><?php echo $cart2[$key]['quantity'];?></a> x <a class="header-cart-item-price"><?php echo $product2->price();?></a>
                     </span>
                   </div>
                 </li>

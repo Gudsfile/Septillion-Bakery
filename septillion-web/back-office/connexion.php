@@ -18,13 +18,14 @@ require('../BDD/IsOrderedManager.php');
 require('../BDD/Order.php');
 require('../BDD/OrderManager.php');
 require('verif_connexion.php');
+
 class Connect {
     public static function connexion() {
         try {
-          return new PDO("mysql:host=localhost;dbname=Septillion","root");
+          return new PDO("mysql:host=localhost;dbname=septillion","root","root");
         }
         catch(PDOException $e) {
-            die('<h3>Erreur! voir back-office\connexion.php </h3>');
+          header('Location: ../front-office/error.php?e=BDD');
         }
         return $bdd;
     }

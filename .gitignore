@@ -8,6 +8,7 @@
 
 # mais pas ce fichier car utile
 !.gitignore
+!.htaccess
 
 #
 hack.php

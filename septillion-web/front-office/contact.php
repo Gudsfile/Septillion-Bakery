@@ -71,12 +71,18 @@
 						<div class="bo4 of-hidden size15 m-b-20">
 							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="mail" placeholder="Mail"
 							<?php if (isset($sessionMail)):?>
-								value="<?php echo $sessionMail ?>" disabled
+								value="<?php echo $sessionMail ?>"
 							<?php endif?>
 							>
 						</div>
 
 						<textarea class="dis-block s-text7 size20 bo4 p-l-22 p-r-22 p-t-13 m-b-20" name="message" placeholder="Message"></textarea>
+
+						<?php if (isset($_GET['n'])): ?>
+							<div class="size15 m-b-20">
+								<p class="m-b-20" style="color : #F08080"><?php echo $_GET['n']; ?></p>
+							</div>
+						<?php ; endif ?>
 
 						<div class="w-size25">
 							<!-- Button -->
