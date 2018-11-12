@@ -43,8 +43,11 @@ class EmployeeManager
 		$query = $this->_db->query("SELECT * FROM EMPLOYEE WHERE MAIL =".$mail);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		$employee = new Employee($donnees);
-		if (!is_null($employee))
+		if (!is_null($employee)){
 			$res = $employee;
+		} else {
+			$res = 0;
+		}
 		return $res;
 	}
 

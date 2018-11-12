@@ -44,7 +44,7 @@ $employeeData = array(
   "first_name" => $_POST['first_name'],
   "last_name" => $_POST['last_name'],
   "mail" => $_POST['mail'],
-  "password" => md5(htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1")),
+  "password" => crypt(htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1")),
   "role" => $_POST['role'],
 );
 
