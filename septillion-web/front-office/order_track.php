@@ -8,13 +8,17 @@
 </head>
 <body class="animsition">
 
+	<!-- verif -->
+	<?php
+	if(!isset($_SESSION['mail']) || !isset($_SESSION['id_client'])){
+		header("Location: index.php");
+		exit();
+	}
+	?>
+
 	<!-- Header -->
 	<header class="header1">
 		<?php include('header_navbar.php'); ?>
-		<?php	if(!isset($_SESSION['mail']) && !isset($_SESSION['id_client'])){
-			header("Location: index.php");
-			exit();
-		} ?>
 	</header>
 
 	<!-- BDD -->
