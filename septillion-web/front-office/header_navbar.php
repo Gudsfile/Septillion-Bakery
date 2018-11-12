@@ -1,6 +1,13 @@
 <?php session_start(); ?>
 <!-- BDD -->
 <?php
+
+if(!isset($_SESSION['mail']) || !isset($_SESSION['id_client']) || isset($_SESSION['id_admin'])){
+  session_start ();
+  session_unset ();
+  session_destroy ();
+}
+
 // get data in cookie
 $cookie2 = isset($_COOKIE['cart_items_cookie']) ? $_COOKIE['cart_items_cookie'] : "";
 $cookie2 = stripslashes($cookie2);
@@ -78,6 +85,7 @@ $productManager2->getList();
           <li>
             <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
             <ul class="sub_menu">
+              <li><a><?php echo $_SESSION['mail'] ?></a></li>
               <li><a href="order_track.php">Mes commandes</a></li>
               <li><a href="script_logout.php">Se déconnecter</a></li>
             </ul>
@@ -92,7 +100,6 @@ $productManager2->getList();
       <span class="linedivide1"></span>
       <div class="header-wrapicon2">
         <img href="product.php" src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
-        <!--<span class="header-icons-noti">0</span>--><!-- nbr d'elements dans le panier-->
         <!-- Header cart noti -->
         <div class="header-cart header-dropdown">
           <?php if (isset($cart2)){ ?>

@@ -14,6 +14,10 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
     if ($verif==0)
         header("Location: login.php?erreur=0");
     else {
+        if (isset($_SESSION)){
+          $_SESSION = array();
+          session_destroy();
+        }
         session_start();
         // variables de session
         $_SESSION['mail'] = $_POST['mail'];
