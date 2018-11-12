@@ -93,86 +93,84 @@
       <li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
   </ul>
 </div>
+</div>
 <!--/.sidebar-->
 
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
   <div class="row">
     <ol class="breadcrumb">
-      <li><a href="index.php">
+      <li><a href="#">
         <em class="fa fa-home"></em>
       </a></li>
-      <li class="active">Ajouter un produit</li>
+      <li class="active">Editer un employé</li>
     </ol>
   </div><!--/.row-->
-
+  <?php
+    $id= $_GET['id'];
+    $employeeManager = new EmployeeManager($conn);
+    $employee =$employeeManager->get($id);
+  ?>
   <div class="row">
     <div class="panel-body">
-      <form class="form-horizontal row-border" enctype="multipart/form-data" action="script_add_product.php" method="post">
+      <form class="form-horizontal row-border" enctype="multipart/form-data" action="script_edit_employee.php?id=<?php echo $employee->id(); ?>" method="post">
         <div class="form-group">
-          <label class="col-md-2 control-label">Nom du produit</label>
+          <label class="col-md-2 control-label">Prénom<?php echo $id ?></label>
           <div class="col-md-10">
-            <input type="text" name="name" class="form-control">
+            <input type="text" name="first_name" class="form-control" value="<?php echo $employee->first_name(); ?>" required>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-2 control-label">Description</label>
+          <label class="col-md-2 control-label">Nom</label>
           <div class="col-md-10">
-            <textarea name="description" class="form-control" cols="40" rows="5"></textarea>
+            <input type="text" name="last_name" class="form-control" value="<?php echo $employee->last_name(); ?>" required>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-2 control-label">Stock</label>
+          <label class="col-md-2 control-label">E-Mail</label>
           <div class="col-md-10">
-            <input type="number" name="stock" class="form-control" min="0.00" max="10000.00" step="1">
+            <input type="text" name="mail" class="form-control" value="<?php echo $employee->mail(); ?>" required>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-2 control-label">Prix</label>
+          <label class="col-md-2 control-label">Confirmer E-Mail</label>
           <div class="col-md-10">
-            <input type="number" name="price" class="form-control" min="0.00" max="10000.00" step="0.01" />
+            <input type="text" name="verif_mail" class="form-control" value="<?php echo $employee->mail(); ?>" required>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-2 control-label">Image</label>
+          <label class="col-md-2 control-label">Mot de passe</label>
           <div class="col-md-10">
-            <input type="file" name="product_img" accept="image/*"/>
+            <input type="password" name="password" class="form-control">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-2 control-label">Catégorie</label>
+          <label class="col-md-2 control-label">Confirmer Mot de passe</label>
           <div class="col-md-10">
-            <div class="row">
-              <div class="col-xs-12">
-                <?php
-                  $categoryManager = new CategoryManager($conn);
-                  $res = $categoryManager->getList();
-                ?>
-                <select class="col-md-5 form-control" name="category">
-                  <?php
-                  foreach($res as $category) {
-                    echo '<option value="'.$category->id().'">'.$category->name().'</option>';
-                  }
-                  ?>
-                </select>
-              </div>
-            </div>
+            <input type="password" name="verif_password" class="form-control">
           </div>
         </div>
-        <button class="col-xs-12 btn btn-lg btn-primary" type="submit"><span class="fa fa-plus"></span> &nbsp;Ajouter</button>
+        <div class="form-group">
+          <label class="col-md-2 control-label">Role</label>
+          <div class="col-md-10">
+            <input type="text" name="role" class="form-control" value="<?php echo $employee->role(); ?>" required>
+          </div>
+        </div>
+        <button class="col-xs-12 btn btn-lg btn-primary" type="submit"><span class="fa fa-plus"></span> &nbsp;Editer</button>
       </form>
       <br>
       <br>
       <br>
 
-      <?php if ($erreur == '1'): ?>
-        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Nom vide </div>
-      <?php ; endif ?>
-      <?php if ($erreur == '2'): ?>
-        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur BDD </div>
-      <?php ; endif ?>
-      <?php if ($erreur == '3'): ?>
-        <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Produit ajouté !</div>
-      <?php ; endif ?>
+      <?php if ($erreur == '1'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Mail existant </div><?php ; endif ?>
+      <?php if ($erreur == '2'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Prenom vide </div><?php ; endif ?>
+      <?php if ($erreur == '3'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Nom vide </div><?php ; endif ?>
+      <?php if ($erreur == '4'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Adresse E-Mail vide </div><?php ; endif ?>
+      <?php if ($erreur == '5'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Mot de passe vide </div><?php ; endif ?>
+      <?php if ($erreur == '6'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Les mails ne correspondent pas </div><?php ; endif ?>
+      <?php if ($erreur == '7'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Les mots de passe ne correspondent pas </div><?php ; endif ?>
+      <?php if ($erreur == '8'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur BDD </div><?php ; endif ?>
+      <?php if ($erreur == '9'): ?><div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Employé ajouté !</div><?php ; endif ?>
+    </div>
     </div>
   </div>
 </div><!--/.row-->

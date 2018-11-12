@@ -11,13 +11,14 @@
 	<?php
 	require('connexion.php');
 	$conn = Connect::connexion();
-  $productManager = new ProductManager($conn);
-  $clientManager = new ClientManager($conn);
-  $employeeManager = new EmployeeManager($conn);
-  $oderManager = new OrderManager($conn);
+	$productManager = new ProductManager($conn);
+	$clientManager = new ClientManager($conn);
+	$employeeManager = new EmployeeManager($conn);
+	$oderManager = new OrderManager($conn);
 	$isOrderedManager = new IsOrderedManager($conn);
-  $order = $oderManager->get($_GET['id']);
+	$order = $oderManager->get($_GET['id']);
 	$client = $clientManager->get($order->client());
+	$options = $order->collected();
 	?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -79,18 +80,23 @@
 				</a></li>
 			</ul>
 		</li>
-		<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
-			<em class="fa fa-user">&nbsp;</em> Employé <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
-		</a>
-		<ul class="children collapse" id="sub-item-3">
-			<li><a class="" href="list_employee.php">
-				<span class="fa fa-arrow-right">&nbsp;</span> Consulter
-			</a></li>
-			<li><a class="" href="add_employee.php">
-				<span class="fa fa-arrow-right">&nbsp;</span> Ajouter
-			</a></li>
-		</ul>
-	</li>
+		<?php 	//gestion du compte Admin
+		$employeeManager = new EmployeeManager($conn);
+		$employee = $employeeManager->get($_SESSION['id_admin']);
+		if ($employee->role() == "admin") {?>
+			<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
+				<em class="fa fa-user">&nbsp;</em> Employé <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
+			</a>
+					<ul class="children collapse" id="sub-item-3">
+						<li><a class="" href="list_employee.php">
+							<span class="fa fa-arrow-right">&nbsp;</span> Consulter
+						</a></li>
+						<li><a class="" href="add_employee.php">
+							<span class="fa fa-arrow-right">&nbsp;</span> Ajouter
+						</a></li>
+					</ul>
+				</li>
+		<?php } ?>
 	<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 </ul>
 </div>
@@ -100,27 +106,29 @@
 	<div class="row">
 		<ol class="breadcrumb">
 			<li><a href="index.php"><em class="fa fa-home"></em></a></li>
-      <li><a href="list_order.php">Liste commandes</a></li>
-      <li class="active">Commande N° <?php echo $order->id() ?></li>
+			<li><a href="list_order.php">Liste commandes</a></li>
+			<li class="active">Commande N° <?php echo $order->id() ?></li>
 		</ol>
 	</div>
-  <div class="row">
-    <div class="col-lg-12">
-      <h2>Commande N° <?php echo $order->id()." - ".date("l j F H:i", strtotime($order->order_date()))?></h2>
+	<div class="row">
+		<div class="col-lg-12">
+			<h2>Commande N° <?php echo $order->id()." - ".date("l j F H:i", strtotime($order->order_date()))?></h2>
 			<h3>Client : <?php echo $client->first_name()." ".$client->last_name() ?></h3>
 			<p>Adresse : <?php echo $client->address() ?></p>
 			<p>E-Mail : <?php echo $client->mail() ?></p>
 			<p>Téléphone : <?php echo $client->phone_number() ?></p>
-    </div>
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-body tabs">
-          <ul class="nav nav-tabs">
+		</div>
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-body tabs">
+					<ul class="nav nav-tabs">
 						<li class="active"><a href="<?php echo "order.php?id=".$order->id()."#tab1"; ?>" data-toggle="tab">Articles</a></li>
+						<?php if ($options == 0) { ?>
 						<li><a href="<?php echo "order.php?id=".$order->id()."#tab2"; ?>" data-toggle="tab">Options</a></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade in active" id="tab1">
+						<?php } ?>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade in active" id="tab1">
 							<table class="table table-hover" id="orderTable">
 								<tr>
 									<th>N° Article</th>
@@ -133,68 +141,72 @@
 								$isOrderedList = $isOrderedManager->getByOrder($order->id());
 								$totalPrice = 0;
 								foreach ($isOrderedList as $value) {
-										$product = $productManager->get($value->id_product());
-										echo "<tr>";
-										echo "<td>".$product->id()."</td>";
-										echo "<td>".$product->name()."</td>";
-										echo "<td>".$value->quantity()."</td>";
-										echo "<td>".$product->price()."</td>";
-										echo "<td>".$value->quantity()*$product->price()."</td>";
-										echo "</tr>";
-										$totalPrice += $value->quantity()*$product->price();
-									}
+									$product = $productManager->get($value->id_product());
+									echo "<tr>";
+									echo "<td>".$product->id()."</td>";
+									echo "<td>".$product->name()."</td>";
+									echo "<td>".$value->quantity()."</td>";
+									echo "<td>".$product->price()."</td>";
+									echo "<td>".$value->quantity()*$product->price()."</td>";
+									echo "</tr>";
+									$totalPrice += $value->quantity()*$product->price();
+								}
 								?>
 							</table>
 							<h3>Prix total : <?php echo $totalPrice ?> </>
-            </div>
-            <div class="tab-pane fade" id="tab2">
-							<label class="checkbox-inline">
-								<input type="checkbox" id="validatedCheckBox" value="validatedOption" <?php if ($order->validated() == 1){ echo 'checked=""';} ?> ></>Validée
-							</label>
-							<br>
-							<label class="checkbox-inline">
-								<input type="checkbox" id="readyCheckBox" value="readyOption" <?php if ($order->ready() == 1){ echo 'checked=""';} ?></>Prête
-							</label>
-							<br>
-							<label class="checkbox-inline">
-								<input type="checkbox" id="collectedCheckBox" value="collectedOption" <?php if ($order->collected() == 1){ echo 'checked=""';} ?></>Collectée
-							</label>
-							<br>
-							<h3>Employé : </h3>
-							<?php
-							$res = $employeeManager->getList();
-							?>
-							<select class="col-lg-4 form-control" name="category">
-								<?php
-								foreach($res as $employee) {
-									if ($order->employee() == $employee->id()) {
-										echo '<option value="'.$employee->id().'" selected="selected">'.$employee->first_name().' '.$employee->last_name().'</option>';
-									} else {
-										echo '<option value="'.$employee->id().'">'.$employee->first_name().' '.$employee->last_name().'</option>';
-									}
-								}
-								?>
-							</select>
-							<br>
-							<br>
-							<br>
-							<button class="btn btn-default" onclick="location.href='script_update_order.php?id=<?php echo($order->id())  ?>'"><span class="fa fa-check"></span> &nbsp;Valider les modifications</button>
-							<button class="btn btn-default margin pull-right" onclick="location.href='script_delete_order.php?id=<?php echo($order->id())  ?>'"><span class="fa fa-trash"></span> &nbsp;Delete</button>
+							</div>
+							<?php if ($options == 0) { ?>
+							<div class="tab-pane fade" id="tab2">
+								<form action="script_update_order.php?id=<?php echo $order->id()?>" method="post">
+									<label class="checkbox-inline">
+										<input type="checkbox" id="validatedCheckBox" name="validated" <?php if ($order->validated() == 1){ echo 'checked=""';} ?> ></>Validée
+									</label>
+									<br>
+									<label class="checkbox-inline">
+										<input type="checkbox" id="readyCheckBox" name="ready" <?php if ($order->ready() == 1){ echo 'checked=""';} ?></>Prête
+									</label>
+									<br>
+									<label class="checkbox-inline">
+										<input type="checkbox" id="collectedCheckBox" name="collected" <?php if ($order->collected() == 1){ echo 'checked=""';} ?></>Collectée
+									</label>
+									<br>
+									<h3>Employé : </h3>
+									<?php
+									$res = $employeeManager->getList();
+									?>
+									<select class="col-lg-4 form-control" name="category">
+										<?php
+										foreach($res as $employee) {
+											if ($order->employee() == $employee->id()) {
+												echo '<option value="'.$employee->id().'" selected="selected">'.$employee->first_name().' '.$employee->last_name().'</option>';
+											} else {
+												echo '<option value="'.$employee->id().'">'.$employee->first_name().' '.$employee->last_name().'</option>';
+											}
+										}
+										?>
+									</select>
+									<br>
+									<br>
+									<br>
+									<button type="submit" class="btn btn-default" name="valider"> <span class="fa fa-check"></span> &nbsp;Valider les modifications</button>
+									<button type="submit" class="btn btn-default margin pull-right" name="delete"><span class="fa fa-trash"></span> &nbsp;supprimer la commande</button>
+								</form>
+							</div>
+						<?php } ?>
 						</div>
-          </div>
-        </div>
-      </div><!--/.panel-->
-    </div><!--/.col-->
+					</div>
+				</div><!--/.panel-->
+			</div><!--/.col-->
 
-</div>	<!--/.main-->
+		</div>	<!--/.main-->
 
-<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/chart.min.js"></script>
-<script src="js/chart-data.js"></script>
-<script src="js/easypiechart.js"></script>
-<script src="js/easypiechart-data.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/custom.js"></script>
-</body>
-</html>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/chart.min.js"></script>
+		<script src="js/chart-data.js"></script>
+		<script src="js/easypiechart.js"></script>
+		<script src="js/easypiechart-data.js"></script>
+		<script src="js/bootstrap-datepicker.js"></script>
+		<script src="js/custom.js"></script>
+	</body>
+	</html>

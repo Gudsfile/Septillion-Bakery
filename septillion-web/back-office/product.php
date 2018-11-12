@@ -79,19 +79,23 @@
 					<span class="fa fa-arrow-right">&nbsp;</span> Ajouter
 				</a></li>
 			</ul>
-		</li>
-		<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
-			<em class="fa fa-user">&nbsp;</em> Employé <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
-		</a>
-		<ul class="children collapse" id="sub-item-3">
-			<li><a class="" href="list_employee.php">
-				<span class="fa fa-arrow-right">&nbsp;</span> Consulter
-			</a></li>
-			<li><a class="" href="add_employee.php">
-				<span class="fa fa-arrow-right">&nbsp;</span> Ajouter
-			</a></li>
-		</ul>
-	</li>
+			<?php 	//gestion du compte Admin
+			$employeeManager = new EmployeeManager($conn);
+			$employee = $employeeManager->get($_SESSION['id_admin']);
+			if ($employee->role() == "admin") {?>
+				<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
+					<em class="fa fa-user">&nbsp;</em> Employé <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				</a>
+						<ul class="children collapse" id="sub-item-3">
+							<li><a class="" href="list_employee.php">
+								<span class="fa fa-arrow-right">&nbsp;</span> Consulter
+							</a></li>
+							<li><a class="" href="add_employee.php">
+								<span class="fa fa-arrow-right">&nbsp;</span> Ajouter
+							</a></li>
+						</ul>
+					</li>
+			<?php } ?>
 	<li><a href="script_logout.php"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 </ul>
 </div>
@@ -109,6 +113,7 @@
 		<div class="col-md-12">
       <div class="panel panel-default">
         <div class="panel-heading"><?php echo $product->name() ?>
+					<button class="btn btn-default margin pull-right panel-button-tab-right" onclick="location.href='script_delete_product.php?id=<?php echo($product->id())  ?>'"><span class="fa fa-trash"></span> &nbsp;Delete</button>
           <button class="btn btn-default margin pull-right panel-button-tab-right" onclick="location.href='edit_product.php?id=<?php echo($product->id())  ?>'"><span class="fa fa-edit"></span> &nbsp;Edit</button>
         </div>
 				<div class="panel-body">
@@ -123,7 +128,7 @@
                   <p><?php echo $product->description() ?></p>
                   <p><?php echo 'Stock : '.$product->stock() ?></p>
                   <p><?php echo 'Créé par : '.$created_by->first_name()." ".$created_by->last_name() ?></p>
-                  <p><?php echo 'Dernière mise à jour par : '.$last_updated_by->first_name().' '.$last_updated_by->last_name() ?>'</p>
+                  <p><?php echo 'Dernière mise à jour par : '.$last_updated_by->first_name().' '.$last_updated_by->last_name() ?></p>
                 </div>
                 <div class="col-sm-3 text-center">
                   <h3><?php echo $product->price().'€' ?></h3>
