@@ -1,0 +1,26 @@
+RewriteEngine On
+
+# Redirect non-www to www
+RewriteCond %{HTTP_HOST} ^mydomain.in$ [NC]
+RewriteRule ^(.*)$ http://www.mydomain.in/$1 [R=301,L]
+
+# Do not redirect existing files/dirs
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+
+# Redirect everything else to index.php
+RewriteRule ^.*$ index.php [NC,L]
+
+#htaccess file
+<files .htaccess>
+order allow,deny
+deny from all
+</files>
+
+# protect connexion.php
+<files connexion.php>
+order allow,deny
+deny from all
+</files>
