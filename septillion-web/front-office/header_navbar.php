@@ -1,9 +1,6 @@
-<?php session_start(); ?>
 <!-- BDD -->
 <?php
-
 if(!isset($_SESSION['mail']) || !isset($_SESSION['id_client']) || isset($_SESSION['id_admin'])){
-  session_start ();
   session_unset ();
   session_destroy ();
 }

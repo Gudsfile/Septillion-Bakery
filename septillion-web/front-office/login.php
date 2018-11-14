@@ -117,7 +117,7 @@
               différents.</p><?php ; endif ?>
               <?php
               session_unset ();
-              session_destroy ();
+              //session_destroy ();
               ?>
               <div class="w-size25">
                 <!-- Button -->
