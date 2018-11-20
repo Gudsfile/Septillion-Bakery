@@ -1,6 +1,8 @@
 <?php require('console_log.php'); ?>
 <?php require('connexion.php');?>
 
+<?php session_start() ?>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->

@@ -3,7 +3,6 @@
 <head>
 	<title>Septillion / Mes commandes</title>
 	<link href="css/track.css" rel="stylesheet" type="text/css"/>
-	<!-- BDD includes -->
 	<?php include('header_link.php'); ?>
 </head>
 <body class="animsition">
@@ -12,7 +11,6 @@
 	<?php
 	if(!isset($_SESSION['mail']) || !isset($_SESSION['id_client'])){
 		header("Location: index.php");
-		exit();
 	}
 	?>
 
