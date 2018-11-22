@@ -8,7 +8,7 @@
   $erreur = 100;
   if (isset($_GET['erreur']))
     $erreur = $_GET['erreur'];
-  if(!isset($_SESSION['data']))
+  if(isset($_SESSION['id_client']))
     header('Location: index.php');
   ?>
 </head>

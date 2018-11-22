@@ -94,6 +94,23 @@ class EmployeeManager
 		return 1;
 	}
 
+	public function attributEmployee()
+	{
+		$employees= $this->getList();
+		$count=0;
+		$default=false;
+		foreach ($employees as $key => $value) {
+				$query = $this->_db->query("SELECT count(*) FROM CLIENT_ORDER WHERE ID_EMPLOYEE =".$value->id());
+				$donnees = $query->fetch(PDO::FETCH_ASSOC);
+					if($default == false || $donnees['count(*)'] < $count){
+						$count = $donnees['count(*)'];
+						$choiceID=$value->id();
+						$default=true;
+					}
+		}
+		return $choiceID;
+	}
+
 	public function setDb($db)
 	{
 		$this->_db=$db;

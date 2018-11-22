@@ -13,6 +13,10 @@ $cart = json_decode($cookie, true);
 $clientManager = new ClientManager($conn);
 $clientId = $_SESSION['id_client'];
 
+//choose the employee
+$employeeManager = new EmployeeManager($conn);
+$employeeId = $employeeManager->attributEmployee();
+
 // create order
 $orderConfig = array(
   'description' => "commande en ligne",
@@ -20,7 +24,7 @@ $orderConfig = array(
   'ready'  => 0,
   'collected'  => 0,
   'id_client'  => $clientId,
-  'id_employee' => 1001
+  'id_employee' => $employeeId
 );
 
 $order = new Order($orderConfig);
