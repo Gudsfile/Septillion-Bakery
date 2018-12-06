@@ -162,6 +162,7 @@
 			</div>
 		</div>
 		<?php if ($erreur == '10'): ?><div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Employé edité !</div><?php ; endif ?>
+		<?php if ($erreur == '11'): ?><div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Employé ajouté !</div><?php ; endif ?>
 	</div><!--/.row-->
 
 </div>	<!--/.main-->

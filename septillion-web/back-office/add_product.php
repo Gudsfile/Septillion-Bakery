@@ -168,10 +168,13 @@
         <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Nom vide </div>
       <?php ; endif ?>
       <?php if ($erreur == '2'): ?>
-        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur BDD </div>
+        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : BDD </div>
       <?php ; endif ?>
       <?php if ($erreur == '3'): ?>
         <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Produit ajouté !</div>
+      <?php ; endif ?>
+      <?php if ($erreur == '4'): ?>
+        <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : injection </div>
       <?php ; endif ?>
     </div>
   </div>

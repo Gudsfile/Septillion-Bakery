@@ -162,14 +162,15 @@
       <br>
 
       <?php if ($erreur == '1'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Mail existant </div><?php ; endif ?>
-      <?php if ($erreur == '2'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Prenom vide </div><?php ; endif ?>
-      <?php if ($erreur == '3'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Nom vide </div><?php ; endif ?>
-      <?php if ($erreur == '4'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Adresse E-Mail vide </div><?php ; endif ?>
-      <?php if ($erreur == '5'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Mot de passe vide </div><?php ; endif ?>
+      <?php if ($erreur == '2'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Prenom vide </div><?php ; endif ?>
+      <?php if ($erreur == '3'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Nom vide </div><?php ; endif ?>
+      <?php if ($erreur == '4'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Adresse E-Mail vide </div><?php ; endif ?>
+      <?php if ($erreur == '5'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Mot de passe vide </div><?php ; endif ?>
       <?php if ($erreur == '6'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Les mails ne correspondent pas </div><?php ; endif ?>
       <?php if ($erreur == '7'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Les mots de passe ne correspondent pas </div><?php ; endif ?>
       <?php if ($erreur == '8'): ?><div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur BDD </div><?php ; endif ?>
       <?php if ($erreur == '9'): ?><div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Employé ajouté !</div><?php ; endif ?>
+      <?php if ($erreur == '10'): ?><div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : injection</div><?php ; endif ?>
     </div>
     </div>
   </div>

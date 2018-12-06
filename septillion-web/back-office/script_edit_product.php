@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('script_check_string.php');
 require('connexion.php');
 
 if (!isset($_GET['id'])) {
@@ -35,7 +36,7 @@ function transfert() {
     $size = $_FILES['product_img']['size'];
 
     if ($size > $max_size) {
-      header('Location: add_product.php?erreur=2');
+      header('Location: list_product.php?erreur=2');
       exit();
     }
 
@@ -51,8 +52,14 @@ function transfert() {
     "image" => $blob,
   );
   $imageManager = new ImageManager($pdo);
-  $newImage = new Image($imageData);
-  $imageId = $imageManager->add($newImage);
+  if (check_str_img($imageData["name"])){
+  	$newImage = new Image($imageData);
+  	$imageId = $imageManager->add($newImage);
+  }
+  else {
+  	$imageId = 0;
+  	$erreur = 4;
+  }
   return $imageId;
 }
 
@@ -68,8 +75,21 @@ $productData = array(
   "last_updated_by" => intval($_SESSION['id_admin']),  //Replace By session id
   "id_category" => $_POST['category'],
 );
-$newProduct = new Product($productData);
-$productManager-> update($_GET['id'],$newProduct);
 
-header('Location: edit_product.php?erreur=3');
+if(check_str($productData['name']) && check_str($productData['description'])){
+	$newProduct = new Product($productData);
+	$idProduct = $productManager->update($_GET['id'],$newProduct);
+}
+
+else{
+	$erreur = 4;
+}
+
+if ($erreur != 4){
+	header('Location: list_product.php?erreur=3');
+	exit();
+}
+
+header('Location: edit_product.php?erreur=4&id='.$_GET['id']);
+exit();
 ?>

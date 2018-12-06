@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('script_check_string.php');
 require('connexion.php');
 $pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
@@ -15,8 +16,20 @@ $categoryData = array(
   "description" => $_POST['description'],
   "created_by" => intval($_SESSION['id_admin']),
 );
-$newCategory = new Category($categoryData);
-$idCategory = $categoryManager->add($newCategory);
+
+if (check_str($categoryData["name"]) && check_str($categoryData["description"])){
+	$newCategory = new Category($categoryData);
+	$idCategory = $categoryManager->add($newCategory);
+}
+else{
+	$erreur = 4;
+}
+
+if ($erreur == 4){
+	header('Location: add_category.php?erreur=4');
+    exit();
+}
+
 
 if ($idCategory == 0){
   $erreur = 2;

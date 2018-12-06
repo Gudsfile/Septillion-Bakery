@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('script_check_string.php');
 require('connexion.php');
 $conn = Connect::connexion();
 $employeeManager = new EmployeeManager($conn);
@@ -48,15 +49,27 @@ $employeeData = array(
   "role" => $_POST['role'],
 );
 
-$newEmployee = new Employee($employeeData);
-$idEmployee = $employeeManager->add($newEmployee);
+
+if(check_str($employeeData["first_name"]) && check_str($employeeData["last_name"]) && check_str_mail($employeeData["mail"]) && check_str($employeeData["role"]))
+{
+	$newEmployee = new Employee($employeeData);
+	$idEmployee = $employeeManager->add($newEmployee);
+}
+else
+{
+	$erreur = 10;
+    header('Location: add_employee.php?erreur=10');
+    exit();
+}
+
+
 if ($idEmployee == 0){
   $erreur = 8;
   header('Location: add_employee.php?erreur=8');
   exit();
 } else {
-  $erreur = 9;
-  header('Location: add_employee.php?erreur=9');
+  $erreur = 11;
+  header('Location: list_employee.php?erreur=11');
   exit();
 }
 ?>

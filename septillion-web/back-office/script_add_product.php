@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('script_check_string.php');
 require('connexion.php');
 $pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
@@ -43,10 +44,22 @@ function transfert() {
   );
   $pdo = Connect::connexion();
   $imageManager = new ImageManager($pdo);
-  $newImage = new Image($imageData);
-  $imageId = $imageManager->add($newImage);
+  if (check_str_img($imageData["name"])){
+  	$newImage = new Image($imageData);
+  	$imageId = $imageManager->add($newImage);
+  }
+  else {
+  	$imageId = 0;
+  	$erreur = 4;
+  }
+  
   return $imageId;
 }
+
+
+
+
+
 
 $productData = array(
   "name" => $_POST['name'],
@@ -54,15 +67,32 @@ $productData = array(
   "description" => $_POST['description'],
   "price" => $_POST['price'],
 
-  "created_by" => intval($_SESSION['id_admin']),       //Replace By session id
-  "last_updated_by" => intval($_SESSION['id_admin']),  //Replace By session id
+  "created_by" => intval($_SESSION['id_admin']),       
+  "last_updated_by" => intval($_SESSION['id_admin']), 
   "id_category" => $_POST['category'],
   "id_img" => transfert(),
 );
-$newProduct = new Product($productData);
-$idProduct = $productManager->add($newProduct);
+
+
+
+
+if(check_str($productData['name']) && check_str($productData['description'])){
+	$newProduct = new Product($productData);
+	$idProduct = $productManager->add($newProduct);
+}
+
+else{
+	$erreur = 4;
+}
+
+if ($erreur == 4){
+	header('Location: add_product.php?erreur=4');
+	exit();
+}
+
 if ($idProduct == 0){
   $erreur = 2;
+  /*
   echo $newProduct->name();
   echo "\n";
   echo $newProduct->stock();
@@ -79,11 +109,12 @@ if ($idProduct == 0){
   echo "\n";
   echo $newProduct->id_category();
   echo "\n";
-  //header('Location: add_product.php?erreur=2');
+  */
+  header('Location: add_product.php?erreur=2');
   exit();
 } else {
-  $erreur = 3;
-  header('Location: add_product.php?erreur=3');
+  $erreur = 5;
+  header('Location: list_product.php?erreur=5');
   exit();
 }
 ?>

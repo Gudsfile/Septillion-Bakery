@@ -11,6 +11,9 @@
 	<?php
 	require('connexion.php');
 	$conn = Connect::connexion();
+	$erreur = 100;
+    if (isset($_GET['erreur']))
+      $erreur = $_GET['erreur'];
 	?>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
@@ -154,6 +157,21 @@
 					?>
 				</div>
 				</div>
+				<?php if ($erreur == '1'): ?>
+        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Nom vide </div>
+      <?php ; endif ?>
+      <?php if ($erreur == '2'): ?>
+        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : BDD </div>
+      <?php ; endif ?>
+      <?php if ($erreur == '3'): ?>
+        <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Produit modifié !</div>
+      <?php ; endif ?>
+      <?php if ($erreur == '5'): ?>
+        <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Produit ajouté !</div>
+      <?php ; endif ?>
+      <?php if ($erreur == '4'): ?>
+        <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : injection </div>
+      <?php ; endif ?>
 			</div>
 		</div>
 	</div><!--/.row-->

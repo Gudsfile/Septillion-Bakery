@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('script_check_string.php');
 require('connexion.php');
 $conn = Connect::connexion();
 $employeeManager = new EmployeeManager($conn);
@@ -54,12 +55,21 @@ $employeeData = array(
   "role" => $_POST['role'],
 );
 
-$newEmployee = new Employee($employeeData);
-$idEmployee = $employeeManager->update($_GET['id'],$newEmployee);
+
+if(check_str($employeeData["first_name"]) && check_str($employeeData["last_name"]) && check_str_mail($employeeData["mail"]) && check_str($employeeData["role"]))
+{
+	$newEmployee = new Employee($employeeData);
+	$idEmployee = $employeeManager->update($_GET['id'],$newEmployee);	
+}
+else
+{
+	$erreur = 10;
+    header('Location: edit_employee.php?erreur=10&id='.$_GET['id']);
+    exit();
+}
 if ($idEmployee == 0){
   $erreur = 8;
-  header('Location: edit_employee.php?erreur=8');
-  //echo $_GET['id'];
+  header('Location: edit_employee.php?erreur=8&id='.$_GET['id']);
   exit();
 } else {
   $erreur = 9;
