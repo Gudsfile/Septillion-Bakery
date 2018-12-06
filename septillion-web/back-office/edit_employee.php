@@ -114,7 +114,7 @@
     <div class="panel-body">
       <form class="form-horizontal row-border" enctype="multipart/form-data" action="script_edit_employee.php?id=<?php echo $employee->id(); ?>" method="post">
         <div class="form-group">
-          <label class="col-md-2 control-label">Prénom<?php echo $id ?></label>
+          <label class="col-md-2 control-label">Prénom</label>
           <div class="col-md-10">
             <input type="text" name="first_name" class="form-control" value="<?php echo $employee->first_name(); ?>" required>
           </div>
