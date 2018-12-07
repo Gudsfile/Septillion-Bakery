@@ -1,0 +1,11 @@
+#htaccess file
+<files .htaccess>
+order allow,deny
+deny from all
+</files>
+
+#BDD folder
+deny from all
+<Files index.php>
+allow from all
+</Files>

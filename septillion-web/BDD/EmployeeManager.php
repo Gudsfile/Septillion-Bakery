@@ -43,8 +43,11 @@ class EmployeeManager
 		$query = $this->_db->query("SELECT * FROM EMPLOYEE WHERE MAIL =".$mail);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		$employee = new Employee($donnees);
-		if (!is_null($employee))
+		if (!is_null($employee)){
 			$res = $employee;
+		} else {
+			$res = 0;
+		}
 		return $res;
 	}
 
@@ -89,6 +92,23 @@ class EmployeeManager
 		$query->bindValue(':role', $employee->role(), PDO::PARAM_STR);
 		$query->execute();
 		return 1;
+	}
+
+	public function attributEmployee()
+	{
+		$employees= $this->getList();
+		$count=0;
+		$default=false;
+		foreach ($employees as $key => $value) {
+				$query = $this->_db->query("SELECT count(*) FROM CLIENT_ORDER WHERE ID_EMPLOYEE =".$value->id());
+				$donnees = $query->fetch(PDO::FETCH_ASSOC);
+					if($default == false || $donnees['count(*)'] < $count){
+						$count = $donnees['count(*)'];
+						$choiceID=$value->id();
+						$default=true;
+					}
+		}
+		return $choiceID;
 	}
 
 	public function setDb($db)

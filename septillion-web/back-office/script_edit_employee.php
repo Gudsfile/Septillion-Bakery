@@ -8,7 +8,7 @@ $employeeManager = new EmployeeManager($conn);
 if ($employeeManager->getByMail($_POST['mail'])->id() != intval($_GET['id']) && $employeeManager->getByMail($_POST['mail'])->id() != 0) {
   $erreur = 1;
   $location = 'Location: edit_employee.php?erreur=1&id='.$_GET['id'];
-  
+
   header($location);
   exit();
 }
@@ -45,7 +45,7 @@ if ($_POST['password'] != $_POST['verif_password']) {
 }
 
 if (is_null($_POST['password'])) $password = $employeeManager->get($_GET['id'])->password();
-else $password = md5(htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1"));
+else $password = crypt(htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1"));
 
 $employeeData = array(
   "first_name" => $_POST['first_name'],

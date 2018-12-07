@@ -42,6 +42,10 @@ class ClientManager
 		$mail = "'".$mail."'";
 		$query = $this->_db->query("SELECT * FROM CLIENT WHERE MAIL =".$mail);
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
+		if ($donnees == null) {
+			return 0;
+		}
+		else
 		return new Client($donnees);
 	}
 

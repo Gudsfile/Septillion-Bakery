@@ -1,5 +1,6 @@
 <!-- BDD -->
 <?php
+
 if(!isset($_SESSION['mail']) || !isset($_SESSION['id_client']) || isset($_SESSION['id_admin'])){
   session_unset ();
   session_destroy ();
