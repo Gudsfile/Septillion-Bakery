@@ -6,7 +6,7 @@
 #ignore hidden file
 .*
 
-# mais pas ce fichier car utile
+# but not these files
 !.gitignore
 !.htaccess
 
