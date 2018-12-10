@@ -183,18 +183,23 @@
       <br>
       <br>
       <br>
-
       <?php if ($erreur == '1'): ?>
-        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Nom vide </div>
+        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Champ incorrect </div>
       <?php ; endif ?>
       <?php if ($erreur == '2'): ?>
-        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : BDD </div>
+        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Taille de l'image </div>
       <?php ; endif ?>
       <?php if ($erreur == '3'): ?>
-        <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Produit modifié !</div>
+        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Type de l'image </div>
       <?php ; endif ?>
       <?php if ($erreur == '4'): ?>
-        <div class="alert bg-success" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : injection </div>
+        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Image non ajoutée </div>
+      <?php ; endif ?>
+      <?php if ($erreur == '5'): ?>
+        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Produit non ajouté </div>
+      <?php ; endif ?>
+      <?php if ($erreur == '6'): ?>
+        <div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur </div>
       <?php ; endif ?>
     </div>
   </div>

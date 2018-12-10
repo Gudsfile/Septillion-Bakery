@@ -14,7 +14,6 @@ function check_str($string_to_check)
 	return $ret;
 }
 
-
 function check_str_img($string_to_check)
 {
 	$ret = false;
