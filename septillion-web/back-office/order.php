@@ -188,6 +188,7 @@
 									<br>
 									<br>
 									<br>
+									<input type="hidden" name="CSRFtoken" value="<?php echo $_SESSION['CSRFtoken'] ?>">
 									<button type="submit" class="btn btn-default" name="valider"> <span class="fa fa-check"></span> &nbsp;Valider les modifications</button>
 									<button type="submit" class="btn btn-default margin pull-right" name="delete"><span class="fa fa-trash"></span> &nbsp;supprimer la commande</button>
 								</form>

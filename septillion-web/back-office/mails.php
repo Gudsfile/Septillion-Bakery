@@ -108,8 +108,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="panel panel-primary">
-				<div class="panel-heading">
-					Messages
+				<div class="panel-heading">Messages</div>
 					<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 					<div class="panel-body">
 						<div class="canvas-wrapper">
@@ -175,7 +174,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-primary">
-					<div class="panel-heading clearfix">Ecrire un message</div>
+					<div class="panel-heading">Ecrire un message</div>
 					<div class="panel-body">
 						<form class="form-horizontal row-border" action="script_send_mail.php" method="post">
 							<div class="form-group">
@@ -195,6 +194,7 @@
 									<textarea name="body" class="form-control" cols="40" rows="8"></textarea>
 								</div>
 							</div>
+							<input type="hidden" name="CSRFtoken" value="<?php echo $_SESSION['CSRFtoken'] ?>">
 							<button class="btn btn-default margin" type="submit"><span class="fa fa-envelope-o"></span> &nbsp;Envoyer</button>
 						</form>
 						<br>
