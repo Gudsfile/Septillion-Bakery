@@ -12,8 +12,8 @@ if ($_POST['name'] == null) {
 }
 
 $categoryData = array(
-  "name" => $_POST['name'],
-  "description" => $_POST['description'],
+  "name" => htmlentities($_POST['name'], ENT_QUOTES, "ISO-8859-1"),
+  "description" => htmlentities($_POST['description'], ENT_QUOTES, "ISO-8859-1"),
   "created_by" => intval($_SESSION['id_admin']),
 );
 

@@ -103,6 +103,7 @@
 					<div class="size10 trans-0-4 m-t-10 m-b-10">
 						<!-- Button -->
 						<?php if (isset($_SESSION['mail']) && isset($_SESSION['id_client'])): ?>
+							<p class="CSRFtoken" hidden><?php echo $_SESSION['CSRFtoken'] ?></p>
 							<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-paycart">
 								Payer
 							</button>
@@ -191,8 +192,12 @@
 						swal("Oops…","Le panier est vide !", "error");
 					} else {
 						var arf = new XMLHttpRequest();
-						arf.open("GET","script_payement.php",false);
-						arf.send(null);
+						var CSRFtoken = $('.CSRFtoken').html();
+						console.log(CSRFtoken);
+						arf.open("POST","script_payement.php",false);
+						arf.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+						arf.send("CSRFtoken = ".CSRFtoken);
+						console.log(arf.response);
 						document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 						swal({
 							title: "Acheté",
