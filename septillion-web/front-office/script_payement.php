@@ -6,11 +6,6 @@ $conn = Connect::connexion();
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
 
-$file = 'logs.txt';
-$current = file_get_contents($file);
-$current .= "\ntotototo\n";
-file_put_contents($file, $current);
-
 // read cart cookie
 $cookie = isset($_COOKIE['cart_items_cookie']) ? $_COOKIE['cart_items_cookie'] : "";
 $cookie = stripslashes($cookie);

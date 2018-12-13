@@ -193,11 +193,10 @@
 					} else {
 						var arf = new XMLHttpRequest();
 						var CSRFtoken = $('.CSRFtoken').html();
-						console.log(CSRFtoken);
-						arf.open("POST","script_payement.php",false);
+						var params = 'CSRFtoken='+CSRFtoken;
+						arf.open("POST","script_payement.php",true);
 						arf.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-						arf.send("CSRFtoken = ".CSRFtoken);
-						console.log(arf.response);
+						arf.send(params);
 						document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 						swal({
 							title: "Acheté",
