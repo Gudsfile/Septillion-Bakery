@@ -154,6 +154,7 @@
             </div>
           </div>
         </div>
+        <input type="hidden" name="CSRFtoken" value="<?php echo $_SESSION['CSRFtoken'] ?>">
         <button class="col-xs-12 btn btn-lg btn-primary" type="submit"><span class="fa fa-plus"></span> &nbsp;Ajouter</button>
       </form>
       <br>

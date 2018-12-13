@@ -4,52 +4,56 @@ require('script_check_string.php');
 require('script_check_image.php');
 require('connexion.php');
 
-if ($_POST['name'] == null
-  || $_POST['description'] == null
-  || $_POST['stock'] == null
-  || $_POST['price'] == null
-  || $_POST['category'] == null
+$CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
+if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
+    if ($_POST['name'] == null
+    || $_POST['description'] == null
+    || $_POST['stock'] == null
+    || $_POST['price'] == null
+    || $_POST['category'] == null
   ){
-  header('Location: add_product.php?erreur=1');
-  exit();
-}
-
-$pdo = Connect::connexion();
-$categoryManager = new CategoryManager($pdo);
-$productManager = new ProductManager($pdo);
-
-$productData = array(
-  "name" => $_POST['name'],
-  "stock" => $_POST['stock'],
-  "description" => $_POST['description'],
-  "price" => $_POST['price'],
-  "created_by" => intval($_SESSION['id_admin']),
-  "last_updated_by" => intval($_SESSION['id_admin']),
-  "id_category" => $_POST['category'],
-  "id_img" => transfert(),
-);
-
-if ($productData['id_img'] != 0) {
-  if(check_str($productData['name']) && check_str($productData['description'])){
-    $newProduct = new Product($productData);
-    $idProduct = $productManager->add($newProduct);
-  } else {
-    $erreur = 1;
+    header('Location: add_product.php?erreur=1');
+    exit();
   }
-} else {
-  $erreur = 4;
-}
 
-if ($idProduct == 0) {
-  $erreur = 5;
-}
+  $pdo = Connect::connexion();
+  $categoryManager = new CategoryManager($pdo);
+  $productManager = new ProductManager($pdo);
 
-if ($erreur != 0){ // add err
-  header('Location: add_product.php?erreur='.$erreur);
-  exit();
-} else { // add ok
-  header('Location: list_product.php?erreur=5');
-  exit();
+  $productData = array(
+    "name" => $_POST['name'],
+    "stock" => $_POST['stock'],
+    "description" => $_POST['description'],
+    "price" => $_POST['price'],
+    "created_by" => intval($_SESSION['id_admin']),
+    "last_updated_by" => intval($_SESSION['id_admin']),
+    "id_category" => $_POST['category'],
+    "id_img" => transfert(),
+  );
+
+  if ($productData['id_img'] != 0) {
+    if(check_str($productData['name']) && check_str($productData['description'])){
+      $newProduct = new Product($productData);
+      $idProduct = $productManager->add($newProduct);
+    } else {
+      $erreur = 1;
+    }
+  } else {
+    $erreur = 4;
+  }
+
+  if ($idProduct == 0) {
+    $erreur = 5;
+  }
+
+  if ($erreur != 0){ // add err
+    header('Location: add_product.php?erreur='.$erreur);
+    exit();
+  } else { // add ok
+    $_SESSION['CSRFtoken'] = bin2hex(random_bytes(32));
+    header('Location: list_product.php?erreur=5');
+    exit();
+  }
 }
 
 function transfert() {
@@ -105,5 +109,4 @@ function transfert() {
     exit();
   }
 }
-
 ?>

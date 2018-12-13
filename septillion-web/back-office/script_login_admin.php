@@ -26,6 +26,7 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
         $_SESSION['id_admin'] = $verif->id();
         $_SESSION['name'] = $verif->first_name()." ".$verif->last_name();
         $_SESSION['connect'] = 1;
+        $_SESSION['CSRFtoken'] = bin2hex(random_bytes(32));
         header("Location: index.php");
     }
 }
