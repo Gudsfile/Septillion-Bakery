@@ -94,8 +94,9 @@
               <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" placeholder="Address" value="<?php if(isset($_SESSION['data']['address'])): echo $_SESSION['data']['address']; endif; ?>" >
             </div>
 
-            <?php if ($erreur == '3'): ?><p class="m-b-20" style="color : #F08080">Ce mail est déjà
-              utilisé.</p><?php ; endif ?>
+            <?php if ($erreur == '2'): ?><p class="m-b-20" style="color : #F08080">Caractères incorrects.</p><?php ; endif ?>
+              <?php if ($erreur == '3'): ?><p class="m-b-20" style="color : #F08080">Ce mail est déjà
+                utilisé.</p><?php ; endif ?>
             <?php if ($erreur == '4'): ?><p class="m-b-20" style="color : #F08080">Les mails sont
               différents.</p><?php ; endif ?>
             <?php if ($erreur == '5'): ?><p class="m-b-20" style="color : #F08080">Les mots de passe sont

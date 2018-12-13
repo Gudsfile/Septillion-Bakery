@@ -4,14 +4,17 @@ session_start();
 require('connexion.php');
 $conn = Connect::connexion();
 
-$CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-
 // read cart cookie
 $cookie = isset($_COOKIE['cart_items_cookie']) ? $_COOKIE['cart_items_cookie'] : "";
 $cookie = stripslashes($cookie);
 $cart = json_decode($cookie, true);
+// get CSRFtoken
+$CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
 
-if ($CSRFtoken == $_SESSION['CSRFtoken']) {
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken)) {
+// new token
+$rand = bin2hex(random_bytes(32));
+$_SESSION['CSRFtoken'] = $rand;
 
 // get clientID
 $clientManager = new ClientManager($conn);

@@ -21,7 +21,7 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
           session_destroy();
         }
         session_start();
-        $rand = 199;
+        $rand = bin2hex(random_bytes(32));
         $_SESSION['mail'] = $_POST['mail'];
         $_SESSION['id_client'] = $verif->id();
         $_SESSION['CSRFtoken'] = $rand;

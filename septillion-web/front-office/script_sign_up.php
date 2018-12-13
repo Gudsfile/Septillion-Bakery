@@ -1,5 +1,6 @@
 <?php
 require('connexion.php');
+require('script_check_string.php');
 $conn = Connect::connexion();
 $clientManager = new ClientManager($conn);
 
@@ -21,14 +22,32 @@ if ($_POST['password_conf']!=$_POST['password']) {
   header("Location: login.php?erreur=5");
 }
 elseif($_POST!=null) {
+  if(!check_str_mail($_POST['mail'])) {
+    header("Location: login.php?erreur=2");
+    die();
+  } else if(!check_str_hard($_POST['address'])) {
+    header("Location: login.php?erreur=2");
+    die();
+  } else if(!check_str_letter($_POST['first_name'])) {
+    header("Location: login.php?erreur=2");
+    die();
+  } else if(!check_str_letter($_POST['last_name'])) {
+    header("Location: login.php?erreur=2");
+    die();
+  } else if(!check_str_number($_POST['phone_number'])) {
+    header("Location: login.php?erreur=2");
+    die();
+  }
+
   $configClient = array(
-    "mail" => $_POST['mail'],
+    "mail" => htmlentities($_POST['mail']),
     "password" => crypt($_POST['password']),
-    "address" => $_POST['address'],
-    "first_name" => $_POST['first_name'],
-    "last_name" => $_POST['last_name'],
-    "phone_number" => $_POST['phone_number']
+    "address" => htmlentities($_POST['address']),
+    "first_name" => htmlentities($_POST['first_name']),
+    "last_name" => htmlentities($_POST['last_name']),
+    "phone_number" => htmlentities($_POST['phone_number'])
   );
+
   $newClient = new Client($configClient);
   $verif = $clientManager->add($newClient);
   if($verif>0){
