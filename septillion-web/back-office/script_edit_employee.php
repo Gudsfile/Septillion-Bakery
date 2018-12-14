@@ -48,13 +48,18 @@ if ($employeeManager->getByMail($_POST['mail'])->id() != intval($_GET['id']) && 
 
   if (is_null($_POST['password'])) $password = $employeeManager->get($_GET['id'])->password();
   else $password = crypt(htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1"));
+// secure post's data
+  $fname = htmlentities($_POST['first_name'], ENT_QUOTES, "ISO-8859-1");
+  $lname = htmlentities($_POST['last_name'], ENT_QUOTES, "ISO-8859-1");
+  $mail = htmlentities($_POST['mail'], ENT_QUOTES, "ISO-8859-1");
+  $role = htmlentities($_POST['role'], ENT_QUOTES, "ISO-8859-1");
 
   $employeeData = array(
-    "first_name" => $_POST['first_name'],
-    "last_name" => $_POST['last_name'],
-    "mail" => $_POST['mail'],
+    "first_name" => $fname,
+    "last_name" => $lname,
+    "mail" => $mail,
     "password" => $password,
-    "role" => $_POST['role'],
+    "role" => $role,
   );
 
 

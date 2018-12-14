@@ -19,15 +19,22 @@ if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
   $pdo = Connect::connexion();
   $categoryManager = new CategoryManager($pdo);
   $productManager = new ProductManager($pdo);
+  
+// secure post's data
+  $name = htmlentities($_POST['name'], ENT_QUOTES, "ISO-8859-1");
+  $stock = htmlentities($_POST['stock'], ENT_QUOTES, "ISO-8859-1");
+  $description = htmlentities($_POST['description'], ENT_QUOTES, "ISO-8859-1");
+  $price = htmlentities($_POST['price'], ENT_QUOTES, "ISO-8859-1");
+  $category = htmlentities($_POST['category'], ENT_QUOTES, "ISO-8859-1");
 
   $productData = array(
-    "name" => $_POST['name'],
-    "stock" => $_POST['stock'],
-    "description" => $_POST['description'],
-    "price" => $_POST['price'],
+    "name" => $name,
+    "stock" => $stock,
+    "description" => $description,
+    "price" => $price,
     "created_by" => intval($_SESSION['id_admin']),
     "last_updated_by" => intval($_SESSION['id_admin']),
-    "id_category" => $_POST['category'],
+    "id_category" => $category,
     "id_img" => transfert(),
   );
 

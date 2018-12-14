@@ -43,14 +43,19 @@ if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
     exit();
   }
 
-  $employeeData = array(
-    "first_name" => $_POST['first_name'],
-    "last_name" => $_POST['last_name'],
-    "mail" => $_POST['mail'],
-    "password" => crypt(htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1")),
-    "role" => $_POST['role'],
-  );
+// secure post's data
+  $fname = htmlentities($_POST['first_name'], ENT_QUOTES, "ISO-8859-1");
+  $lname = htmlentities($_POST['last_name'], ENT_QUOTES, "ISO-8859-1");
+  $mail = htmlentities($_POST['mail'], ENT_QUOTES, "ISO-8859-1");
+  $role = htmlentities($_POST['role'], ENT_QUOTES, "ISO-8859-1");
 
+  $employeeData = array(
+    "first_name" => $fname,
+    "last_name" => $lname,
+    "mail" => $mail,
+    "password" => $password,
+    "role" => $role,
+  );
 
   if(check_str($employeeData["first_name"]) && check_str($employeeData["last_name"]) && check_str_mail($employeeData["mail"]) && check_str($employeeData["role"]))
   {

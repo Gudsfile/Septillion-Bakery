@@ -12,10 +12,13 @@ if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
     header('Location: add_category.php?erreur=1');
     exit();
   }
+  //secure post's data
+  $name = htmlentities($_POST['name'], ENT_QUOTES, "ISO-8859-1");
+  $description = htmlentities($_POST['description'], ENT_QUOTES, "ISO-8859-1");
 
   $categoryData = array(
-    "name" => htmlentities($_POST['name'], ENT_QUOTES, "ISO-8859-1"),
-    "description" => htmlentities($_POST['description'], ENT_QUOTES, "ISO-8859-1"),
+    "name" => $name,
+    "description" =>   $description,
     "created_by" => intval($_SESSION['id_admin']),
   );
 
