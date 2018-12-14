@@ -6,7 +6,9 @@ $messageManager = new MessageManager($conn);
 $employeeManager = new EmployeeManager($conn);
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
+$ip = $_SERVER['REMOTE_ADDR'];
+
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
   if ($employeeManager->getByMail($_POST['mail'])->id() == 0) {
     $erreur = 1;
     header('Location: mails.php?erreur=1');

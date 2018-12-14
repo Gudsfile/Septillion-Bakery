@@ -9,13 +9,14 @@ if (!isset($_GET['id'])) {
   exit();
 }
 
-
 $pdo = Connect::connexion();
 $orderManager = new OrderManager($pdo);
 $order = $orderManager->get($_GET['id']);
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
+$ip = $_SERVER['REMOTE_ADDR'];
+
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
   if(isset($state['delete'])){
     $orderManager->delete($_GET['id']);
   }

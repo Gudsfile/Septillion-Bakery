@@ -5,7 +5,9 @@ require('script_check_image.php');
 require('connexion.php');
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
+$ip = $_SERVER['REMOTE_ADDR'];
+
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
   if (!isset($_GET['id'])) {
     header('Location: list_product.php');
   }

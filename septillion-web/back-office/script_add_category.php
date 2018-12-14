@@ -6,7 +6,9 @@ $pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
+$ip = $_SERVER['REMOTE_ADDR'];
+
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
   if ($_POST['name'] == null) {
     $erreur = 1;
     header('Location: add_category.php?erreur=1');

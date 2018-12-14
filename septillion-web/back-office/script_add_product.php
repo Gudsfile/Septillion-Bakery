@@ -5,7 +5,9 @@ require('script_check_image.php');
 require('connexion.php');
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
+$ip = $_SERVER['REMOTE_ADDR'];
+
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
     if ($_POST['name'] == null
     || $_POST['description'] == null
     || $_POST['stock'] == null
@@ -19,7 +21,7 @@ if (hash_equals($CSRFtoken, $_SESSION['CSRFtoken'])) {
   $pdo = Connect::connexion();
   $categoryManager = new CategoryManager($pdo);
   $productManager = new ProductManager($pdo);
-  
+
 // secure post's data
   $name = htmlentities($_POST['name'], ENT_QUOTES, "ISO-8859-1");
   $stock = htmlentities($_POST['stock'], ENT_QUOTES, "ISO-8859-1");
