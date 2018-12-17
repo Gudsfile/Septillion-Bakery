@@ -119,8 +119,8 @@
 										$messageManager = new MessageManager($conn);
 										$employeeManager = new EmployeeManager($conn);
 										$messageList = $messageManager->getByReceiver(intval($_SESSION['id_admin']));
+										echo '<div class="table-responsive-xl">';
 										if (!empty($messageList)) {
-											echo '<div class="table-responsive-xl">';
 											echo '<table class="table" id="messageTable">';
 											?>
 											<tr>
@@ -179,9 +179,26 @@
 						<form class="form-horizontal row-border" action="script_send_mail.php" method="post">
 							<div class="form-group">
 								<div class="col-md-12">
-									<div class="input-group"><span class="input-group-addon">@</span>
-										<input type="text" name="mail" class="form-control" placeholder="mail">
-									</div>
+									<div class="form-group">
+					          <label class="col-md-1 control-label">Récepteur</label>
+					          <div class="col-md-11">
+					            <div class="row">
+					              <div class="col-xs-12">
+					                <?php
+					                  $employeeManager = new EmployeeManager($conn);
+					                  $res = $employeeManager->getList();
+					                ?>
+					                <select class="col-md-5 form-control" name="receiver">
+					                  <?php
+					                  foreach($res as $employee) {
+					                    echo '<option value="'.$employee->id().'">'.$employee->first_name().' '.$employee->last_name().'</option>';
+					                  }
+					                  ?>
+					                </select>
+					              </div>
+					            </div>
+					          </div>
+					        </div>
 								</div>
 							</div>
 							<div class="form-group">
@@ -198,9 +215,6 @@
 							<button class="btn btn-default margin" type="submit"><span class="fa fa-envelope-o"></span> &nbsp;Envoyer</button>
 						</form>
 						<br>
-						<?php if ($erreur == '1'): ?>
-							<div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur : Mail introuvable </div>
-							<?php ; endif ?>
 							<?php if ($erreur == '2'): ?>
 								<div class="alert bg-warning" role="alert"><em class="fa fa-lg fa-warning">&nbsp;</em> Erreur BDD </div>
 								<?php ; endif ?>
