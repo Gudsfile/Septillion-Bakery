@@ -134,7 +134,7 @@
 
 										</div>
 										<div class="col-sm-3 text-center">
-											<a class="btn btn-primary btn-info btn-md" href="category.php?#"'.$category->id().'>Editer </a>
+											<a class="btn btn-primary btn-info btn-md" href="edit_category.php?id='.$category->id().'">Editer </a>
 										</div>
 									</div>
 								</div>
