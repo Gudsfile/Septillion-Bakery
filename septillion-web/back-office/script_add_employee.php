@@ -49,6 +49,7 @@ if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
   $fname = htmlentities($_POST['first_name'], ENT_QUOTES, "ISO-8859-1");
   $lname = htmlentities($_POST['last_name'], ENT_QUOTES, "ISO-8859-1");
   $mail = htmlentities($_POST['mail'], ENT_QUOTES, "ISO-8859-1");
+  $password = crypt(htmlentities($_POST['verif_password'], ENT_QUOTES, "ISO-8859-1"));
   $role = htmlentities($_POST['role'], ENT_QUOTES, "ISO-8859-1");
 
   $employeeData = array(
