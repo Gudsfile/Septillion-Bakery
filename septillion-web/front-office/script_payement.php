@@ -20,6 +20,22 @@ if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
   $rand = bin2hex(random_bytes(32));
   $_SESSION['CSRFtoken'] = $rand;
 
+  // check quantity
+  foreach ($cart as $id=>$quantity) {
+    if (!isset($quantity['quantity'])){
+      setcookie("cart_items_cookie", null, time() + (600), '/');
+      $_COOKIE['cart_items_cookie'] = null;
+      header("Location: cart.php?erreur=3");
+      die();
+    }
+    if ($quantity['quantity'] <= 0) {
+      setcookie("cart_items_cookie", null, time() + (600), '/');
+      $_COOKIE['cart_items_cookie'] = null;
+      header("Location: cart.php?erreur=3");
+      die();
+    }
+  }
+
   // get clientID
   $clientManager = new ClientManager($conn);
   $clientId = $_SESSION['id_client'];
@@ -53,6 +69,8 @@ if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
     );
     $isOrderedManager->add(new IsOrdered($isOrderedConfig));
   }
+} else {
+  header("Location: cart.php?erreur=3");
 }
 die();
 ?>

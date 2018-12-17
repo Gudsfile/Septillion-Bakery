@@ -48,7 +48,7 @@ function check_str_letter($string_to_check)
 	$ret = true;
 	$array = str_split($string_to_check);
 	foreach ($array as $char) {
-		// only digit and letter
+		// only letter
 		if (ord($char) < 65 || ord($char) > 122) {
 			$ret = false;
 		} else if (ord($char) > 90 && ord($char) < 97) {
