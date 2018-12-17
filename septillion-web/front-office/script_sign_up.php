@@ -41,7 +41,7 @@ elseif($_POST!=null) {
 
   $configClient = array(
     "mail" => htmlentities($_POST['mail']),
-    "password" => crypt($_POST['password']),
+    "password" => crypt(htmlentities($_POST['password'], ENT_QUOTES, "ISO-8859-1")),
     "address" => htmlentities($_POST['address']),
     "first_name" => htmlentities($_POST['first_name']),
     "last_name" => htmlentities($_POST['last_name']),
