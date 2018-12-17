@@ -103,6 +103,11 @@
 					<div class="size10 trans-0-4 m-t-10 m-b-10">
 						<!-- Button -->
 						<?php if (isset($_SESSION['mail']) && isset($_SESSION['id_client'])): ?>
+							<?php if (isset($_GET['erreur'])) {
+								if ($_GET['erreur'] == 3) {
+									?><p class="m-b-20" style="color : #F08080">Erreur lors du payement.</p> <?php
+								}
+							} ?>
 							<p class="CSRFtoken" hidden><?php echo $_SESSION['CSRFtoken'] ?></p>
 							<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-paycart">
 								Payer
