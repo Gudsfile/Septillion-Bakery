@@ -57,6 +57,12 @@
           Contactez nous
         </a>
       </li>
+
+      <li class="p-b-9">
+        <a href="../back-office" class="s-text7">
+          Admin
+        </a>
+      </li>
     </ul>
   </div>
 
