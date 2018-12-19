@@ -6,9 +6,11 @@ $pdo = Connect::connexion();
 $categoryManager = new CategoryManager($pdo);
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-$ip = $_SERVER['REMOTE_ADDR'];
+$IPtoken = isset($_SESSION['IPtoken']) ? $_SESSION['IPtoken'] : -1;
+$UAtoken = isset($_SESSION['UAtoken']) ? $_SESSION['UAtoken'] : -1;
 
-if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
+// compare CSRFtoken and ip
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $IPtoken == $_SERVER['REMOTE_ADDR'] && $UAtoken == $_SERVER['HTTP_USER_AGENT']) {
   if ($_POST['name'] == null) {
     $erreur = 1;
     header('Location: edit_category.php?erreur=1&id='.$_GET['id']);

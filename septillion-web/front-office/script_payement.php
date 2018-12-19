@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+echo 'wesh';
+
 require('connexion.php');
 $conn = Connect::connexion();
 
@@ -9,13 +11,13 @@ $cookie = isset($_COOKIE['cart_items_cookie']) ? $_COOKIE['cart_items_cookie'] :
 $cookie = stripslashes($cookie);
 $cart = json_decode($cookie, true);
 
-// get CSRFtoken
+// get CSRFtoken and special session token
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-// get ip
-$ip = $_SERVER['REMOTE_ADDR'];
+$IPtoken = isset($_SESSION['IPtoken']) ? $_SESSION['IPtoken'] : -1;
+$UAtoken = isset($_SESSION['UAtoken']) ? $_SESSION['UAtoken'] : -1;
 
 // compare CSRFtoken and ip
-if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $IPtoken == $_SERVER['REMOTE_ADDR'] && $UAtoken == $_SERVER['HTTP_USER_AGENT']) {
   // new token
   $rand = bin2hex(random_bytes(32));
   $_SESSION['CSRFtoken'] = $rand;
@@ -69,7 +71,13 @@ if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
     );
     $isOrderedManager->add(new IsOrdered($isOrderedConfig));
   }
+  setcookie("cart_items_cookie", null, time() + (600), '/'); // 600 = 10 minutes
+  $_COOKIE['cart_items_cookie'] = null;
+
+  header("Location: cart.php?");
 } else {
+  session_unset ();
+  session_destroy ();
   header("Location: cart.php?erreur=3");
 }
 die();

@@ -6,10 +6,12 @@ $conn = Connect::connexion();
 $employeeManager = new EmployeeManager($conn);
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-$ip = $_SERVER['REMOTE_ADDR'];
+$IPtoken = isset($_SESSION['IPtoken']) ? $_SESSION['IPtoken'] : -1;
+$UAtoken = isset($_SESSION['UAtoken']) ? $_SESSION['UAtoken'] : -1;
 
-if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
-if ($employeeManager->getByMail($_POST['mail'])->id() != intval($_GET['id']) && $employeeManager->getByMail($_POST['mail'])->id() != 0) {
+// compare CSRFtoken and ip
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $IPtoken == $_SERVER['REMOTE_ADDR'] && $UAtoken == $_SERVER['HTTP_USER_AGENT']) {
+  if ($employeeManager->getByMail($_POST['mail'])->id() != intval($_GET['id']) && $employeeManager->getByMail($_POST['mail'])->id() != 0) {
     $erreur = 1;
     $location = 'Location: edit_employee.php?erreur=1&id='.$_GET['id'];
 
@@ -64,7 +66,6 @@ if ($employeeManager->getByMail($_POST['mail'])->id() != intval($_GET['id']) && 
     "role" => $role,
   );
 
-
   if(check_str($employeeData["first_name"]) && check_str($employeeData["last_name"]) && check_str_mail($employeeData["mail"]) && check_str($employeeData["role"]))
   {
   	$newEmployee = new Employee($employeeData);
@@ -76,6 +77,7 @@ if ($employeeManager->getByMail($_POST['mail'])->id() != intval($_GET['id']) && 
       header('Location: edit_employee.php?erreur=10&id='.$_GET['id']);
       exit();
   }
+
   if ($idEmployee == 0){
     $erreur = 8;
     header('Location: edit_employee.php?erreur=8&id='.$_GET['id']);

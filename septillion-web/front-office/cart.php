@@ -109,6 +109,8 @@
 								}
 							} ?>
 							<p class="CSRFtoken" hidden><?php echo $_SESSION['CSRFtoken'] ?></p>
+							<p class="IPtoken" hidden><?php echo $_SESSION['IPtoken'] ?></p>
+							<p class="UAtoken" hidden><?php echo $_SESSION['UAtoken'] ?></p>
 							<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4 btn-paycart">
 								Payer
 							</button>
@@ -145,6 +147,18 @@
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<!--===============================================================================================-->
 		<script>
+		// jquery extend function
+		$.extend(
+		{
+				redirectPost: function(location, args)
+				{
+						var form = '';
+						$.each( args, function( key, value ) {
+								form += '<input type="hidden" name="'+key+'" value="'+value+'">';
+						});
+						$('<form action="'+location+'" method="POST">'+form+'</form>').submit();
+				}
+		});
 
 		var fadeTime = 300;
 
@@ -190,31 +204,33 @@
 					}
 				}
 			}).then((value) => {
-				if (value != "pay") {
-				} else {
+				if (value == "pay") {
 					change_cart()
 					if (getCookie('cart_items_cookie') == "") {
 						swal("Oops…","Le panier est vide !", "error");
 					} else {
-						var arf = new XMLHttpRequest();
-						var CSRFtoken = $('.CSRFtoken').html();
-						var params = 'CSRFtoken='+CSRFtoken;
-						arf.open("POST","script_payement.php",true);
-						arf.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-						arf.send(params);
-						document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-						swal({
-							title: "Acheté",
-							text: "Achat validé !",
-							icon: 'success',
-							buttons: {
-								catch: {
-									text: "Ok",
-								}
-							}
-						}).then(() => {
-							location.reload();
-						});
+						//$.redirectPost('script_payement.php', {'CSRFtoken': $('.CSRFtoken').html()});
+						//document.cookie = "cart_items_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+						function url_redirect(options){
+                 var $form = $("<form />");
+
+                 $form.attr("action",options.url);
+                 $form.attr("method",options.method);
+
+                 for (var data in options.data)
+                 $form.append('<input type="hidden" name="'+data+'" value="'+options.data[data]+'" />');
+
+                 $("body").append($form);
+                 $form.submit();
+            }
+
+            $(function(){
+                /*jquery statements */
+                url_redirect({url: "script_payement.php",
+                  method: "post",
+                  data: {"CSRFtoken":$('.CSRFtoken').html()}
+                 });
+            });
 					}
 				}
 			});

@@ -25,7 +25,8 @@ if (empty($_POST['mail']) || empty($_POST['password'])) {
         $_SESSION['mail'] = $_POST['mail'];
         $_SESSION['id_client'] = $verif->id();
         $_SESSION['CSRFtoken'] = $rand;
-        $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
+        $_SESSION['IPtoken'] = $_SERVER['REMOTE_ADDR'];
+        $_SESSION['UAtoken'] = $_SERVER['HTTP_USER_AGENT'];
         header("Location: index.php");
     }
 }

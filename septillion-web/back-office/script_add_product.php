@@ -5,10 +5,12 @@ require('script_check_image.php');
 require('connexion.php');
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-$ip = $_SERVER['REMOTE_ADDR'];
+$IPtoken = isset($_SESSION['IPtoken']) ? $_SESSION['IPtoken'] : -1;
+$UAtoken = isset($_SESSION['UAtoken']) ? $_SESSION['UAtoken'] : -1;
 
-if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
-    if ($_POST['name'] == null
+// compare CSRFtoken and ip
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $IPtoken == $_SERVER['REMOTE_ADDR'] && $UAtoken == $_SERVER['HTTP_USER_AGENT']) {
+  if ($_POST['name'] == null
     || $_POST['description'] == null
     || $_POST['stock'] == null
     || $_POST['price'] == null

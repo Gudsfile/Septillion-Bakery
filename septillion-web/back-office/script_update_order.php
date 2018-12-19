@@ -14,9 +14,11 @@ $orderManager = new OrderManager($pdo);
 $order = $orderManager->get($_GET['id']);
 
 $CSRFtoken = isset($_POST['CSRFtoken']) ? $_POST['CSRFtoken'] : -1;
-$ip = $_SERVER['REMOTE_ADDR'];
+$IPtoken = isset($_SESSION['IPtoken']) ? $_SESSION['IPtoken'] : -1;
+$UAtoken = isset($_SESSION['UAtoken']) ? $_SESSION['UAtoken'] : -1;
 
-if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $ip == $_SESSION['ip']) {
+// compare CSRFtoken and ip
+if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $IPtoken == $_SERVER['REMOTE_ADDR'] && $UAtoken == $_SERVER['HTTP_USER_AGENT']) {
   if(isset($state['delete'])){
     $orderManager->delete($_GET['id']);
   }

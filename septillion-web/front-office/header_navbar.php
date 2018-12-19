@@ -84,6 +84,8 @@ $productManager2->getList();
             <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
             <ul class="sub_menu">
               <li><a><?php echo $_SESSION['mail'] ?></a></li>
+              <li><a><?php echo $_SESSION['IPtoken'] ?></a></li>
+              <li><a><?php echo $_SESSION['UAtoken'] ?></a></li>              
               <li><a href="order_track.php">Mes commandes</a></li>
               <li><a href="script_logout.php">Se déconnecter</a></li>
             </ul>
