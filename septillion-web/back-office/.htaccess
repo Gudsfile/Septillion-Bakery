@@ -1,8 +1,24 @@
+# Protect .htaccess and .htpasswd files
+<Files ~ "^\.(htaccess|htpasswd)$">
+deny from all
+</Files>
+
+# Protect connexion.php
+<Files ~ "connexion.php">
+deny from all
+</Files>
+
+# Prevent directory listings
+Options All -Indexes
+
+#
+Options +MultiViews
 RewriteEngine On
 
-# Redirect non-www to www
-RewriteCond %{HTTP_HOST} ^mydomain.in$ [NC]
-RewriteRule ^(.*)$ http://www.mydomain.in/$1 [R=301,L]
+# .php is not necessary
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
 # Do not redirect existing files/dirs
 RewriteCond %{REQUEST_FILENAME} -s [OR]
@@ -13,16 +29,5 @@ RewriteRule ^.*$ - [NC,L]
 # Redirect everything else to index.php
 RewriteRule ^.*$ index.php [NC,L]
 
-#htaccess file
-<files .htaccess>
-order allow,deny
-deny from all
-</files>
-
-# protect connexion.php
-<files connexion.php>
-order allow,deny
-deny from all
-</files>
-
-IndexIgnore *
+#
+order deny,allow
