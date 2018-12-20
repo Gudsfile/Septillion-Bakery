@@ -28,7 +28,7 @@ function check_str_hard($string_to_check)
 			$ret = false;
 		}
 	}
-	return ret;
+	return $ret;
 }
 
 function check_str_number($string_to_check)
@@ -40,7 +40,7 @@ function check_str_number($string_to_check)
 			$ret = false;
 		}
 	}
-	return ret;
+	return $ret;
 }
 
 function check_str_letter($string_to_check)
@@ -55,7 +55,7 @@ function check_str_letter($string_to_check)
 			$ret = false;
 		}
 	}
-	return ret;
+	return $ret;
 }
 
 function check_str_img($string_to_check)

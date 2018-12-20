@@ -83,5 +83,7 @@ if (hash_equals($_SESSION['CSRFtoken'], $CSRFtoken) && $IPtoken == $_SERVER['REM
     header('Location: list_employee.php?erreur=11');
     exit();
   }
+} else {
+  header('Location: index.php');
 }
 ?>
